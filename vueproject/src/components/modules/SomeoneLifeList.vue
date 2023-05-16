@@ -9,6 +9,6 @@ export default {
 }
 </script>
 
-<!-- 誰かの人生を表示するためのモジュール -->
+<!-- 誰かの人生を表示するためのモジュールです -->
 <style scoped>
 </style>
