@@ -1,10 +1,13 @@
 <template>
-
+  <div>
+    <p>test</p>
+    <p>この文字が表示されれば</p>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'FrontPage',
   props: {
   }
 }
