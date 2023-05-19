@@ -1,5 +1,41 @@
+/* 画面の最大幅を設定して要素を中央揃えしています */
 .wrapper{
     max-width: 480px;
     text-align: center;
     margin: 0 auto;
+}
+
+/* 円の背景画像を設定する場合に必要 */
+.background-wrapper{
+    background-image: url(../../assets/image/background_grid.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.background-wrapper .builderーarea {
+    padding-top: 150px;
+}
+
+.background-wrapper .userーarea {
+    padding-top: 200px;
+    padding-bottom: 40px;
+}
+
+.background-wrapper .builderーarea input,
+.background-wrapper .userーarea input{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 16px;
+}
+
+.background-wrapper .builderーarea .room_build,
+.background-wrapper .builderーarea .room_search{
+    width: 330px;
+}
+
+.background-wrapper .userーarea .login,
+.background-wrapper .userーarea .create_account{
+    width: 180px;
 }
