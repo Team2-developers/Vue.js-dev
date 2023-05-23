@@ -1,6 +1,6 @@
 <template>
     <div class="userInfo">
-        <img :src='img_pass' alt="ユーザー画像" class="userInfoImage">
+        <img :src="getImagePath" alt="ユーザー画像" class="userInfoImage">
         <div>
             <p>{{user_name}}</p>
             <p>{{user_mail}}</p>
@@ -14,15 +14,20 @@ export default {
     props: {
         img_pass : {
             type: String,
-            required: false
+            required: true
         },
         user_name : {
             type: String,
             required: false
         },
-        user_mail	: {
+        user_mail : {
             type: String,
             required: false
+        }
+    },
+    computed: {
+        getImagePath() {
+        return require('@/assets/image/' + this.img_pass);
         }
     }
 }

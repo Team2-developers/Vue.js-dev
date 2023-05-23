@@ -13,6 +13,7 @@
         :user_name="user_name"
         :user_mail="user_mail"
     />
+    <!-- <img src="../../assets/image/user_noImage.svg" alt=""> -->
   </div>
 </template>
 
@@ -22,7 +23,7 @@ import UserInfoBox from '@/components/modules/UserInfoBox'
 export default {
   data () {
     return {
-        img_pass: "/src/assets/image/user_noImage.svg",
+        img_pass: "user_noImage.svg",
         user_name: "ochinpo",
         user_mail: "test@gmail.com"
     }
@@ -33,7 +34,7 @@ export default {
   components: {
     SearchInput,
     UserInfoBox
-  },
+  }
 }
 </script>
 
