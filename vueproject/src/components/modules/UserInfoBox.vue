@@ -38,5 +38,26 @@ export default {
 .userInfo{
     display: flex;
     justify-content: center;
+    background: white;
+    padding: 2px 0;
+    margin: 0 70px;
+}
+.userInfo img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userInfo div{
+    text-align: left;
+    margin-left: 1rem;
+}
+.userInfo div p{
+    padding: 0;
+    margin: 0;
+}
+.userInfo div p:nth-child(2){
+    opacity: 0.7;
 }
 </style>
