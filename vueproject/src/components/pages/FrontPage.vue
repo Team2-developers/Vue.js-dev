@@ -13,7 +13,6 @@
         :user_name="user_name"
         :user_mail="user_mail"
     />
-    <!-- <img src="../../assets/image/user_noImage.svg" alt=""> -->
   </div>
 </template>
 
@@ -21,6 +20,7 @@
 import SearchInput from '@/components/modules/SearchInput'
 import UserInfoBox from '@/components/modules/UserInfoBox'
 export default {
+  name: 'FrontPage',
   data () {
     return {
         img_pass: "user_noImage.svg",
@@ -28,7 +28,6 @@ export default {
         user_mail: "test@gmail.com"
     }
   },
-  name: 'FrontPage',
   props: {
   },
   components: {

@@ -40,11 +40,11 @@ export default {
     justify-content: center;
     background: white;
     padding: 2px 0;
-    margin: 0 70px;
+    margin: 0 50px;
 }
 .userInfo img{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -52,6 +52,7 @@ export default {
 .userInfo div{
     text-align: left;
     margin-left: 1rem;
+    line-height: 20px;
 }
 .userInfo div p{
     padding: 0;
