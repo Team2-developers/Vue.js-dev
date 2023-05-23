@@ -1,16 +1,15 @@
 <template>
   <div class="background-wrapper wrapper">
     <h2>通知</h2>
-    <UserInfoBox
+    <NotificationBanner
         :img_pass="img_pass"
         :user_name="user_name"
-        :user_mail="user_mail"
     />
   </div>
 </template>
 
 <script>
-import UserInfoBox from '@/components/modules/UserInfoBox'
+import NotificationBanner from '@/components/modules/NotificationBanner'
 
 export default {
   name: 'NotificationPanel',
@@ -24,7 +23,7 @@ export default {
   props: {
   },
   components: {
-    UserInfoBox
+    NotificationBanner
   }
 }
 </script>

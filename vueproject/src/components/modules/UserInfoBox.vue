@@ -40,7 +40,7 @@ export default {
     justify-content: center;
     background: white;
     padding: 2px 0;
-    margin: 0 50px;
+    margin: 0 50px 10px 50px;
 }
 .userInfo img{
     width: 40px;
