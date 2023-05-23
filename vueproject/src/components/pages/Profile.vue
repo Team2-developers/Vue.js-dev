@@ -1,4 +1,8 @@
 <template>
+  <div class="wrapper">
+    <h2>My detail</h2>
+  </div>
+</template>
 </template>
 
 <script>

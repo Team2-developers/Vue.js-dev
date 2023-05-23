@@ -8,17 +8,32 @@
       <input class="login rounded-pill  bg-light text-dark py-1 border border-dark mb-2" type="button" value="ログイン">
       <input class="create_account rounded-pill bg-dark text-light py-1" type="button" value="アカウントを作る">
     </div>
+    <UserInfoBox
+        :img_pass="img_pass"
+        :user_name="user_name"
+        :user_mail="user_mail"
+    />
+    <!-- <img src="../../assets/image/user_noImage.svg" alt=""> -->
   </div>
 </template>
 
 <script>
 import SearchInput from '@/components/modules/SearchInput'
+import UserInfoBox from '@/components/modules/UserInfoBox'
 export default {
+  data () {
+    return {
+        img_pass: "user_noImage.svg",
+        user_name: "ochinpo",
+        user_mail: "test@gmail.com"
+    }
+  },
   name: 'FrontPage',
   props: {
   },
   components: {
-    SearchInput
+    SearchInput,
+    UserInfoBox
   }
 }
 </script>

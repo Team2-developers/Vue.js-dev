@@ -1,14 +1,63 @@
 <template>
+    <div class="userInfo">
+        <img :src="getImagePath" alt="ユーザー画像" class="userInfoImage">
+        <div>
+            <p>{{user_name}}</p>
+            <p>{{user_mail}}</p>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
     name: 'UserInfoBox',
     props: {
+        img_pass : {
+            type: String,
+            required: true
+        },
+        user_name : {
+            type: String,
+            required: false
+        },
+        user_mail : {
+            type: String,
+            required: false
+        }
+    },
+    computed: {
+        getImagePath() {
+        return require('@/assets/image/' + this.img_pass);
+        }
     }
 }
 </script>
 
 <!-- ユーザー情報を表示するモジュール -->
 <style scoped>
+.userInfo{
+    display: flex;
+    justify-content: center;
+    background: white;
+    padding: 2px 0;
+    margin: 0 70px;
+}
+.userInfo img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userInfo div{
+    text-align: left;
+    margin-left: 1rem;
+}
+.userInfo div p{
+    padding: 0;
+    margin: 0;
+}
+.userInfo div p:nth-child(2){
+    opacity: 0.7;
+}
 </style>
