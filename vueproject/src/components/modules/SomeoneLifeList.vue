@@ -13,6 +13,16 @@
             </div>
         </div>
     </div>
+    <div class="profilePageComment">
+        <div>
+            <p>コメント</p>
+            <img src="../../assets/image/corner-down-left.svg" alt="詳細">
+        </div>
+        <div>
+            <p>{{good}}</p>
+            <img src="../../assets/image/heart-icon.svg" alt="詳細">
+        </div>
+    </div>
 </template>
 
 <script>
@@ -29,6 +39,10 @@ export default {
         },
         life_event : {
             type: String,
+            required: false
+        },
+        good : {
+            type: Number,
             required: false
         }
     },
@@ -71,17 +85,31 @@ export default {
     margin-bottom: 0;
 }
 
-.profilePage::after{
-    content: 'コメント';
+.profilePageComment{
     height: 30px;
     background: white;
-    position: absolute;
-    bottom: -30px;
-    left: 0;
     width: 100%;
     text-align: left;
-    padding-left: 20px;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
 }
+
+.profilePageComment div{
+    display: flex;
+    vertical-align: middle;
+}
+
+.profilePageComment div p{
+    margin-right: 10px;
+}
+
+.profilePageComment img{
+    height: 80%;
+}
+/* .profilePage::after{
+    content: url(../../assets/image/corner-down-left.svg);
+} */
 
 /* トグルのcss */
 .toggle_label {

@@ -4,6 +4,7 @@
         :img_pass="img_pass"
         :life_name="life_name"
         :life_event="life_event"
+        :good="good"
     />
   </div>
 </template>
@@ -17,7 +18,8 @@ export default {
     return {
         img_pass: "user_noImage.svg",
         life_name: "ochinpo",
-        life_event: "僕の中学生日記"
+        life_event: "僕の中学生日記",
+        good: 1000
     }
   },
   props: {
