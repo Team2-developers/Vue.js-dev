@@ -18,9 +18,9 @@
             <p>コメント</p>
             <img src="../../assets/image/corner-down-left.svg" alt="詳細">
         </div>
-        <div>
+        <div v-on:click="heartClick">
             <p>{{good}}</p>
-            <img src="../../assets/image/heart-icon.svg" alt="詳細">
+            <img  class="heart" src="../../assets/image/heart-icon.svg" alt="詳細">
         </div>
     </div>
 </template>
@@ -49,6 +49,14 @@ export default {
     computed: {
         getImagePath() {
         return require('@/assets/image/' + this.img_pass);
+        }
+    },
+    methods: {
+        heartClick(){
+            // deSVG('.heart', true);
+            const heart = document.getElementsByClassName('heart')[0];
+            heart.style.fill = "red"
+            alert("click")
         }
     }
 }
