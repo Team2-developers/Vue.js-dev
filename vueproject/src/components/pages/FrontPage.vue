@@ -19,6 +19,7 @@
 <script>
 import SearchInput from '@/components/modules/SearchInput'
 import UserInfoBox from '@/components/modules/UserInfoBox'
+
 export default {
   name: 'FrontPage',
   data () {
@@ -32,7 +33,7 @@ export default {
   },
   components: {
     SearchInput,
-    UserInfoBox
+    UserInfoBox,
   }
 }
 </script>
