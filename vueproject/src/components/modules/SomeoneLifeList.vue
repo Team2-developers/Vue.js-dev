@@ -140,45 +140,4 @@ export default {
     display: none;
 }
 
-/* トグルのcss */
-.toggle_label {
-    width: 50px;
-    height: 25px;
-    background: #ccc;
-    position: relative;
-    display: inline-block;
-    border-radius: 40px;
-    transition: 0.4s;
-    box-sizing: border-box;
-}
-
-.toggle_label:after {
-    content: "";
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    border-radius: 100%;
-    left: 0;
-    top: 0;
-    z-index: 2;
-    background: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    transition: 0.4s;
-}
-
-.toggle_input:checked + .toggle_label {
-    background-color: #3b18b9;
-}
-
-.toggle_input:checked + .toggle_label:after {
-    left: 25px;
-}
-
-.toggle_button {
-    position: relative;
-    width: 50px;
-    height: 25px;
-    margin-left: auto;
-    margin-right: 20px;
-}
 </style>
