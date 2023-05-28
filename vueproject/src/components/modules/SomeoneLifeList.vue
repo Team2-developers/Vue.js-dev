@@ -2,7 +2,7 @@
     <div class="profilePage">
         <!-- トグルボタン -->
         <div class="toggle_button">
-            <input id="toggle" class="toggle_input" type='checkbox' />
+            <input id="toggle" class="toggle_input" type='checkbox' v-model="selected"/>
             <label for="toggle" class="toggle_label"/>
         </div>
         <div class="profilePageWrapper">
@@ -18,8 +18,8 @@
             <p>コメント</p>
             <img src="../../assets/image/corner-down-left.svg" alt="詳細">
         </div>
-        <div v-on:click="heartClick">
-            <p>{{good}}</p>
+        <div>
+            <p @click="heartClick">{{data}}</p>
             <img  class="heart" src="../../assets/image/heart-icon.svg" alt="詳細">
         </div>
     </div>
@@ -28,6 +28,12 @@
 <script>
 export default {
     name: 'SomeoneLifeList',
+    data(){
+        return{
+            selected: true,
+            data: 0
+        }
+    },
     props: {
         img_pass : {
             type: String,
@@ -48,15 +54,13 @@ export default {
     },
     computed: {
         getImagePath() {
-        return require('@/assets/image/' + this.img_pass);
-        }
+            this.data =  this.good;
+            return require('@/assets/image/' + this.img_pass);
+        },
     },
     methods: {
-        heartClick(){
-            // deSVG('.heart', true);
-            const heart = document.getElementsByClassName('heart')[0];
-            heart.style.fill = "red"
-            alert("click")
+        heartClick() {
+            this.data = this.data + 1;
         }
     }
 }
