@@ -3,7 +3,7 @@
         <img :src="getImagePath" alt="ユーザー画像" class="userInfoImage">
         <div>
             <p>{{user_name}}</p>
-            <p>あなたの人生に「コメント」しました</p>
+            <p>{{comment}}</p>
         </div>
     </div>
 </template>
@@ -12,11 +12,15 @@
 export default {
     name: 'NotificationBanner',
     props: {
-        img_pass : {
+        img_pass: {
             type: String,
             required: true
         },
-        user_name : {
+        user_name: {
+            type: String,
+            required: true
+        },
+        comment: {
             type: String,
             required: false
         }
@@ -33,5 +37,6 @@ export default {
 <style scoped>
 .userInfo{
     background: #efefef;
+    padding: 10px;
 }
 </style>

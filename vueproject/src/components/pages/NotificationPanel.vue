@@ -17,7 +17,7 @@ export default {
     return {
         img_pass: "user_noImage.svg",
         user_name: "ochinpo",
-        user_mail: "test@gmail.com"
+        comment: "あなたの人生に「コメント」しました"
     }
   },
   props: {
