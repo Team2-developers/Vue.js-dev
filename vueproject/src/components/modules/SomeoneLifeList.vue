@@ -2,7 +2,7 @@
     <div class="profilePage">
         <!-- トグルボタン -->
         <div class="toggle_button">
-            <input id="toggle" class="toggle_input" type='checkbox' v-model="selected"/>
+            <input id="toggle" class="toggle_input" type='checkbox' v-model="toggleSelected"/>
             <label for="toggle" class="toggle_label"/>
         </div>
         <div class="profilePageWrapper">
@@ -14,25 +14,43 @@
         </div>
     </div>
     <div class="profilePageComment">
-        <div>
+        <div @click="comentDetail = !comentDetail">
             <p>コメント</p>
             <img src="../../assets/image/corner-down-left.svg" alt="詳細">
         </div>
-        <div>
-            <p @click="heartClick">{{data}}</p>
+        <div @click="this.heartCount++">
+            <p>{{heartCount}}</p>
             <img  class="heart" src="../../assets/image/heart-icon.svg" alt="詳細">
         </div>
+    </div>
+    <div :class="{'hidden': comentDetail}">
+        <NotificationBanner
+        :img_pass="img_pass"
+        :user_name="user_name"
+        :comment="comment"
+    />
     </div>
 </template>
 
 <script>
+
+import NotificationBanner from '@/components/modules/NotificationBanner'
+
 export default {
     name: 'SomeoneLifeList',
     data(){
         return{
-            selected: true,
-            data: 0
+            toggleSelected: true,
+            comentDetail: true,
+            heartCount: 0,
+
+            img_pass: "user_noImage.svg",
+            user_name: "ochinpo",
+            comment: "彼女できてよかったね"
         }
+    },
+    components: {
+        NotificationBanner
     },
     props: {
         img_pass : {
@@ -54,14 +72,11 @@ export default {
     },
     computed: {
         getImagePath() {
-            this.data =  this.good;
+            this.heartCount =  this.good;
             return require('@/assets/image/' + this.img_pass);
         },
     },
     methods: {
-        heartClick() {
-            this.data = this.data + 1;
-        }
     }
 }
 </script>
@@ -119,9 +134,11 @@ export default {
 .profilePageComment img{
     height: 80%;
 }
-/* .profilePage::after{
-    content: url(../../assets/image/corner-down-left.svg);
-} */
+
+/* コメント詳細の表示 */
+.hidden {
+    display: none;
+}
 
 /* トグルのcss */
 .toggle_label {
