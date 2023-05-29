@@ -4,25 +4,25 @@
       <li class="nav-item flex-fill">
         <a href="#" class="nav-link active">
           <img src="../../assets/image/heart-icon.svg" alt="Feed" srcset="">
-          <div>Feed</div>
+          <div class="text-dark">Feed</div>
         </a>
       </li>
       <li class="nav-item flex-fill">
         <a href="#" class="nav-link active">
-          <img src="../../assets/image/heart-icon.svg" alt="Feed" srcset="">
-          <div>Search</div>
+          <img src="../../assets/image/heart-icon.svg" alt="Search" srcset="">
+          <div class="text-dark">Search</div>
         </a>
       </li>
       <li class="nav-item flex-fill">
         <a href="#" class="nav-link active">
-          <img src="../../assets/image/heart-icon.svg" alt="Feed" srcset="">
-          <div>Notifications</div>
+          <img src="../../assets/image/heart-icon.svg" alt="Notifications" srcset="">
+          <div class="text-dark">Notifications</div>
         </a>
       </li>
       <li class="nav-item flex-fill">
         <a href="#" class="nav-link active">
-          <img src="../../assets/image/heart-icon.svg" alt="Feed" srcset="">
-          <div>Me</div>
+          <img src="../../assets/image/heart-icon.svg" alt="Me" srcset="">
+          <div class="text-dark">Me</div>
         </a>
       </li>
     </ul>
