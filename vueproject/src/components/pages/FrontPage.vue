@@ -13,12 +13,14 @@
         :user_name="user_name"
         :user_mail="user_mail"
     />
+    <FooterNav />
   </div>
 </template>
 
 <script>
 import SearchInput from '@/components/modules/SearchInput'
 import UserInfoBox from '@/components/modules/UserInfoBox'
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'FrontPage',
@@ -34,7 +36,8 @@ export default {
   components: {
     SearchInput,
     UserInfoBox,
-  }
+    FooterNav,
+}
 }
 </script>
 
