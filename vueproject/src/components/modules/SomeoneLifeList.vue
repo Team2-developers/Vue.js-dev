@@ -44,7 +44,6 @@ export default {
             comentDetail: true,
             heartCount: 0,
 
-            img_pass: "user_noImage.svg",
             user_name: "ochinpo",
             comment: "彼女できてよかったね"
         }
@@ -69,12 +68,6 @@ export default {
             type: Number,
             required: false
         }
-    },
-    computed: {
-        getImagePath() {
-            this.heartCount =  this.good;
-            return require('@/assets/image/' + this.img_pass);
-        },
     },
     methods: {
     }
