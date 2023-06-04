@@ -1,5 +1,5 @@
 <template>
-<div class="background-wrapper wrapper">
+<div class=" wrapper">
   <SpeechBubble
     :img_pass="img_pass"
     :user_name="user_name"
@@ -22,7 +22,7 @@
       </div>
     </div>
 </div>
-<div>
+<div class="gameArea">
   <img src="../../assets/image/lifeGameBoard.svg" alt="">
 </div>
 </template>
@@ -65,5 +65,9 @@ export default {
 }
 .gameTurn p{
   margin-bottom: 0;
+}
+.gameArea{
+  text-align: center;
+  margin-top: 30px;
 }
 </style>
