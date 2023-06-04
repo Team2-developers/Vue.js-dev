@@ -38,7 +38,7 @@ export default {
 .authoerWrapper{
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px 20px 0 20px;
 }
 .authoerWrapper img{
     max-width: 40px;
