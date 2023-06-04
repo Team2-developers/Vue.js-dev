@@ -22,6 +22,9 @@
       </div>
     </div>
 </div>
+<div>
+  <img src="../../assets/image/lifeGameBoard.svg" alt="">
+</div>
 </template>
 
 <script>
