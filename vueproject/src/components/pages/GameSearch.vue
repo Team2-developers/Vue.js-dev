@@ -1,5 +1,5 @@
 <template>
-<div class="gameContainer">
+<div class="gameContainer wrapper">
   <GameList
     :img_pass="img_pass"
     :life_name="life_name"
