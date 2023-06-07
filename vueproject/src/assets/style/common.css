@@ -46,6 +46,7 @@
     justify-content: center;
     padding: 2px 0;
     margin: 0 50px 10px 50px;
+    border: solid 1px #000;
 }
 .userInfo img{
     width: 40px;
