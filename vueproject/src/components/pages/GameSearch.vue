@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="gameContainer wrapper">
   <GameList
     :img_pass="img_pass"
     :life_name="life_name"
@@ -38,4 +38,10 @@ export default {
 
 <!-- ゲームの検索画面 -->
 <style scoped>
+.gameContainer{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  padding: 10px;
+}
 </style>
