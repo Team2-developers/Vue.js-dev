@@ -37,6 +37,6 @@ export default {
 <style scoped>
 .userInfo{
     background: white;
-    border: solid 100%;
+    border: solid 1px;
 }
 </style>
