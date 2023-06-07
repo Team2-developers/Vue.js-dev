@@ -1,10 +1,16 @@
 <template>
+  <LifeEvent />
 </template>
 
 <script>
+import LifeEvent from '@/components/modules/LifeEvent'
+
 export default {
   name: 'GameModification',
   props: {
+  },
+  components: {
+    LifeEvent
   }
 }
 </script>
