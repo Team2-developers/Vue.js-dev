@@ -21,9 +21,10 @@
         <p>残りマス</p>
       </div>
     </div>
-</div>
-<div class="gameArea">
-  <img src="../../assets/image/lifeGameBoard.svg" alt="">
+    <div class="gameArea">
+      <img src="../../assets/image/lifeGameBoard.svg" alt="">
+    </div>
+    <button class="rollDice" @click="rollDice">サイコロを振る</button>
 </div>
 </template>
 
@@ -69,5 +70,12 @@ export default {
 .gameArea{
   text-align: center;
   margin-top: 30px;
+}
+.rollDice{
+  border-radius: 15px;
+  margin-top: 20px;
+  padding: 10px;
+  background: black;
+  color: white;
 }
 </style>
