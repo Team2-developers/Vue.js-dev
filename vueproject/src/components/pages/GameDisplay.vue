@@ -23,7 +23,10 @@
     </div>
     <div class="gameArea">
       <img class="gameAreaimage" src="../../assets/image/lifeGameBoard.svg" alt="">
-      <img class="gameUser gameUser1" src="../../assets/image/user_noImage.svg">
+      <img class="gameUser gameUser1"
+        :style="{ top: `${user1Position[1]}px`, left: `${user1Position[0]}px` }"
+        src="../../assets/image/user_noImage.svg"
+      >
       <img class="gameUser gameUser2" src="../../assets/image/user_noImage.svg">
       <img class="gameUser gameUser3" src="../../assets/image/user_noImage.svg">
       <img class="gameUser gameUser4" src="../../assets/image/user_noImage.svg">
@@ -42,37 +45,9 @@ export default {
       img_pass: 'user_noImage.svg',
       user_name: 'ochinpo',
       life_name: '山田の人生',
-      assocArray:{
-        "1": [0, 60],
-        "2": [0, 120],
-        "3": [0, 170],
-        "4": [0, 220],
-        "5": [0, 270],
-        "6": [50, 260],
-        "7": [100, 260],
-        "8": [150, 260],
-        "9": [200, 260],
-        "10": [250, 260],
-        "11": [300, 260],
-        "12": [350, 260],
-        "13": [350, 210],
-        "14": [350, 160],
-        "15": [350, 110],
-        "16": [350, 60],
-        "17": [350, 10],
-        "18": [300, 10],
-        "19": [250, 10],
-        "20": [200, 10],
-        "21": [150, 10],
-        "22": [100, 10],
-        "23": [100, 60],
-        "24": [100, 110],
-        "25": [100, 160],
-        "26": [150, 160],
-        "27": [200, 160],
-        "28": [250, 160],
-        "29": [250, 100],
-      }
+      userArray1: [],
+      assocArray : { "1": [60, 0], "2": [120, 0], "3": [170, 0], "4": [220, 0], "5": [270, 0], "6": [260, 50], "7": [260, 100], "8": [260, 150], "9": [260, 200], "10": [260, 250], "11": [260, 300], "12": [260, 350], "13": [210, 350], "14": [160, 350], "15": [110, 350], "16": [60, 350], "17": [10, 350], "18": [10, 300], "19": [10, 250], "20": [10, 200], "21": [10, 150], "22": [10, 100], "23": [60, 100], "24": [110, 100], "25": [160, 100], "26": [160, 150], "27": [160, 200], "28": [160, 250], "29": [100, 250] },
+      initialPosition: { "gameUser1": [10, 12], "gameUser2": [30, 12], "gameUser3": [10, 36], "gameUser4": [30, 36] }  // gameUser1's initial position
     }
   },
   props: {
@@ -81,11 +56,23 @@ export default {
     SpeechBubble
   },
   methods: {
-     rollDice() {
+    rollDice() {
       let diceValue = Math.floor(Math.random() * 6) + 1;
-      alert(diceValue)
-     }
-  }
+      this.userArray1.push(diceValue)
+      alert(this.userArray1)
+    }
+  },
+   computed: {
+    totalDiceValue1() {
+      return this.userArray1.reduce((a, b) => a + b, 0);
+    },
+    user1Position() {
+      let position = this.initialPosition.gameUser1;
+      const movedPosition = this.assocArray[this.totalDiceValue1] || [0, 0];
+      position = [position[0] + movedPosition[0], position[1] + movedPosition[1]];
+      return position;
+    },
+  },
 }
 </script>
 
@@ -127,19 +114,19 @@ export default {
   width: 20px;
 }
 .gameUser1{
-  top: 262px;
-  left: 110px;
+  top: 12px;
+  left: 10px;
 }
 .gameUser2{
-  top: 262px;
-  left: 130px;
+  top: 12px;
+  left: 30px;
 }
 .gameUser3{
-  top: 286px;
-  left: 110px;
+  top: 36px;
+  left: 10px;
 }
 .gameUser4{
-  top: 286px;
-  left: 130px;
+  top: 36px;
+  left: 30px;
 }
 </style>
