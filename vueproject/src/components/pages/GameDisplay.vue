@@ -27,7 +27,7 @@
       <img v-for="(position, index) in userPositions" :key="index"
       :class="`gameUser gameUser${index+1}`"
       :style="{ top: `${position[1]}px`, left: `${position[0]}px` }"
-      src="../../assets/image/user_noImage.svg"
+      :src="`${userImages[index]}`"
       >
     </div>
     <button class="rollDice" @click="rollDice">サイコロを振る</button>
@@ -47,7 +47,13 @@ export default {
       userArray: [[], [], [], []],
       currentUserIndex: 0,
       assocArray : { "1": [60, 0], "2": [120, 0], "3": [170, 0], "4": [220, 0], "5": [270, 0], "6": [260, 50], "7": [260, 100], "8": [260, 150], "9": [260, 200], "10": [260, 250], "11": [260, 300], "12": [260, 350], "13": [210, 350], "14": [160, 350], "15": [110, 350], "16": [60, 350], "17": [10, 350], "18": [10, 300], "19": [10, 250], "20": [10, 200], "21": [10, 150], "22": [10, 100], "23": [60, 100], "24": [110, 100], "25": [160, 100], "26": [160, 150], "27": [160, 200], "28": [160, 250], "29": [100, 250] },
-      initialPosition: { "gameUser1": [10, 12], "gameUser2": [30, 12], "gameUser3": [10, 36], "gameUser4": [30, 36] }  // gameUser1's initial position
+      initialPosition: { "gameUser1": [10, 12], "gameUser2": [30, 12], "gameUser3": [10, 36], "gameUser4": [30, 36] },
+      userImages:[
+        require("../../assets/image/icon1.svg"),
+        require("../../assets/image/icon2.svg"),
+        require("../../assets/image/icon3.svg"),
+        require("../../assets/image/icon4.svg")
+      ]
     }
   },
   props: {
