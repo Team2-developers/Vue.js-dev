@@ -22,7 +22,11 @@
       </div>
     </div>
     <div class="gameArea">
-      <img src="../../assets/image/lifeGameBoard.svg" alt="">
+      <img class="gameAreaimage" src="../../assets/image/lifeGameBoard.svg" alt="">
+      <img class="gameUser gameUser1" src="../../assets/image/user_noImage.svg">
+      <img class="gameUser gameUser2" src="../../assets/image/user_noImage.svg">
+      <img class="gameUser gameUser3" src="../../assets/image/user_noImage.svg">
+      <img class="gameUser gameUser4" src="../../assets/image/user_noImage.svg">
     </div>
     <button class="rollDice" @click="rollDice">サイコロを振る</button>
 </div>
@@ -37,7 +41,38 @@ export default {
     return{
       img_pass: 'user_noImage.svg',
       user_name: 'ochinpo',
-      life_name: '山田の人生'
+      life_name: '山田の人生',
+      assocArray:{
+        "1": [0, 60],
+        "2": [0, 120],
+        "3": [0, 170],
+        "4": [0, 220],
+        "5": [0, 270],
+        "6": [50, 260],
+        "7": [100, 260],
+        "8": [150, 260],
+        "9": [200, 260],
+        "10": [250, 260],
+        "11": [300, 260],
+        "12": [350, 260],
+        "13": [350, 210],
+        "14": [350, 160],
+        "15": [350, 110],
+        "16": [350, 60],
+        "17": [350, 10],
+        "18": [300, 10],
+        "19": [250, 10],
+        "20": [200, 10],
+        "21": [150, 10],
+        "22": [100, 10],
+        "23": [100, 60],
+        "24": [100, 110],
+        "25": [100, 160],
+        "26": [150, 160],
+        "27": [200, 160],
+        "28": [250, 160],
+        "29": [250, 100],
+      }
     }
   },
   props: {
@@ -45,6 +80,12 @@ export default {
   components: {
     SpeechBubble
   },
+  methods: {
+     rollDice() {
+      let diceValue = Math.floor(Math.random() * 6) + 1;
+      alert(diceValue)
+     }
+  }
 }
 </script>
 
@@ -68,8 +109,10 @@ export default {
   margin-bottom: 0;
 }
 .gameArea{
+  max-width: 320px;
   text-align: center;
-  margin-top: 30px;
+  margin: 30px auto 0;
+  position: relative;
 }
 .rollDice{
   border-radius: 15px;
@@ -77,5 +120,26 @@ export default {
   padding: 10px;
   background: black;
   color: white;
+}
+.gameUser{
+  z-index: 10;
+  position: absolute;
+  width: 20px;
+}
+.gameUser1{
+  top: 262px;
+  left: 110px;
+}
+.gameUser2{
+  top: 262px;
+  left: 130px;
+}
+.gameUser3{
+  top: 286px;
+  left: 110px;
+}
+.gameUser4{
+  top: 286px;
+  left: 130px;
 }
 </style>
