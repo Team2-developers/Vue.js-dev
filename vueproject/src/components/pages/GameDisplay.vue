@@ -13,11 +13,12 @@
       </div>
       <!-- 順番 -->
       <div>
-        <p>山田太郎</p>
+        <p>{{this.userName[this.currentUserIndex]}}</p>
       </div>
       <!-- 残りマス -->
       <div>
-        <p>30/30</p>
+        <p>{{this.userArray[this.currentUserIndex].length==0 ? "29"
+            :this.userArray[this.currentUserIndex].reduce((a, b) => a - b, 29)}}</p>
         <p>残りマス</p>
       </div>
     </div>
@@ -53,6 +54,9 @@ export default {
         require("../../assets/image/icon2.svg"),
         require("../../assets/image/icon3.svg"),
         require("../../assets/image/icon4.svg")
+      ],
+      userName: [
+        "dog","cat","pig","sheep"
       ]
     }
   },
@@ -65,6 +69,7 @@ export default {
     rollDice() {
       // 振ったサイコロで進む数
       let diceValue = Math.floor(Math.random() * 6) + 1;
+      alert(diceValue)
       // 各ユーザーの進んだマスの数を保存
       this.userArray[this.currentUserIndex].push(diceValue);
       // ユーザーを次に人に変更
