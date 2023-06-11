@@ -22,14 +22,13 @@
       </div>
     </div>
     <div class="gameArea">
+      <!-- class属性は共通部分と各クラスの初期値を分離して作成しています -->
       <img class="gameAreaimage" src="../../assets/image/lifeGameBoard.svg" alt="">
-      <img class="gameUser gameUser1"
-        :style="{ top: `${user1Position[1]}px`, left: `${user1Position[0]}px` }"
-        src="../../assets/image/user_noImage.svg"
+      <img v-for="(position, index) in userPositions" :key="index"
+      :class="`gameUser gameUser${index+1}`"
+      :style="{ top: `${position[1]}px`, left: `${position[0]}px` }"
+      src="../../assets/image/user_noImage.svg"
       >
-      <img class="gameUser gameUser2" src="../../assets/image/user_noImage.svg">
-      <img class="gameUser gameUser3" src="../../assets/image/user_noImage.svg">
-      <img class="gameUser gameUser4" src="../../assets/image/user_noImage.svg">
     </div>
     <button class="rollDice" @click="rollDice">サイコロを振る</button>
 </div>
@@ -45,7 +44,8 @@ export default {
       img_pass: 'user_noImage.svg',
       user_name: 'ochinpo',
       life_name: '山田の人生',
-      userArray1: [],
+      userArray: [[], [], [], []],
+      currentUserIndex: 0,
       assocArray : { "1": [60, 0], "2": [120, 0], "3": [170, 0], "4": [220, 0], "5": [270, 0], "6": [260, 50], "7": [260, 100], "8": [260, 150], "9": [260, 200], "10": [260, 250], "11": [260, 300], "12": [260, 350], "13": [210, 350], "14": [160, 350], "15": [110, 350], "16": [60, 350], "17": [10, 350], "18": [10, 300], "19": [10, 250], "20": [10, 200], "21": [10, 150], "22": [10, 100], "23": [60, 100], "24": [110, 100], "25": [160, 100], "26": [160, 150], "27": [160, 200], "28": [160, 250], "29": [100, 250] },
       initialPosition: { "gameUser1": [10, 12], "gameUser2": [30, 12], "gameUser3": [10, 36], "gameUser4": [30, 36] }  // gameUser1's initial position
     }
@@ -57,20 +57,27 @@ export default {
   },
   methods: {
     rollDice() {
+      // 振ったサイコロで進む数
       let diceValue = Math.floor(Math.random() * 6) + 1;
-      this.userArray1.push(diceValue)
-      alert(this.userArray1)
+      // 各ユーザーの進んだマスの数を保存
+      this.userArray[this.currentUserIndex].push(diceValue);
+      // ユーザーを次に人に変更
+      this.currentUserIndex = (this.currentUserIndex + 1) % 4;
     }
   },
    computed: {
-    totalDiceValue1() {
-      return this.userArray1.reduce((a, b) => a + b, 0);
+    totalDiceValues() {
+      return this.userArray.map(array => array.reduce((a, b) => a + b, 0));
     },
-    user1Position() {
-      let position = this.initialPosition.gameUser1;
-      const movedPosition = this.assocArray[this.totalDiceValue1] || [0, 0];
-      position = [position[0] + movedPosition[0], position[1] + movedPosition[1]];
-      return position;
+    // 現在の位置を取得
+    userPositions() {
+      // valueの中に各ユーザーの情報が組み込まれています
+      return this.totalDiceValues.map((value, index) => {
+        let position = this.initialPosition[`gameUser${index+1}`];
+        // 今回移動したマス目の情報を取得して新規位置の設定
+        const movedPosition = this.assocArray[value] || [0, 0];
+        return [position[0] + movedPosition[0], position[1] + movedPosition[1]];
+      });
     },
   },
 }
