@@ -75,8 +75,8 @@ export default {
   },
   methods: {
     rollDice() {
-      this.modalToggle()
-      console.log(this.remainingSquares[this.currentUserIndex])
+      // this.modalToggle()
+      // console.log(this.remainingSquares[this.currentUserIndex])
       // ゲーム終了していたら処理しない
       if (this.gameOver) {
         return;
@@ -97,9 +97,9 @@ export default {
 
       // 振ったサイコロで進む数
       let diceValue = Math.floor(Math.random() * 6) + 1;
-      // alert(diceValue)
       // 各ユーザーの進んだマスの数を保存
       this.userArray[this.currentUserIndex].push(diceValue);
+      // console.log(this.userArray[this.currentUserIndex])
       // ユーザーを次に人に変更
       this.currentUserIndex = (this.currentUserIndex + 1) % 4;
     },
@@ -110,7 +110,8 @@ export default {
   },
    computed: {
     totalDiceValues() {
-      return this.userArray.map(array => array.reduce((a, b) => a + b, 0));
+      console.log(this.a)
+      return this.userArray.map(array => array.reduce((a, b) => a + b, 0))
     },
     remainingSquares() {
       return this.totalDiceValues.map(total => Math.max(0, 29 - total));
