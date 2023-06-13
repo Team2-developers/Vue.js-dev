@@ -22,6 +22,12 @@
         <p>残りマス</p>
       </div>
     </div>
+    <div :class="{sample:isActive, sample2:!isActive }">
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <button @click="modalToggle">閉じる</button>
+    </div>
     <div class="gameArea">
       <!-- class属性は共通部分と各クラスの初期値を分離して作成しています -->
       <img class="gameAreaimage" src="../../assets/image/lifeGameBoard.svg" alt="">
@@ -42,8 +48,9 @@ export default {
   name: 'GameDisplay',
   data(){
     return{
+      isActive: true,
       img_pass: 'user_noImage.svg',
-      user_name: 'ochinpo',
+      user_name: 'test',
       life_name: '山田の人生',
       userArray: [[], [], [], []],
       currentUserIndex: 0,
@@ -57,7 +64,8 @@ export default {
       ],
       userName: [
         "dog","cat","pig","sheep"
-      ]
+      ],
+      gameOver: false
     }
   },
   props: {
@@ -67,18 +75,45 @@ export default {
   },
   methods: {
     rollDice() {
+      this.modalToggle()
+      console.log(this.remainingSquares[this.currentUserIndex])
+      // ゲーム終了していたら処理しない
+      if (this.gameOver) {
+        return;
+      }
+      // ゴールしたユーザーを飛ばす処理
+      if(this.remainingSquares[this.currentUserIndex] <= 0){
+        this.currentUserIndex = (this.currentUserIndex + 1) % 4;
+      }
+
+      // 全プレイヤーがゴールしているかをチェックする
+      const allPlayersFinished = this.remainingSquares.every(remaining => remaining <= 0);
+      if (allPlayersFinished) {
+        // 全プレイヤーがゴールしていたらゲームを終了する
+        this.gameOver = true;
+        alert("Game over! All players have reached the goal.");
+        return;
+      }
+
       // 振ったサイコロで進む数
       let diceValue = Math.floor(Math.random() * 6) + 1;
-      alert(diceValue)
+      // alert(diceValue)
       // 各ユーザーの進んだマスの数を保存
       this.userArray[this.currentUserIndex].push(diceValue);
       // ユーザーを次に人に変更
       this.currentUserIndex = (this.currentUserIndex + 1) % 4;
+    },
+    modalToggle(){
+      this.isActive = !this.isActive
+      // couputed後にbooolの値が切り替わった場合はイベント処理のはっか
     }
   },
    computed: {
     totalDiceValues() {
       return this.userArray.map(array => array.reduce((a, b) => a + b, 0));
+    },
+    remainingSquares() {
+      return this.totalDiceValues.map(total => Math.max(0, 29 - total));
     },
     // 現在の位置を取得
     userPositions() {
@@ -96,6 +131,22 @@ export default {
 
 <!-- ゲームの表示画面 -->
 <style scoped>
+.sample{
+  display: none;
+}
+.sample2{
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  width: 300px;
+  background: blue;
+  color: white;
+  padding: 1em;
+  border-radius: 8px;
+  z-index: 15;
+}
 .gameTurn{
   display: flex;
   justify-content: space-around;
