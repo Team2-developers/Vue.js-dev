@@ -25,10 +25,14 @@
 <div class="gameArea">
   <img src="../../assets/image/lifeGameBoard.svg" alt="">
 </div>
+<div class="background-wrapper wrapper">
+  <FooterNav />
+</div>
 </template>
 
 <script>
 import SpeechBubble from '@/components/modules/SpeechBubble'
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'GameDisplay',
@@ -42,8 +46,9 @@ export default {
   props: {
   },
   components: {
-    SpeechBubble
-  },
+    SpeechBubble,
+    FooterNav
+},
 }
 </script>
 
