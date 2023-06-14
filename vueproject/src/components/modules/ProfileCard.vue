@@ -1,26 +1,10 @@
 <template>
-    <div class="profile_card">
-        <p>ProfileCard</p>
-        <p>UserName</p>
+    <div class="profile_card m-5 shadow-sm mb-5 bg-body rounded">
         <table class="table table-borderless">
-            <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
             <tbody>
-                <tr>
-                    <th scope="row">生年月日</th>
-                    <td>6月30日</td>
-                </tr>
-                <tr>
-                    <th scope="row">血液型</th>
-                    <td>A型</td>
-                </tr>
-                <tr>
-                    <th scope="row">趣味</th>
-                    <td>######</td>
+                <tr v-for="profileItem in profileItems" :key="profileItem.index">
+                    <th class="fs-6" scope="row">{{ profileItem.title}}</th>
+                    <th class="fs-6" scope="row">{{ profileItem.content}}</th>
                 </tr>
             </tbody>
         </table>
@@ -31,6 +15,15 @@
 export default {
     name: 'ProfileCard',
     props: {
+    },
+    data() {
+        return {
+            profileItems :[
+                {index:1, title: "生年月日",content: "７月９日"},
+                {index:2, title: "血液型",content: "A" },
+                {index:3, title: "趣味", content: "読書"}
+            ]
+        }
     }
 }
 </script>
@@ -39,5 +32,11 @@ export default {
 <style scoped>
 .profile_card{
     background-image: url(../../assets/image/profile_card_backimg.jpg)
+}
+.profile_card > th {
+    margin: 0;
+    padding: 0.25rem;
+}
+.background-wrapper :not(background-image){
 }
 </style>
