@@ -1,11 +1,16 @@
 <template>
+  <div class="background-wrapper wrapper">
+    <FooterNav />
+  </div>
 </template>
 
 <script>
+import FooterNav from '../modules/FooterNav.vue';
+
 export default {
-  name: 'Login',
-  props: {
-  }
+    name: "Login",
+    props: {},
+    components: { FooterNav }
 }
 </script>
 

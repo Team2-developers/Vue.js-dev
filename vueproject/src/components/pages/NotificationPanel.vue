@@ -5,11 +5,13 @@
         :img_pass="img_pass"
         :user_name="user_name"
     />
+    <FooterNav />
   </div>
 </template>
 
 <script>
 import NotificationBanner from '@/components/modules/NotificationBanner'
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'NotificationPanel',
@@ -23,8 +25,9 @@ export default {
   props: {
   },
   components: {
-    NotificationBanner
-  }
+    NotificationBanner,
+    FooterNav
+}
 }
 </script>
 
