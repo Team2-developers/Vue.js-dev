@@ -8,7 +8,7 @@
 import FooterNav from '../modules/FooterNav.vue';
 
 export default {
-    name: "Ranking",
+    name: "GameRanking",
     props: {},
     components: { FooterNav }
 }
