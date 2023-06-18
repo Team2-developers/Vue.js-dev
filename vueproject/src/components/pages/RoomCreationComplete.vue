@@ -6,12 +6,11 @@
 
 <script>
 import FooterNav from '../modules/FooterNav.vue';
-import FooterNav from '../modules/FooterNav.vue';
 
 export default {
     name: "RoomCreationComplete",
     props: {},
-    components: { FooterNav, FooterNav }
+    components: { FooterNav }
 }
 </script>
 
