@@ -8,12 +8,12 @@
 import FooterNav from '../modules/FooterNav.vue';
 
 export default {
-    name: "Ranking",
+    name: "UserLogin",
     props: {},
     components: { FooterNav }
 }
 </script>
 
-<!-- ランキング画面 -->
+<!-- ログイン画面 -->
 <style scoped>
 </style>
