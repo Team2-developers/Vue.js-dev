@@ -87,7 +87,7 @@ methods: {
   openModal(diceValue) {
     this.isModalOpen = true;
     this.diceValue = diceValue;
-   // 3秒後にモーダルを非表示にする
+   // 3秒後にモーダルを非表示にする　
   setTimeout(() => {
     this.isModalOpen = false;
     }, 2500);
