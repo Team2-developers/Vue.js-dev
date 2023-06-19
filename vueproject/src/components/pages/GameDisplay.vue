@@ -43,6 +43,7 @@
 
 <script>
 import SpeechBubble from '@/components/modules/SpeechBubble'
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'GameDisplay',
@@ -71,6 +72,7 @@ export default {
   props: {
   },
   components: {
+    FooterNav,
     SpeechBubble
   },
 methods: {

@@ -12,11 +12,13 @@
     :life_img="life_img"
     :life_path="life_path"
   />
+  <FooterNav />
 </div>
 </template>
 
 <script>
 import GameList from '@/components/modules/GameList'
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'GameSearch',
@@ -31,8 +33,9 @@ export default {
   props: {
   },
   components: {
-    GameList
-  }
+    GameList,
+    FooterNav
+}
 }
 </script>
 

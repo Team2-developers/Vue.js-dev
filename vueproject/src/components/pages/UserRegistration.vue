@@ -8,12 +8,12 @@
 import FooterNav from '../modules/FooterNav.vue';
 
 export default {
-    name: "RoomCreationComplete",
+    name: "UserRegistration",
     props: {},
     components: { FooterNav }
 }
 </script>
 
-<!-- 部屋作成完了画面 -->
+<!-- 新規登録画面 -->
 <style scoped>
 </style>
