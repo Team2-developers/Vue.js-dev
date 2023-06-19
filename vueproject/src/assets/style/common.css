@@ -1,6 +1,6 @@
 /* 画面の最大幅を設定して要素を中央揃えしています */
 .wrapper{
-    max-width: 480px;
+    max-width: 460px;
     text-align: center;
     margin: 0 auto;
 }
