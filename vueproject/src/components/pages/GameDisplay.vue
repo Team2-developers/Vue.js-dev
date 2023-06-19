@@ -39,6 +39,7 @@
         <p style="text-align:center">出た数は...<br>{{ this.diceValue }}</p>
       </div>
     </div>
+    <FooterNav />
 </template>
 
 <script>
@@ -61,7 +62,7 @@ export default {
         require("../../assets/image/icon2.svg"),
         require("../../assets/image/icon3.svg"),
         require("../../assets/image/icon4.svg")
-      ], 
+      ],
       diceValue: 0,
       isModalOpen: false,
       userName: [
@@ -89,7 +90,7 @@ methods: {
   openModal(diceValue) {
     this.isModalOpen = true;
     this.diceValue = diceValue;
-   // 3秒後にモーダルを非表示にする　
+   // 3秒後にモーダルを非表示にする
   setTimeout(() => {
     this.isModalOpen = false;
     }, 2500);
