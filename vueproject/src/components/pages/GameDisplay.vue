@@ -76,7 +76,6 @@ export default {
   methods: {
     rollDice() {
       // this.modalToggle()
-      console.log(this.remainingSquares)
       // ゲーム終了していたら処理しない
       if (this.gameOver) {
         return;
@@ -86,31 +85,31 @@ export default {
         this.currentUserIndex = (this.currentUserIndex + 1) % 4;
       }
 
+      // 振ったサイコロで進む数
+      let diceValue = Math.floor(Math.random() * 6) + 1;
+      // 各ユーザーの進んだマスの数を保存
+      this.userArray[this.currentUserIndex].push(diceValue);
+      // ユーザーを次に人に変更
+      this.currentUserIndex = (this.currentUserIndex + 1) % 4;
+
+      setTimeout(this.PlayersFinishedCheck(),200)
+    },
+    modalToggle(){
+      this.isActive = !this.isActive
+    },
+    PlayersFinishedCheck(){
       // 全プレイヤーがゴールしているかをチェックする
       const allPlayersFinished = this.remainingSquares.every(remaining => remaining <= 0);
       if (allPlayersFinished) {
         // 全プレイヤーがゴールしていたらゲームを終了する
         this.gameOver = true;
-        alert("Game over! All players have reached the goal.");
+        alert("お前ら終わったんや!5秒後に終了画面に遷移します");
         return;
       }
-
-      // 振ったサイコロで進む数
-      let diceValue = Math.floor(Math.random() * 6) + 1;
-      // 各ユーザーの進んだマスの数を保存
-      this.userArray[this.currentUserIndex].push(diceValue);
-      // console.log(this.userArray[this.currentUserIndex])
-      // ユーザーを次に人に変更
-      this.currentUserIndex = (this.currentUserIndex + 1) % 4;
-    },
-    modalToggle(){
-      this.isActive = !this.isActive
-      // couputed後にbooolの値が切り替わった場合はイベント処理のはっか
     }
   },
    computed: {
     totalDiceValues() {
-      console.log(this.a)
       return this.userArray.map(array => array.reduce((a, b) => a + b, 0))
     },
     remainingSquares() {
