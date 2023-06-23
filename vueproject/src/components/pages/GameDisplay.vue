@@ -18,7 +18,11 @@
       <!-- 残りマス -->
       <div>
         <p>{{this.userArray[this.currentUserIndex].length==0 ? "29"
-            :this.userArray[this.currentUserIndex].reduce((a, b) => a - b, 29)}}</p>
+            :this.userArray[this.currentUserIndex].reduce((a, b) => {
+              //0以下になる場合は0を返却する
+              return(a - b > 0 ? a - b: 0)
+            }, 29)}}
+        </p>
         <p>残りマス</p>
       </div>
     </div>
@@ -82,7 +86,9 @@ export default {
       }
       // ゴールしたユーザーを飛ばす処理
       if(this.remainingSquares[this.currentUserIndex] <= 0  ){
-        this.currentUserIndex = (this.currentUserIndex + 1) % 4;
+        do {
+          this.currentUserIndex = (this.currentUserIndex + 1) % 4;
+        } while (this.remainingSquares[this.currentUserIndex] <= 0);
       }
 
       // 振ったサイコロで進む数
@@ -113,7 +119,9 @@ export default {
       return this.userArray.map(array => array.reduce((a, b) => a + b, 0))
     },
     remainingSquares() {
-      return this.totalDiceValues.map(total => Math.max(0, 29 - total));
+      return this.totalDiceValues.map(total =>  {return(
+        29 - total > 0 ? 29 - total: 0
+      )});
     },
     // 現在の位置を取得
     userPositions() {
