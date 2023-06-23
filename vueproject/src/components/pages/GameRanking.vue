@@ -8,12 +8,12 @@
 import FooterNav from '../modules/FooterNav.vue';
 
 export default {
-    name: "RoomCreationComplete",
+    name: "GameRanking",
     props: {},
     components: { FooterNav }
 }
 </script>
 
-<!-- 部屋作成完了画面 -->
+<!-- ランキング画面 -->
 <style scoped>
 </style>

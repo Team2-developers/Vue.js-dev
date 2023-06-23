@@ -6,11 +6,13 @@
         :life_event="life_event"
         :good="good"
     />
+    <FooterNav />
   </div>
 </template>
 
 <script>
 import SomeoneLifeList from '@/components/modules/SomeoneLifeList'
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'ProfilePage',
@@ -25,8 +27,9 @@ export default {
   props: {
   },
   components: {
-    SomeoneLifeList
-  },
+    SomeoneLifeList,
+    FooterNav
+},
 }
 </script>
 

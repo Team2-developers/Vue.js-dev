@@ -3,7 +3,7 @@
   <SpeechBubble
     :img_pass="img_pass"
     :user_name="user_name"
-    :life_name	="life_name"
+    :life_name="life_name"
   />
   <div class="gameTurn">
       <!-- スコア -->
@@ -42,11 +42,19 @@
       >
     </div>
     <button class="rollDice" @click="rollDice">サイコロを振る</button>
-</div>
+  </div>
+    <div v-if="isModalOpen" class="modal">
+      <div class="modal-content">
+        <span class="close" @click="closeModal">&times;</span>
+        <p style="text-align:center">出た数は...<br>{{ this.diceValue }}</p>
+      </div>
+    </div>
+    <FooterNav />
 </template>
 
 <script>
 import SpeechBubble from '@/components/modules/SpeechBubble'
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'GameDisplay',
@@ -66,6 +74,8 @@ export default {
         require("../../assets/image/icon3.svg"),
         require("../../assets/image/icon4.svg")
       ],
+      diceValue: 0,
+      isModalOpen: false,
       userName: [
         "dog","cat","pig","sheep"
       ],
@@ -75,6 +85,7 @@ export default {
   props: {
   },
   components: {
+    FooterNav,
     SpeechBubble
   },
   methods: {
@@ -111,9 +122,21 @@ export default {
         this.gameOver = true;
         alert("お前ら終わったんや!5秒後に終了画面に遷移します");
         return;
-      }
-    }
+      },
+      this.openModal(diceValue)
+  openModal(diceValue) {
+    this.isModalOpen = true;
+    this.diceValue = diceValue;
+   // 3秒後にモーダルを非表示にする
+  setTimeout(() => {
+    this.isModalOpen = false;
+    }, 2500);
+     },
+    closeModal() {
+       this.isModalOpen = false;
   },
+    }
+},
    computed: {
     totalDiceValues() {
       return this.userArray.map(array => array.reduce((a, b) => a + b, 0))
@@ -177,6 +200,7 @@ export default {
   text-align: center;
   margin: 30px auto 0;
   position: relative;
+  z-index: 1;
 }
 .rollDice{
   border-radius: 15px;
@@ -205,5 +229,38 @@ export default {
 .gameUser4{
   top: 36px;
   left: 30px;
+}
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 25% auto;
+  padding: 10px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 </style>
