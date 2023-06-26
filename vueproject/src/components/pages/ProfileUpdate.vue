@@ -3,9 +3,9 @@
 
     <div class="navbar">
       <div class="container-fluid">
-        <a class="navbar-brand" href="@/pages/ProfilePage.vue">
+        <RouterLink :to="'../'+profileUpdate">
           <img src="@/assets/image/transition-icon.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-        </a>
+        </RouterLink>
       </div>
       <div  class="fs-4 d-flex justify-content-center">My Details</div>
     </div>

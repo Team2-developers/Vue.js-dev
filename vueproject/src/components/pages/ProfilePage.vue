@@ -6,6 +6,9 @@
         :life_event="life_event"
         :good="good"
     />
+    <a class="navbar-brand" href="../pages/ProfileUpdate.vue">
+      <div>View profile</div>
+    </a>
     <FooterNav />
   </div>
 </template>
