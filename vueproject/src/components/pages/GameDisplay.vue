@@ -131,7 +131,6 @@ export default {
       gameOver: false,
 
       // ローカルストレージようの配列
-
     };
   },
   props: {},
@@ -141,6 +140,7 @@ export default {
   },
   methods: {
     rollDice() {
+      // this.modalToggle()
       // ゲーム終了していたら処理しない
       if (this.gameOver) {
         return;
@@ -160,17 +160,17 @@ export default {
       this.userArray[this.currentUserIndex].push(diceValue);
 
       if (this.remainingSquares[this.currentUserIndex] <= 0) {
-      this.finishOrder.push({
-        name: this.userName[this.currentUserIndex],
-        diceValues: this.currentUserIndex
-      });
-    }
+        this.finishOrder.push({
+          name: this.userName[this.currentUserIndex],
+          diceValues: this.currentUserIndex,
+        });
+      }
 
       // ユーザーを次に人に変更
       this.currentUserIndex = (this.currentUserIndex + 1) % 4;
 
       // this.openModal(diceValue); <- testのためコメントアウト
-      this.PlayersFinishedCheck()
+      this.PlayersFinishedCheck();
     },
     modalToggle() {
       this.isActive = !this.isActive;
@@ -183,11 +183,15 @@ export default {
       if (allPlayersFinished) {
         // 全プレイヤーがゴールしていたらゲームを終了する
         this.gameOver = true;
+        // localstrageに追加
+        localStorage.setItem("finishOrder", JSON.stringify(this.finishOrder));
 
-        localStorage.setItem('finishOrder', JSON.stringify(this.finishOrder));
+        alert("お前ら終わったんや!2秒後に終了画面に遷移します");
 
-alert(this.finishOrder)
-        alert("お前ら終わったんや!5秒後に終了画面に遷移します");
+        // 画面遷移
+        setTimeout(() => {
+          document.location = "GameRanking.vue"
+        }, 2000);
         return;
       }
     },
