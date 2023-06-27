@@ -76,6 +76,7 @@ export default {
       life_name: "山田の人生",
       userArray: [[], [], [], []],
       currentUserIndex: 0,
+      finishOrder: [],
       assocArray: {
         1: [60, 0],
         2: [120, 0],
@@ -128,6 +129,9 @@ export default {
       isModalOpen: false,
       userName: ["dog", "cat", "pig", "sheep"],
       gameOver: false,
+
+      // ローカルストレージようの配列
+
     };
   },
   props: {},
@@ -137,14 +141,15 @@ export default {
   },
   methods: {
     rollDice() {
-      // this.modalToggle()
       // ゲーム終了していたら処理しない
       if (this.gameOver) {
         return;
       }
+
       // ゴールしたユーザーを飛ばす処理
       if (this.remainingSquares[this.currentUserIndex] <= 0) {
         do {
+          // ローカルストレージで保存する
           this.currentUserIndex = (this.currentUserIndex + 1) % 4;
         } while (this.remainingSquares[this.currentUserIndex] <= 0);
       }
@@ -153,10 +158,19 @@ export default {
       let diceValue = Math.floor(Math.random() * 6) + 1;
       // 各ユーザーの進んだマスの数を保存
       this.userArray[this.currentUserIndex].push(diceValue);
+
+      if (this.remainingSquares[this.currentUserIndex] <= 0) {
+      this.finishOrder.push({
+        name: this.userName[this.currentUserIndex],
+        diceValues: this.currentUserIndex
+      });
+    }
+
       // ユーザーを次に人に変更
       this.currentUserIndex = (this.currentUserIndex + 1) % 4;
-      this.openModal(diceValue);
-      setTimeout(this.PlayersFinishedCheck(), 200);
+
+      // this.openModal(diceValue); <- testのためコメントアウト
+      this.PlayersFinishedCheck()
     },
     modalToggle() {
       this.isActive = !this.isActive;
@@ -169,6 +183,10 @@ export default {
       if (allPlayersFinished) {
         // 全プレイヤーがゴールしていたらゲームを終了する
         this.gameOver = true;
+
+        localStorage.setItem('finishOrder', JSON.stringify(this.finishOrder));
+
+alert(this.finishOrder)
         alert("お前ら終わったんや!5秒後に終了画面に遷移します");
         return;
       }
