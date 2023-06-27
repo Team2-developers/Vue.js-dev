@@ -4,8 +4,8 @@
     :user_name="user_name"
     :user_mail="user_mail"
   />
-  <ProfileCard />
   <div class="background-wrapper wrapper">
+    <ProfileCard />
     <SomeoneLifeList
       :img_pass="img_pass"
       :life_name="life_name"

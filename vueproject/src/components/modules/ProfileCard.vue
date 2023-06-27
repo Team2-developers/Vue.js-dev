@@ -1,6 +1,6 @@
 <template>
   <!-- replace -->
-  <div class="profile_card m-5 shadow-sm mb-5 bg-body rounded">
+  <div class="profile_card  shadow-sm mb-5 bg-body rounded ">
     <h2 class="title">PROFILE</h2>
     <p class="sub-title">プロフィール</p>
     <table class="table table-borderless">
@@ -62,7 +62,7 @@ export default {
         height: 174,
         blood_type: "O",
         hobby: "フットサル",
-        episode1: "1990年に誕生",
+        episode1: "まんこから爆誕",
         episode2: "1906年に麓小学校に入学",
         episode3: "1907年小学2年生の時に初恋",
         episode4: "1912年小学校卒業",
@@ -83,12 +83,14 @@ export default {
   height: auto;
   padding: 10px;
   max-width: 480px;
-}
-.profile_card .sub-title {
-  margin: 0;
+  margin: 0 auto 50px auto!important;
+  text-align: left;
 }
 .profile_card .title {
   font-size: 24px;
+}
+.profile_card .sub-title {
+  margin: 0;
 }
 .profile_card > th {
   margin: 0;
