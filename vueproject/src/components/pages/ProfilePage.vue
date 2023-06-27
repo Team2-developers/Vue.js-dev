@@ -42,7 +42,6 @@ export default {
     UserInfoBox,
     FooterNav
   },
-},
 }
 </script>
 
