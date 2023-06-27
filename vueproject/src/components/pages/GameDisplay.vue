@@ -1,10 +1,6 @@
 <template>
   <div class="wrapper">
-    <SpeechBubble
-      :img_pass="img_pass"
-      :user_name="user_name"
-      :life_name="life_name"
-    />
+    <SpeechBubble/>
     <div class="gameTurn">
       <!-- スコア -->
       <div>
@@ -64,16 +60,13 @@
 
 <script>
 import SpeechBubble from "@/components/modules/SpeechBubble";
-import FooterNav from "../modules/FooterNav.vue";
+import FooterNav from "../modules/FooterNav";
 
 export default {
   name: "GameDisplay",
   data() {
     return {
       isActive: true,
-      img_pass: "user_noImage.svg",
-      user_name: "test",
-      life_name: "山田の人生",
       userArray: [[], [], [], []],
       currentUserIndex: 0,
       finishOrder: [],
@@ -162,7 +155,7 @@ export default {
       if (this.remainingSquares[this.currentUserIndex] <= 0) {
         this.finishOrder.push({
           name: this.userName[this.currentUserIndex],
-          diceValues: this.currentUserIndex,
+          userImages: this.userImages[this.currentUserIndex],
         });
       }
 
