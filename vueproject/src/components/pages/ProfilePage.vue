@@ -12,13 +12,16 @@
       :life_event="life_event"
       :good="good"
     />
+    <FooterNav />
   </div>
 </template>
 
 <script>
 import SomeoneLifeList from '@/components/modules/SomeoneLifeList'
+
 import ProfileCard from '../modules/ProfileCard.vue';
 import UserInfoBox from '../modules/UserInfoBox.vue';
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'ProfilePage',
@@ -36,8 +39,10 @@ export default {
   components: {
     SomeoneLifeList,
     ProfileCard,
-    UserInfoBox
+    UserInfoBox,
+    FooterNav
   },
+},
 }
 </script>
 

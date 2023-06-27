@@ -18,7 +18,7 @@
             <p>コメント</p>
             <img src="../../assets/image/corner-down-left.svg" alt="詳細">
         </div>
-        <div @click="this.heartCount++">
+        <div @click="updatePropValue">
             <p>{{heartCount}}</p>
             <img  class="heart" src="../../assets/image/heart-icon.svg" alt="詳細">
         </div>
@@ -42,8 +42,7 @@ export default {
         return{
             toggleSelected: true,
             comentDetail: true,
-            heartCount: 0,
-
+            heartCount: this.good,
             user_name: "ochinpo",
             comment: "彼女できてよかったね"
         }
@@ -70,6 +69,15 @@ export default {
         }
     },
     methods: {
+        updatePropValue(){
+            console.log(this.heartCount)
+            this.heartCount  = this.heartCount + 1
+        }
+    },
+    computed: {
+        getImagePath() {
+            return require('@/assets/image/' + this.img_pass);
+        },
     }
 }
 </script>
