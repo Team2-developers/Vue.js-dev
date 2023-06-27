@@ -183,7 +183,7 @@ export default {
 
         // 画面遷移
         setTimeout(() => {
-          document.location = "GameRanking.vue"
+          document.location = "GameRanking"
         }, 2000);
         return;
       }
