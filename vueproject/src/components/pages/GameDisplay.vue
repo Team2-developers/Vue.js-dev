@@ -1,10 +1,6 @@
 <template>
   <div class="wrapper">
-    <SpeechBubble
-      :img_pass="img_pass"
-      :user_name="user_name"
-      :life_name="life_name"
-    />
+    <SpeechBubble/>
     <div class="gameTurn">
       <!-- スコア -->
       <div>
@@ -64,18 +60,16 @@
 
 <script>
 import SpeechBubble from "@/components/modules/SpeechBubble";
-import FooterNav from "../modules/FooterNav.vue";
+import FooterNav from "../modules/FooterNav";
 
 export default {
   name: "GameDisplay",
   data() {
     return {
       isActive: true,
-      img_pass: "user_noImage.svg",
-      user_name: "test",
-      life_name: "山田の人生",
       userArray: [[], [], [], []],
       currentUserIndex: 0,
+      finishOrder: [],
       assocArray: {
         1: [60, 0],
         2: [120, 0],
@@ -128,6 +122,8 @@ export default {
       isModalOpen: false,
       userName: ["dog", "cat", "pig", "sheep"],
       gameOver: false,
+
+      // ローカルストレージようの配列
     };
   },
   props: {},
@@ -142,9 +138,11 @@ export default {
       if (this.gameOver) {
         return;
       }
+
       // ゴールしたユーザーを飛ばす処理
       if (this.remainingSquares[this.currentUserIndex] <= 0) {
         do {
+          // ローカルストレージで保存する
           this.currentUserIndex = (this.currentUserIndex + 1) % 4;
         } while (this.remainingSquares[this.currentUserIndex] <= 0);
       }
@@ -153,10 +151,19 @@ export default {
       let diceValue = Math.floor(Math.random() * 6) + 1;
       // 各ユーザーの進んだマスの数を保存
       this.userArray[this.currentUserIndex].push(diceValue);
+
+      if (this.remainingSquares[this.currentUserIndex] <= 0) {
+        this.finishOrder.push({
+          name: this.userName[this.currentUserIndex],
+          userImages: this.userImages[this.currentUserIndex],
+        });
+      }
+
       // ユーザーを次に人に変更
       this.currentUserIndex = (this.currentUserIndex + 1) % 4;
-      this.openModal(diceValue);
-      setTimeout(this.PlayersFinishedCheck(), 200);
+
+      // this.openModal(diceValue); <- testのためコメントアウト
+      this.PlayersFinishedCheck();
     },
     modalToggle() {
       this.isActive = !this.isActive;
@@ -169,7 +176,15 @@ export default {
       if (allPlayersFinished) {
         // 全プレイヤーがゴールしていたらゲームを終了する
         this.gameOver = true;
-        alert("お前ら終わったんや!5秒後に終了画面に遷移します");
+        // localstrageに追加
+        localStorage.setItem("finishOrder", JSON.stringify(this.finishOrder));
+
+        alert("お前ら終わったんや!2秒後に終了画面に遷移します");
+
+        // 画面遷移
+        setTimeout(() => {
+          document.location = "GameRanking.vue"
+        }, 2000);
         return;
       }
     },
