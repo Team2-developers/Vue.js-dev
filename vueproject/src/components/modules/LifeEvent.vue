@@ -50,8 +50,8 @@ export default {
         { id: 1, name: "幸せ", score: 5 },
         { id: 2, name: "微笑み", score: 3 },
         { id: 3, name: "真顔", score: 0 },
-        { id: 4, name: "悲しみ", score: -5 },
-        { id: 5, name: "不安", score: -3 },
+        { id: 4, name: "不安", score: -3 },
+        { id: 5, name: "悲しみ", score: -5 },
       ],
       fusenStyles: {
         悲しみ: "sadStyle",
