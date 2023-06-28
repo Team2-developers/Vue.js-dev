@@ -119,7 +119,7 @@ export default {
   padding: 0.4em calc(0.8em + 20px) 0.4em 0.8em;
 }
 .fusen-002 input {
-  width: 100px;
+  width: 50px;
 }
 /* textbox */
 .textbox-003 {
