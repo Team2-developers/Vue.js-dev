@@ -28,7 +28,7 @@
         type="text"
         v-model="group.textbox"
         class="textbox-003"
-        placeholder="テキストボックスの例"
+        placeholder="人生のイベント"
       />
     </div>
   </div>
@@ -82,6 +82,7 @@ export default {
 <style scoped>
 .indexArea {
   width: 30px;
+  line-height: 40px;
 }
 .eventTitle,
 .eventContent {
@@ -170,7 +171,7 @@ export default {
 .fusen-002::before {
   position: absolute;
   bottom: 2px;
-  right: -20px;
+  right: -27px;
   z-index: -1;
   transform: rotate(5deg);
   width: 100px;
