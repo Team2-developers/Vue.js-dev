@@ -1,35 +1,41 @@
 <template>
-  <div class="wrapper">
-    <div class="eventTitle">
-      <p>No.</p>
-      <p>イベント</p>
-      <p>ポイント</p>
-      <p>内容</p>
-    </div>
-    <div v-for="(group, index) in formGroups" :key="index" class="eventContent">
-      <p class="indexArea">{{ index + 1 }}</p>
-      <label class="selectbox-003 selectbox-event">
-        <select v-model="group.selectedEvent">
-          <option
-            v-for="event in events"
-            v-bind:value="event.name"
-            v-bind:key="event.id"
-          >
-            {{ event.name }}
-          </option>
-        </select>
-      </label>
-
-      <div :class="['fusen-002', fusenStyles[group.selectedEvent]]">
-        <input disabled type="number" v-model="group.selectedPoints" />
+  <div class="background-wrapper wrapper">
+    <div>
+      <div class="eventTitle">
+        <p class="event-index">No.</p>
+        <p class="event-name">イベント</p>
+        <p class="event-score">ポイント</p>
+        <p class="event-detail">内容</p>
       </div>
+      <div
+        v-for="(group, index) in formGroups"
+        :key="index"
+        class="eventContent"
+      >
+        <p class="indexArea">{{ index + 1 }}</p>
+        <label class="selectbox-003 selectbox-event">
+          <select v-model="group.selectedEvent">
+            <option
+              v-for="event in events"
+              v-bind:value="event.name"
+              v-bind:key="event.id"
+            >
+              {{ event.name }}
+            </option>
+          </select>
+        </label>
 
-      <input
-        type="text"
-        v-model="group.textbox"
-        class="textbox-003"
-        placeholder="人生のイベント"
-      />
+        <div :class="['fusen-002', fusenStyles[group.selectedEvent]]">
+          <input disabled type="number" v-model="group.selectedPoints" />
+        </div>
+
+        <input
+          type="text"
+          v-model="group.textbox"
+          class="textbox-003"
+          placeholder="人生のイベント"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -80,15 +86,32 @@ export default {
 
 <!-- 人生の修正表示のcomponent -->
 <style scoped>
+label {
+  margin: 0;
+}
 .indexArea {
   width: 30px;
-  line-height: 40px;
+  line-height: 55px;
+  padding: 0;
+  margin: 0;
 }
 .eventTitle,
 .eventContent {
   display: flex;
+  justify-content: space-evenly;
 }
-
+.event-index {
+  width: 20px;
+}
+.event-name {
+  width: 120px;
+}
+.event-score {
+  width: 95px;
+}
+.event-detail {
+  width: 160px;
+}
 .selectbox-003 {
   display: inline-flex;
   align-items: center;
@@ -132,6 +155,7 @@ export default {
   color: #333;
   font-size: 10px;
   line-height: 2.8em;
+  margin: 10px 5px;
 }
 
 .textbox-003::placeholder {
