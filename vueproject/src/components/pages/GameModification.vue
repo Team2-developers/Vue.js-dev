@@ -17,6 +17,7 @@ export default {
     LifeEvent,
     FooterNav
   }
+}
 </script>
 
 <!-- ゲームの修正画面 -->
