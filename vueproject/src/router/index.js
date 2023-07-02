@@ -4,7 +4,6 @@ import GameDetails from '@/components/pages/GameDetails'
 import GameDisplay from '@/components/pages/GameDisplay'
 import GameModification from '@/components/pages/GameModification'
 import GameSearch from '@/components/pages/GameSearch'
-import GameModification from '@/components/pages/GameModification'
 import GameRanking from '@/components/pages/GameRanking'
 import GameStart from '@/components/pages/GameStart'
 import NotificationPanel from '@/components/pages/NotificationPanel'
@@ -39,7 +38,7 @@ const router = createRouter({
  scrollBehavior(to, from, savedPosition){
     if (savedPosition) {
       return savedPosition
-    } else { 
+    } else {
       return {
         top: 0
       }
