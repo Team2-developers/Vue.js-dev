@@ -36,16 +36,21 @@
           placeholder="人生のイベント"
         />
       </div>
+      <div class="saveArea">
+        <input class="backButton" type="button" value="戻る" @click="profilePage"/>
+        <input class="saveButton" type="button" value="保存" @click="saveToDB"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "LifeEvent",
   data() {
     return {
-      formGroups: Array(10)
+      formGroups: Array(20)
         .fill()
         .map(() => ({
           selectedEvent: "真顔",
@@ -68,6 +73,40 @@ export default {
       },
     };
   },
+  methods: {
+    async saveToDB() {
+      // formGroupsをtrouts形式に変換
+      const trouts = this.formGroups.map((group, index) => {
+        return {
+          seqno: index + 1, // 現在の順番
+          // lifeidの設定
+          life_id: index + 1, // TODO: ここは適切なlife_idを指定してください
+          color: group.selectedEvent, // これが適切かは選択肢の内容によります
+          point: group.selectedPoints,
+          trout_detail: group.textbox,
+        }
+      });
+
+      // APIにPOSTリクエストを送信
+      try {
+        // portを変更
+        const response = await axios.post('http://localhost:8000/api/trout/create', { trouts });
+        if (response.status === 201) {
+          console.log('Trouts created successfully');
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.error('Error on creating trouts:', error);
+        if (error.response) {
+          console.error('Server responded with status:', error.response.status);
+          console.error('Response data:', error.response.data);
+        }
+      }
+    },
+    profilePage(){
+      this.$router.push('profilePage')
+    }
+  },
   watch: {
     formGroups: {
       handler(newValue) {
@@ -86,6 +125,23 @@ export default {
 
 <!-- 人生の修正表示のcomponent -->
 <style scoped>
+/* 保存ボタンデザイン */
+.saveArea{
+  margin-top: 20px;
+}
+.backButton{
+  width: 50px;
+  height: 40px;
+  background: #D9D9D9;
+  color: white;
+}
+.saveButton{
+  width: 120px;
+  height: 40px;
+  color: white;
+  background: #31AC87;
+  margin-left: 30px;
+}
 label {
   margin: 0;
 }
@@ -204,4 +260,5 @@ label {
   content: "";
   filter: blur(4px);
 }
+
 </style>

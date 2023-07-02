@@ -1,113 +1,112 @@
 /* 画面の最大幅を設定して要素を中央揃えしています */
-.wrapper{
-    max-width: 460px;
-    text-align: center;
-    margin: 0 auto;
-    padding-bottom: 80px;
+.wrapper {
+  max-width: 460px;
+  text-align: center;
+  margin: 0 auto 100px;
+  padding-bottom: 80px;
 }
 
 /* 円の背景画像を設定する場合に必要 */
-.background-wrapper{
-    background-image: url(../../assets/image/background_grid.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
+.background-wrapper {
+  background-image: url(../../assets/image/background_grid.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .background-wrapper .builderーarea {
-    padding-top: 150px;
+  padding-top: 150px;
 }
 
 .background-wrapper .userーarea {
-    padding-top: 200px;
-    padding-bottom: 40px;
+  padding-top: 200px;
+  padding-bottom: 40px;
 }
 
 .background-wrapper .builderーarea input,
-.background-wrapper .userーarea input{
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 16px;
+.background-wrapper .userーarea input {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 16px;
 }
 
 .background-wrapper .builderーarea .room_build,
-.background-wrapper .builderーarea .room_search{
-    width: 330px;
+.background-wrapper .builderーarea .room_search {
+  width: 330px;
 }
 
 .background-wrapper .userーarea .login,
-.background-wrapper .userーarea .create_account{
-    width: 180px;
+.background-wrapper .userーarea .create_account {
+  width: 180px;
 }
 
 /* 通知・ユーザー情報component */
-.userInfo{
-    display: flex;
-    justify-content: center;
-    padding: 2px 0;
-    margin: 0 50px 10px 50px;
-    border: solid 1px #000;
+.userInfo {
+  display: flex;
+  justify-content: center;
+  padding: 2px 0;
+  margin: 0 50px 10px 50px;
+  border: solid 1px #000;
 }
-.userInfo img{
-    width: 40px;
-    height: 40px;
-    margin: auto;
-    border-radius: 50%;
-    object-fit: cover;
+.userInfo img {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.userInfo div{
-    text-align: left;
-    margin-left: 1rem;
-    line-height: 20px;
+.userInfo div {
+  text-align: left;
+  margin-left: 1rem;
+  line-height: 20px;
 }
-.userInfo div p{
-    padding: 0;
-    margin: 0;
+.userInfo div p {
+  padding: 0;
+  margin: 0;
 }
-.userInfo div p:nth-child(2){
-    opacity: 0.7;
+.userInfo div p:nth-child(2) {
+  opacity: 0.7;
 }
 
 /* トグルのcss */
 .toggle_label {
-    width: 50px;
-    height: 25px;
-    background: #ccc;
-    position: relative;
-    display: inline-block;
-    border-radius: 40px;
-    transition: 0.4s;
-    box-sizing: border-box;
+  width: 50px;
+  height: 25px;
+  background: #ccc;
+  position: relative;
+  display: inline-block;
+  border-radius: 40px;
+  transition: 0.4s;
+  box-sizing: border-box;
 }
 
 .toggle_label:after {
-    content: "";
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    border-radius: 100%;
-    left: 0;
-    top: 0;
-    z-index: 2;
-    background: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    transition: 0.4s;
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: 0.4s;
 }
 
 .toggle_input:checked + .toggle_label {
-    background-color: #3b18b9;
+  background-color: #3b18b9;
 }
 
 .toggle_input:checked + .toggle_label:after {
-    left: 25px;
+  left: 25px;
 }
 
 .toggle_button {
-    position: relative;
-    width: 50px;
-    height: 25px;
-    margin-left: auto;
-    margin-right: 20px;
+  position: relative;
+  width: 50px;
+  height: 25px;
+  margin-left: auto;
+  margin-right: 20px;
 }
