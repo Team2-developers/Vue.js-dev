@@ -4,6 +4,7 @@ import GameDetails from '@/components/pages/GameDetails'
 import GameDisplay from '@/components/pages/GameDisplay'
 import GameModification from '@/components/pages/GameModification'
 import GameSearch from '@/components/pages/GameSearch'
+import GameModification from '@/components/pages/GameModification'
 import GameRanking from '@/components/pages/GameRanking'
 import GameStart from '@/components/pages/GameStart'
 import NotificationPanel from '@/components/pages/NotificationPanel'
@@ -24,6 +25,7 @@ const routes = [
     { path: '/gameStart', name: 'GameStart', component: GameStart },
     { path: '/notificationPanel', name: 'NotificationPanel', component: NotificationPanel },
     { path: '/profilePage', name: 'ProfilePage', component: ProfilePage },
+    { path: '/gameModification', name: 'GameModification', component: GameModification },
     { path: '/profileUpdate', name: 'ProfileUpdate', component: ProfileUpdate },
     { path: '/roomCreationComplete', name: 'RoomCreationComplete', component: RoomCreationComplete },
     { path: '/roomSearch', name: 'RoomSearch', component: RoomSearch },
