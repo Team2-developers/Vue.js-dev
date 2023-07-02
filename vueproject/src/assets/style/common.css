@@ -1,8 +1,9 @@
 /* 画面の最大幅を設定して要素を中央揃えしています */
 .wrapper{
-    max-width: 480px;
+    max-width: 460px;
     text-align: center;
     margin: 0 auto;
+    padding-bottom: 80px;
 }
 
 /* 円の背景画像を設定する場合に必要 */
@@ -46,6 +47,7 @@
     justify-content: center;
     padding: 2px 0;
     margin: 0 50px 10px 50px;
+    border: solid 1px #000;
 }
 .userInfo img{
     width: 40px;

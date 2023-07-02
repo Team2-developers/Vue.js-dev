@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="gameContainer wrapper">
   <GameList
     :img_pass="img_pass"
     :life_name="life_name"
@@ -12,11 +12,13 @@
     :life_img="life_img"
     :life_path="life_path"
   />
+  <FooterNav />
 </div>
 </template>
 
 <script>
 import GameList from '@/components/modules/GameList'
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'GameSearch',
@@ -31,11 +33,18 @@ export default {
   props: {
   },
   components: {
-    GameList
-  }
+    GameList,
+    FooterNav
+}
 }
 </script>
 
 <!-- ゲームの検索画面 -->
 <style scoped>
+.gameContainer{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  padding: 10px;
+}
 </style>

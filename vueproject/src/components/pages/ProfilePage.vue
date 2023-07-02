@@ -1,16 +1,27 @@
 <template>
+  <UserInfoBox
+    :img_pass="img_pass"
+    :user_name="user_name"
+    :user_mail="user_mail"
+  />
   <div class="background-wrapper wrapper">
+    <ProfileCard />
     <SomeoneLifeList
-        :img_pass="img_pass"
-        :life_name="life_name"
-        :life_event="life_event"
-        :good="good"
+      :img_pass="img_pass"
+      :life_name="life_name"
+      :life_event="life_event"
+      :good="good"
     />
+    <FooterNav />
   </div>
 </template>
 
 <script>
 import SomeoneLifeList from '@/components/modules/SomeoneLifeList'
+
+import ProfileCard from '../modules/ProfileCard.vue';
+import UserInfoBox from '../modules/UserInfoBox.vue';
+import FooterNav from '../modules/FooterNav.vue';
 
 export default {
   name: 'ProfilePage',
@@ -19,13 +30,17 @@ export default {
         img_pass: "user_noImage.svg",
         life_name: "ochinpo",
         life_event: "僕の中学生日記",
-        good: 1000
+        good: 1000,
+        user_mail: "test@gmail.com"
     }
   },
   props: {
   },
   components: {
-    SomeoneLifeList
+    SomeoneLifeList,
+    ProfileCard,
+    UserInfoBox,
+    FooterNav
   },
 }
 </script>
