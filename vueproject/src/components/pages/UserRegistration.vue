@@ -1,6 +1,21 @@
 <template>
-  <div>
-    <form @submit.prevent="submitImage">
+  <div class="background-wrapper wrapper">
+    <div class="navbar">
+      <div class="container-fluid">
+        <RouterLink :to="'../ProfilePage'">
+          <img
+            src="@/assets/image/transition-icon.svg"
+            alt=""
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+        </RouterLink>
+      </div>
+      <div class="fs-4 d-flex justify-content-center">My Details</div>
+    </div>
+
+    <form @submit.prevent="submitImage" class="formItem">
       <div>
         <label>File: </label>
         <input type="file" @change="onFileChange" />
@@ -8,38 +23,59 @@
       <button type="submit">Submit</button>
     </form>
 
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="submitForm" class="formItem">
       <div>
         <label>Email: </label>
-        <input type="email" v-model="user.user_mail" required />
+        <input
+          type="email"
+          v-model="user.user_mail"
+          required
+          placeholder="edit me"
+        />
       </div>
       <div>
         <label>Name: </label>
-        <input type="text" v-model="user.user_name" required />
+        <input
+          type="text"
+          v-model="user.user_name"
+          required
+          placeholder="edit me"
+        />
       </div>
       <div>
         <label>Password: </label>
-        <input type="password" v-model="user.password" required />
+        <input
+          type="password"
+          v-model="user.password"
+          required
+          placeholder="edit me"
+        />
       </div>
       <div>
         <label>Birth: </label>
-        <input type="date" v-model="user.birth" />
+        <input type="date" v-model="user.birth" placeholder="edit me" />
       </div>
       <div>
         <label>Blood Type: </label>
-        <input type="text" v-model="user.blood_type" />
+        <input type="text" v-model="user.blood_type" placeholder="edit me" />
       </div>
       <div>
         <label>hobby </label>
-        <input type="text" v-model="user.hobby" />
+        <input type="text" v-model="user.hobby" placeholder="edit me" />
       </div>
       <div v-for="i in 5" :key="i">
-        <label>Episode {{ i }}: </label>
-        <input type="text" v-model="user['episode' + i]" />
+        <label>エピソード {{ i }}: </label>
+        <input
+          type="text"
+          v-model="user['episode' + i]"
+          placeholder="edit me"
+        />
       </div>
 
-      <button type="submit">Submit</button>
+      <input type="submit" class="" value="新規登録" />
     </form>
+
+    <FooterNav />
   </div>
 </template>
 
