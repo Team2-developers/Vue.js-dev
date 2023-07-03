@@ -1,9 +1,6 @@
 <template>
-  <UserInfoBox
-    :img_pass="img_pass"
-    :user_name="user_name"
-    :user_mail="user_mail"
-  />
+  <UserInfoBox />
+  <RouterLink :to="'../ProfileUpdate'" style="text-align:center">ViewProfile</RouterLink>
   <div class="background-wrapper wrapper">
     <ProfileCard />
     <SomeoneLifeList
@@ -12,7 +9,6 @@
       :life_event="life_event"
       :good="good"
     />
-    <RouterLink :to="'../ProfileUpdate'">更新する</RouterLink>
     <FooterNav />
   </div>
 </template>
