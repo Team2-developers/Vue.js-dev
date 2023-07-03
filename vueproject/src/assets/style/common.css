@@ -44,15 +44,14 @@
 /* 通知・ユーザー情報component */
 .userInfo {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   padding: 2px 0;
-  margin: 0 50px 10px 50px;
-  border: solid 1px #000;
+  max-width: 480px;
+  margin: 0 auto;
 }
 .userInfo img {
-  width: 40px;
-  height: 40px;
-  margin: auto;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -60,7 +59,7 @@
 .userInfo div {
   text-align: left;
   margin-left: 1rem;
-  line-height: 20px;
+  line-height: 30px;
 }
 .userInfo div p {
   padding: 0;

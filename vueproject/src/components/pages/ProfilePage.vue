@@ -1,9 +1,6 @@
 <template>
-  <UserInfoBox
-    :img_pass="img_pass"
-    :user_name="user_name"
-    :user_mail="user_mail"
-  />
+  <UserInfoBox />
+  <RouterLink :to="'../ProfileUpdate'" style="text-align:center">ViewProfile</RouterLink>
   <div class="background-wrapper wrapper">
     <ProfileCard />
     <SomeoneLifeList
@@ -12,42 +9,54 @@
       :life_event="life_event"
       :good="good"
     />
-    <a class="navbar-brand" href="../pages/ProfileUpdate.vue">
-      <div>View profile</div>
-    </a>
     <FooterNav />
   </div>
 </template>
 
 <script>
-import SomeoneLifeList from '@/components/modules/SomeoneLifeList'
-
-import ProfileCard from '../modules/ProfileCard.vue';
-import UserInfoBox from '../modules/UserInfoBox.vue';
-import FooterNav from '../modules/FooterNav.vue';
+import axios from "axios";
+import SomeoneLifeList from "@/components/modules/SomeoneLifeList";
+import ProfileCard from "../modules/ProfileCard.vue";
+import UserInfoBox from "../modules/UserInfoBox.vue";
+import FooterNav from "../modules/FooterNav.vue";
 
 export default {
-  name: 'ProfilePage',
-  data () {
+  name: "ProfilePage",
+  data() {
     return {
-        img_pass: "user_noImage.svg",
-        life_name: "ochinpo",
-        life_event: "僕の中学生日記",
-        good: 1000,
-        user_mail: "test@gmail.com"
-    }
+      img_pass: "user_noImage.svg",
+      life_name: "ochinpo",
+      life_event: "僕の中学生日記",
+      good: 1000,
+      user_mail: "test@gmail.com",
+    };
   },
-  props: {
-  },
+  props: {},
   components: {
     SomeoneLifeList,
     ProfileCard,
     UserInfoBox,
-    FooterNav
+    FooterNav,
   },
-}
+  mounted() {
+    let token = localStorage.getItem("auth_token");
+    axios
+      .get("http://localhost:8000/api/user", {
+        headers: {
+          Authorization: "Bearer " + token, // Laravelから取得したトークン
+        },
+      })
+      .then((response) => {
+        this.user = response.data;
+        console.log(response.data);
+        // ユーザー情報を保存
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+};
 </script>
 
 <!-- プロフィール画面 -->
-<style scoped>
-</style>
+<style scoped></style>
