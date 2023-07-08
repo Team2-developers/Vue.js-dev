@@ -1,7 +1,9 @@
 <template>
-  <UserInfoBox />
-  <RouterLink :to="'../ProfileUpdate'" style="text-align:center">ViewProfile</RouterLink>
   <div class="background-wrapper wrapper">
+    <UserInfoBox />
+    <RouterLink :to="'../ProfileUpdate'" style="text-align: center"
+      >ViewProfile</RouterLink
+    >
     <ProfileCard />
     <SomeoneLifeList
       :img_pass="img_pass"

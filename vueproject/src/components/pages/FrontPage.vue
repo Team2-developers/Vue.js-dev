@@ -2,7 +2,15 @@
   <div class="background-wrapper wrapper" id="qr">
     <div class="builderーarea">
       <div>
-        <video ref="videoElement" autoplay></video>
+        <iframe
+          v-bind:class="{ hiddenQR }"
+          width="100%"
+          height="640px"
+          scrolling="no"
+          allow="camera; clipboard-read; clipboard-write"
+          frameborder="no"
+          src="https://contentsviewer.github.io/QR-UniversalScanner/"
+        ></iframe>
         <button
           @click="startCamera"
           class="room_search rounded bg-light text-dark py-1 mb-2 rounded"
@@ -10,15 +18,6 @@
           部屋を探す
         </button>
       </div>
-      <iframe
-        v-bind:class="{ hiddenQR }"
-        width="100%"
-        height="640px"
-        scrolling="no"
-        allow="camera; clipboard-read; clipboard-write"
-        frameborder="no"
-        src="https://contentsviewer.github.io/QR-UniversalScanner/"
-      ></iframe>
       <input
         class="room_build rounded-pill bg-dark text-light py-1"
         type="button"
@@ -111,7 +110,7 @@ export default {
 
 <!-- アプリホーム画面 -->
 <style scoped>
-.hiddenQR{
+.hiddenQR {
   display: none;
 }
 dl.search {

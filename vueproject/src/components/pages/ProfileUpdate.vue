@@ -43,6 +43,10 @@
         />
       </div>
       <div>
+        <label>Height: </label>
+        <input type="number" v-model="user.height" placeholder="edit me" />
+      </div>
+      <div>
         <label>Password: </label>
         <input
           type="password"
@@ -91,6 +95,7 @@ export default {
         user_mail: "",
         user_name: "",
         password: "",
+        height: "",
         birth: "",
         blood_type: "",
         hobby: "",
@@ -124,6 +129,7 @@ export default {
         );
 
         if (response.status === 200) {
+          console.log(this.file)
           alert("保存完了");
           this.user.img_id = response.data.img_id;
         }
@@ -159,9 +165,9 @@ export default {
         },
       })
       .then((response) => {
-        this.user = response.data;
-        console.log(response.data);
-        console.log(response.data);
+        this.user = response.data.user;
+        this.file = response.data.img_path
+        // console.log(response.data.img_path);
         // ユーザー情報を保存
       })
       .catch((error) => {
