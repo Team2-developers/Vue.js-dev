@@ -1,6 +1,6 @@
 <template>
   <div class="userInfo">
-    <img :src="getImagePath" alt="ユーザー画像" class="userInfoImage" />
+    <img :src="img_path" alt="ユーザー画像" class="userInfoImage" />
     <div>
       <p>{{ this.user_name }}</p>
       <p>{{ this.user_mail }}</p>
@@ -33,8 +33,9 @@ export default {
         },
       })
       .then((response) => {
-        this.user_name = response.data.user_name;
-        this.user_mail = response.data.user_mail;
+        this.user_name = response.data.user.user_name;
+        this.user_mail = response.data.user.user_mail;
+        this.img_path = response.data.img_path
         console.log(this.user_name);
         console.log(this.user_mail);
         // ユーザー情報を保存

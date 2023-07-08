@@ -141,7 +141,7 @@ export default {
     async submitForm() {
       try {
         const response = await axios.post(
-          `http://localhost:8000/api/user/update/`,
+          `http://localhost:8000/api/user/update/${this.user.user_id}`,
           this.user
         );
 
@@ -165,7 +165,7 @@ export default {
         },
       })
       .then((response) => {
-        this.user = response.data.user;
+        this.user = response.data.user,
         this.file = response.data.img_path
         // console.log(response.data.img_path);
         // ユーザー情報を保存
