@@ -52,6 +52,10 @@
         />
       </div>
       <div>
+        <label>Height: </label>
+        <input type="number" v-model="user.height" placeholder="edit me" />
+      </div>
+      <div>
         <label>Birth: </label>
         <input type="date" v-model="user.birth" placeholder="edit me" />
       </div>
@@ -90,6 +94,7 @@ export default {
         user_mail: "",
         user_name: "",
         password: "",
+        height: 170,
         birth: "",
         blood_type: "",
         hobby: "",

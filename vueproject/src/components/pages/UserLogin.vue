@@ -60,6 +60,7 @@ export default {
         });
         if (response.status === 200) {
           alert("ログイン成功");
+          localStorage.setItem('user_id', response.data.user.user_id	);
           localStorage.setItem('auth_token', response.data.token);
           this.$router.push('/ProfilePage');
           // You can also set user data or tokens here, based on the response
