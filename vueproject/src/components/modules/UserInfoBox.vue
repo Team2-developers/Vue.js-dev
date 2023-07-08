@@ -17,6 +17,7 @@ export default {
     return {
       user_name: "",
       user_mail: "",
+      img_path: ""
     };
   },
   computed: {
@@ -38,6 +39,7 @@ export default {
         this.img_path = response.data.img_path
         console.log(this.user_name);
         console.log(this.user_mail);
+        console.log(this.img_path)
         // ユーザー情報を保存
       })
       .catch((error) => {

@@ -17,6 +17,7 @@
 
     <form @submit.prevent="submitImage" class="formItem">
       <div>
+        <img :src="img_path" alt="ユーザー画像" class="userInfoImage" />
         <label>File: </label>
         <input type="file" @change="onFileChange" />
       </div>
@@ -167,6 +168,7 @@ export default {
       .then((response) => {
         this.user = response.data.user,
         this.file = response.data.img_path
+        this.img_path = response.data.img_path
         // console.log(response.data.img_path);
         // ユーザー情報を保存
       })
@@ -176,3 +178,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.userInfoImage{
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+</style>
