@@ -1,7 +1,24 @@
 <template>
   <div class="background-wrapper wrapper" id="qr">
     <div class="builderーarea">
-      <SearchInput />
+      <div>
+        <video ref="videoElement" autoplay></video>
+        <button
+          @click="startCamera"
+          class="room_search rounded bg-light text-dark py-1 mb-2 rounded"
+        >
+          部屋を探す
+        </button>
+      </div>
+      <iframe
+        v-bind:class="{ hiddenQR }"
+        width="100%"
+        height="640px"
+        scrolling="no"
+        allow="camera; clipboard-read; clipboard-write"
+        frameborder="no"
+        src="https://contentsviewer.github.io/QR-UniversalScanner/"
+      ></iframe>
       <input
         class="room_build rounded-pill bg-dark text-light py-1"
         type="button"
@@ -35,7 +52,6 @@
 
 <script>
 import axios from "axios";
-import SearchInput from "@/components/modules/SearchInput";
 import UserInfoBox from "@/components/modules/UserInfoBox";
 import FooterNav from "../modules/FooterNav.vue";
 
@@ -46,6 +62,7 @@ export default {
       img_pass: "user_noImage.svg",
       user_name: "ochinpo",
       user_mail: "test@gmail.com",
+      hiddenQR: true,
     };
   },
   props: {},
@@ -80,9 +97,12 @@ export default {
         console.error(error);
       }
     },
+
+    startCamera() {
+      this.hiddenQR = !this.hiddenQR;
+    },
   },
   components: {
-    SearchInput,
     UserInfoBox,
     FooterNav,
   },
@@ -90,4 +110,29 @@ export default {
 </script>
 
 <!-- アプリホーム画面 -->
-<style scoped></style>
+<style scoped>
+.hiddenQR{
+  display: none;
+}
+dl.search {
+  width: 330px;
+  margin: auto;
+  position: relative;
+  background-color: #fff;
+}
+dl.search dd {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+dl.search dd button {
+  display: block;
+  padding: 8px;
+}
+dl.search dd button span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url("../../assets//image/serch_con.svg") no-repeat scroll 0 0;
+}
+</style>
