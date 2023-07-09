@@ -69,12 +69,7 @@
           value="戻る"
           @click="profilePage"
         />
-        <input
-          class="saveButton"
-          type="button"
-          value="保存"
-          @click="saveToDB"
-        />
+        <input class="saveButton" @click="submitTrout" value="保存" />
       </div>
     </div>
   </div>
@@ -104,11 +99,11 @@ export default {
         { id: 5, name: "悲しみ", score: -5 },
       ],
       fusenStyles: {
-        悲しみ: "sadStyle",
-        不安: "anxiousStyle",
-        真顔: "neutralStyle",
-        微笑み: "smileStyle",
-        幸せ: "happyStyle",
+        悲しみ: "black",
+        不安: "blue",
+        真顔: "gray",
+        微笑み: "yellow",
+        幸せ: "red",
       },
     };
   },
@@ -134,6 +129,7 @@ export default {
         );
 
         if (response.status === 201) {
+          localStorage.setItem("life_id", response.data.life.life_id);
           alert("人生作成完了");
         }
       } catch (error) {
@@ -141,36 +137,37 @@ export default {
       }
     },
 
-    async saveToDB() {
-      // formGroupsをtrouts形式に変換
-      const trouts = this.formGroups.map((group, index) => {
+    async submitTrout() {
+      let token = localStorage.getItem("auth_token");
+      let life_id = localStorage.getItem("life_id");
+
+      let trouts = this.formGroups.map((group, index) => {
         return {
-          seqno: index + 1, // 現在の順番
-          // lifeidの設定
-          life_id: index + 1, // TODO: ここは適切なlife_idを指定してください
-          color: group.selectedEvent, // これが適切かは選択肢の内容によります
-          point: group.selectedPoints,
           trout_detail: group.textbox,
+          life_id: Number(life_id),
+          seqno: index + 1,
+          point: parseInt(group.selectedPoints),
+          color: this.fusenStyles[group.selectedEvent],
         };
       });
-
-      // APIにPOSTリクエストを送信
       try {
-        // portを変更
         const response = await axios.post(
           "http://localhost:8000/api/trout/create",
-          { trouts }
+          {
+            trouts,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token, // Laravelから取得したトークン
+            },
+          }
         );
+
         if (response.status === 201) {
-          console.log("Trouts created successfully");
-          console.log(response.data);
+          alert("人生作成完了");
         }
       } catch (error) {
-        console.error("Error on creating trouts:", error);
-        if (error.response) {
-          console.error("Server responded with status:", error.response.status);
-          console.error("Response data:", error.response.data);
-        }
+        console.error(error);
       }
     },
     profilePage() {
@@ -298,23 +295,23 @@ label {
   margin: 10px;
 }
 
-.fusen-002.sadStyle {
+.fusen-002.black {
   border-right: 27px solid #1f3134;
 }
 
-.fusen-002.anxiousStyle {
+.fusen-002.blue {
   border-right: 27px solid #165e83;
 }
 
-.fusen-002.neutralStyle {
+.fusen-002.gray {
   border-right: 27px solid gray;
 }
 
-.fusen-002.smileStyle {
+.fusen-002.yellow {
   border-right: 27px solid #fcd575;
 }
 
-.fusen-002.happyStyle {
+.fusen-002.red {
   border-right: 27px solid #dd7a56;
 }
 
