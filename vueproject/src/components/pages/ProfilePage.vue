@@ -5,12 +5,8 @@
       >ViewProfile</RouterLink
     >
     <ProfileCard />
-    <SomeoneLifeList
-      :img_pass="img_pass"
-      :life_name="life_name"
-      :life_event="life_event"
-      :good="good"
-    />
+    <button v-on:click="createLife">人生の作成</button>
+    <SomeoneLifeList />
     <FooterNav />
   </div>
 </template>
@@ -25,13 +21,7 @@ import FooterNav from "../modules/FooterNav.vue";
 export default {
   name: "ProfilePage",
   data() {
-    return {
-      img_pass: "user_noImage.svg",
-      life_name: "ochinpo",
-      life_event: "僕の中学生日記",
-      good: 1000,
-      user_mail: "test@gmail.com",
-    };
+    return {};
   },
   props: {},
   components: {
@@ -39,6 +29,11 @@ export default {
     ProfileCard,
     UserInfoBox,
     FooterNav,
+  },
+  methods:{
+    createLife(){
+      this.$router.push('/GameModification');
+    }
   },
   mounted() {
     let token = localStorage.getItem("auth_token");

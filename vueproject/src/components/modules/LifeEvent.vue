@@ -1,5 +1,31 @@
 <template>
   <div class="background-wrapper wrapper">
+    <form @submit.prevent="submitLife">
+      <div>
+        <input
+          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+          type="text"
+          placeholder="人生名"
+          style="width: 300px"
+          v-model="life_name"
+        />
+        <input
+          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+          type="text"
+          placeholder="人生の詳細"
+          style="width: 300px"
+          v-model="life_detail"
+        />
+        <input
+          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+          type="text"
+          placeholder="最後のメッセージ"
+          style="width: 300px"
+          v-model="message"
+        />
+      </div>
+      <input type="submit" value="送信" />
+    </form>
     <div>
       <div class="eventTitle">
         <p class="event-index">No.</p>
@@ -37,19 +63,32 @@
         />
       </div>
       <div class="saveArea">
-        <input class="backButton" type="button" value="戻る" @click="profilePage"/>
-        <input class="saveButton" type="button" value="保存" @click="saveToDB"/>
+        <input
+          class="backButton"
+          type="button"
+          value="戻る"
+          @click="profilePage"
+        />
+        <input
+          class="saveButton"
+          type="button"
+          value="保存"
+          @click="saveToDB"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "LifeEvent",
   data() {
     return {
+      life_name: "",
+      life_detail: "",
+      message: "",
       formGroups: Array(20)
         .fill()
         .map(() => ({
@@ -74,6 +113,34 @@ export default {
     };
   },
   methods: {
+    // 人生の作成
+    async submitLife() {
+      let token = localStorage.getItem("auth_token");
+      let user_id = localStorage.getItem("user_id");
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/life/create",
+          {
+            life_name: this.life_name,
+            life_detail: this.life_detail,
+            message: this.message,
+            user_id: Number(user_id),
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token, // Laravelから取得したトークン
+            },
+          }
+        );
+
+        if (response.status === 201) {
+          alert("人生作成完了");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     async saveToDB() {
       // formGroupsをtrouts形式に変換
       const trouts = this.formGroups.map((group, index) => {
@@ -84,28 +151,31 @@ export default {
           color: group.selectedEvent, // これが適切かは選択肢の内容によります
           point: group.selectedPoints,
           trout_detail: group.textbox,
-        }
+        };
       });
 
       // APIにPOSTリクエストを送信
       try {
         // portを変更
-        const response = await axios.post('http://localhost:8000/api/trout/create', { trouts });
+        const response = await axios.post(
+          "http://localhost:8000/api/trout/create",
+          { trouts }
+        );
         if (response.status === 201) {
-          console.log('Trouts created successfully');
+          console.log("Trouts created successfully");
           console.log(response.data);
         }
       } catch (error) {
-        console.error('Error on creating trouts:', error);
+        console.error("Error on creating trouts:", error);
         if (error.response) {
-          console.error('Server responded with status:', error.response.status);
-          console.error('Response data:', error.response.data);
+          console.error("Server responded with status:", error.response.status);
+          console.error("Response data:", error.response.data);
         }
       }
     },
-    profilePage(){
-      this.$router.push('profilePage')
-    }
+    profilePage() {
+      this.$router.push("profilePage");
+    },
   },
   watch: {
     formGroups: {
@@ -126,20 +196,20 @@ export default {
 <!-- 人生の修正表示のcomponent -->
 <style scoped>
 /* 保存ボタンデザイン */
-.saveArea{
+.saveArea {
   margin-top: 20px;
 }
-.backButton{
+.backButton {
   width: 50px;
   height: 40px;
-  background: #D9D9D9;
+  background: #d9d9d9;
   color: white;
 }
-.saveButton{
+.saveButton {
   width: 120px;
   height: 40px;
   color: white;
-  background: #31AC87;
+  background: #31ac87;
   margin-left: 30px;
 }
 label {
@@ -260,5 +330,4 @@ label {
   content: "";
   filter: blur(4px);
 }
-
 </style>
