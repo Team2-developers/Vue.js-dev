@@ -1,40 +1,46 @@
 <template>
   <div>
-    <div class="profilePage">
-      <!-- トグルボタン -->
-      <div class="toggle_button">
-        <input
-          id="toggle"
-          class="toggle_input"
-          type="checkbox"
-          v-model="toggleSelected"
-        />
-        <label for="toggle" class="toggle_label" />
-      </div>
-      <div class="profilePageWrapper">
-        <img :src="getImagePath" alt="人生ゲーム画像" />
-        <div>
-          <p>{{ life_name }}</p>
-          <p>{{ life_detail }}</p>
+    <div v-for="life in lifes" :key="life">
+      <div class="profilePage">
+        <!-- トグルボタン -->
+        <div class="toggle_button">
+          <input
+            id="toggle"
+            class="toggle_input"
+            type="checkbox"
+            v-model="life.toggleSelected"
+          />
+          <label for="toggle" class="toggle_label" />
+        </div>
+        <div class="profilePageWrapper">
+          <img :src="getImagePath" alt="人生ゲーム画像" />
+          <div>
+            <p>{{ life.life_name }}</p>
+            <p>{{ life.life_detail }}</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="profilePageComment">
-      <div @click="comentDetail = !comentDetail">
-        <p>コメント</p>
-        <img src="../../assets/image/corner-down-left.svg" alt="詳細" />
+      <div class="profilePageComment">
+        <div @click="comentDetail = !comentDetail">
+          <p>コメント</p>
+          <img src="../../assets/image/corner-down-left.svg" alt="詳細" />
+        </div>
+        <div @click="updatePropValue">
+          <p>{{ life.good }}</p>
+          <img
+            class="heart"
+            src="../../assets/image/heart-icon.svg"
+            alt="詳細"
+          />
+        </div>
       </div>
-      <div @click="updatePropValue">
-        <p>{{ heartCount }}</p>
-        <img class="heart" src="../../assets/image/heart-icon.svg" alt="詳細" />
-      </div>
-    </div>
-    <div :class="{ hidden: comentDetail }">
-      <!-- <NotificationBanner
+      <div :class="{ hidden: comentDetail }">
+        <!-- <NotificationBanner
         :img_pass="img_pass"
         :user_name="user_name"
         :comment="comment"
       /> -->
+      </div>
     </div>
   </div>
 </template>
@@ -55,6 +61,7 @@ export default {
       life_name: "データが取れていません",
       life_detail: "データが取れていません",
       img_pass: "sample.jpg",
+      lifes: [],
     };
   },
   components: {
@@ -73,19 +80,40 @@ export default {
   },
   mounted() {
     let life_id = localStorage.getItem("life_id");
+    let user_id = localStorage.getItem("user_id");
     let token = localStorage.getItem("auth_token");
+    // axios
+    //   .get(`http://localhost:8000/api/life/${life_id}`, {
+    //     headers: {
+    //       Authorization: "Bearer " + token, // Laravelから取得したトークン
+    //     },
+    //   })
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       this.life_name = response.data.life.life_name
+    //       this.life_detail = response.data.life.life_detail
+    //       this.good = response.data.life.good
+    //       console.log(response.data.life.good)
+    //       // alert("保存完了");
+    //     }
+    //     // ユーザー情報を保存
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   }),
     axios
-      .get(`http://localhost:8000/api/life/${life_id}`, {
+      .get(`http://localhost:8000/api/user/${user_id}/lifes`, {
         headers: {
           Authorization: "Bearer " + token, // Laravelから取得したトークン
         },
       })
       .then((response) => {
         if (response.status === 200) {
-          this.life_name = response.data.life.life_name
-          this.life_detail = response.data.life.life_detail
-          this.good = response.data.life.good
-          console.log(response.data)
+          this.lifes = response.data.lifes.map((life) => ({
+            ...life,
+            toggleSelected: false,
+          }));
+          console.log(this.lifes);
           // alert("保存完了");
         }
         // ユーザー情報を保存
