@@ -57,3 +57,5 @@ export default {
 
 <!-- プロフィール画面 -->
 <style scoped></style>
+
+

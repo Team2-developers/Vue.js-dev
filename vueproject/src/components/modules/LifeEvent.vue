@@ -129,6 +129,7 @@ export default {
         );
 
         if (response.status === 201) {
+          console.log(response.data)
           localStorage.setItem("life_id", response.data.life.life_id);
           alert("人生作成完了");
         }
@@ -164,7 +165,8 @@ export default {
         );
 
         if (response.status === 201) {
-          alert("人生作成完了");
+          alert("人生ます作成完了");
+          this.$router.push('/ProfilePage');
         }
       } catch (error) {
         console.error(error);

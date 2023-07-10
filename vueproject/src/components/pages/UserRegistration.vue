@@ -129,7 +129,9 @@ export default {
 
         if (response.status === 200) {
           alert("保存完了");
+          console.log(response.data.img_id);
           this.user.img_id = response.data.img_id;
+          localStorage.setItem("img_id", response.data.img_id);
         }
       } catch (error) {
         console.error(error);
@@ -147,9 +149,11 @@ export default {
           this.$emit("user-created", response.data.user);
           localStorage.setItem("user_mail", response.data.user.user_mail);
           alert("アカウント作成成功");
-          this.$router.push("/UserLogin");
+          console.log(response.data.user);
+          // this.$router.push("/UserLogin");
         }
       } catch (error) {
+        console.log(this.user);
         console.error(error);
       }
     },

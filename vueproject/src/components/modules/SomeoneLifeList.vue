@@ -15,7 +15,7 @@
         <img :src="getImagePath" alt="人生ゲーム画像" />
         <div>
           <p>{{ life_name }}</p>
-          <p>{{ life_event }}</p>
+          <p>{{ life_detail }}</p>
         </div>
       </div>
     </div>
@@ -30,17 +30,18 @@
       </div>
     </div>
     <div :class="{ hidden: comentDetail }">
-      <NotificationBanner
+      <!-- <NotificationBanner
         :img_pass="img_pass"
         :user_name="user_name"
         :comment="comment"
-      />
+      /> -->
     </div>
   </div>
 </template>
 
 <script>
-import NotificationBanner from "@/components/modules/NotificationBanner";
+// import NotificationBanner from "@/components/modules/NotificationBanner";
+import axios from "axios";
 
 export default {
   name: "SomeoneLifeList",
@@ -48,16 +49,16 @@ export default {
     return {
       toggleSelected: true,
       comentDetail: true,
-      heartCount: 100,
+      good: 1000,
       user_name: "ochinpo",
       comment: "彼女できてよかったね",
-      life_name: "sample",
-      life_event: "ddd",
+      life_name: "データが取れていません",
+      life_detail: "データが取れていません",
       img_pass: "sample.jpg",
     };
   },
   components: {
-    NotificationBanner,
+    // NotificationBanner,
   },
   methods: {
     updatePropValue() {
@@ -69,6 +70,29 @@ export default {
     getImagePath() {
       return require("@/assets/image/" + this.img_pass);
     },
+  },
+  mounted() {
+    let life_id = localStorage.getItem("life_id");
+    let token = localStorage.getItem("auth_token");
+    axios
+      .get(`http://localhost:8000/api/life/${life_id}`, {
+        headers: {
+          Authorization: "Bearer " + token, // Laravelから取得したトークン
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          this.life_name = response.data.life.life_name
+          this.life_detail = response.data.life.life_detail
+          this.good = response.data.life.good
+          console.log(response.data)
+          // alert("保存完了");
+        }
+        // ユーザー情報を保存
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
