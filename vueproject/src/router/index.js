@@ -13,6 +13,7 @@ import RoomCreationComplete from '@/components/pages/RoomCreationComplete'
 import RoomSearch from '@/components/pages/GameSearch'
 import UserLogin from '@/components/pages/UserLogin'
 import UserRegistration from '@/components/pages/UserRegistration'
+import RoomJoin from '@/components/pages/RoomJoin'
 
 const routes = [
     { path: '/', name: 'FrontPage', component: FrontPage },
@@ -30,6 +31,7 @@ const routes = [
     { path: '/roomSearch', name: 'RoomSearch', component: RoomSearch },
     { path: '/userLogin', name: 'UserLogin', component: UserLogin },
     { path: '/userRegistration', name: 'UserRegistration', component: UserRegistration },
+    { path: '/RoomJoin', name: 'RoomJoin', component: RoomJoin },
 ]
 
 const router = createRouter({
