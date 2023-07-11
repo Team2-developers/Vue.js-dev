@@ -17,6 +17,7 @@
 
     <form @submit.prevent="submitImage" class="formItem">
       <div>
+        <img :src="img_path" alt="ユーザー画像" class="userInfoImage" />
         <label>File: </label>
         <input type="file" @change="onFileChange" />
       </div>
@@ -41,6 +42,10 @@
           required
           placeholder="edit me"
         />
+      </div>
+      <div>
+        <label>Height: </label>
+        <input type="number" v-model="user.height" placeholder="edit me" />
       </div>
       <div>
         <label>Password: </label>
@@ -91,6 +96,7 @@ export default {
         user_mail: "",
         user_name: "",
         password: "",
+        height: "",
         birth: "",
         blood_type: "",
         hobby: "",
@@ -124,6 +130,7 @@ export default {
         );
 
         if (response.status === 200) {
+          console.log(this.file)
           alert("保存完了");
           this.user.img_id = response.data.img_id;
         }
@@ -135,7 +142,7 @@ export default {
     async submitForm() {
       try {
         const response = await axios.post(
-          `http://localhost:8000/api/user/update/`,
+          `http://localhost:8000/api/user/update/${this.user.user_id}`,
           this.user
         );
 
@@ -159,9 +166,10 @@ export default {
         },
       })
       .then((response) => {
-        this.user = response.data;
-        console.log(response.data);
-        console.log(response.data);
+        this.user = response.data.user,
+        this.file = response.data.img_path
+        this.img_path = response.data.img_path
+        // console.log(response.data.img_path);
         // ユーザー情報を保存
       })
       .catch((error) => {
@@ -170,3 +178,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.userInfoImage{
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+</style>

@@ -1,5 +1,31 @@
 <template>
   <div class="background-wrapper wrapper">
+    <form @submit.prevent="submitLife">
+      <div>
+        <input
+          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+          type="text"
+          placeholder="人生名"
+          style="width: 300px"
+          v-model="life_name"
+        />
+        <input
+          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+          type="text"
+          placeholder="人生の詳細"
+          style="width: 300px"
+          v-model="life_detail"
+        />
+        <input
+          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+          type="text"
+          placeholder="最後のメッセージ"
+          style="width: 300px"
+          v-model="message"
+        />
+      </div>
+      <input type="submit" value="送信" />
+    </form>
     <div>
       <div class="eventTitle">
         <p class="event-index">No.</p>
@@ -37,19 +63,27 @@
         />
       </div>
       <div class="saveArea">
-        <input class="backButton" type="button" value="戻る" @click="profilePage"/>
-        <input class="saveButton" type="button" value="保存" @click="saveToDB"/>
+        <input
+          class="backButton"
+          type="button"
+          value="戻る"
+          @click="profilePage"
+        />
+        <input class="saveButton" @click="submitTrout" value="保存" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "LifeEvent",
   data() {
     return {
+      life_name: "",
+      life_detail: "",
+      message: "",
       formGroups: Array(20)
         .fill()
         .map(() => ({
@@ -65,47 +99,82 @@ export default {
         { id: 5, name: "悲しみ", score: -5 },
       ],
       fusenStyles: {
-        悲しみ: "sadStyle",
-        不安: "anxiousStyle",
-        真顔: "neutralStyle",
-        微笑み: "smileStyle",
-        幸せ: "happyStyle",
+        悲しみ: "black",
+        不安: "blue",
+        真顔: "gray",
+        微笑み: "yellow",
+        幸せ: "red",
       },
     };
   },
   methods: {
-    async saveToDB() {
-      // formGroupsをtrouts形式に変換
-      const trouts = this.formGroups.map((group, index) => {
-        return {
-          seqno: index + 1, // 現在の順番
-          // lifeidの設定
-          life_id: index + 1, // TODO: ここは適切なlife_idを指定してください
-          color: group.selectedEvent, // これが適切かは選択肢の内容によります
-          point: group.selectedPoints,
-          trout_detail: group.textbox,
-        }
-      });
-
-      // APIにPOSTリクエストを送信
+    // 人生の作成
+    async submitLife() {
+      let token = localStorage.getItem("auth_token");
+      let user_id = localStorage.getItem("user_id");
       try {
-        // portを変更
-        const response = await axios.post('http://localhost:8000/api/trout/create', { trouts });
+        const response = await axios.post(
+          "http://localhost:8000/api/life/create",
+          {
+            life_name: this.life_name,
+            life_detail: this.life_detail,
+            message: this.message,
+            user_id: Number(user_id),
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token, // Laravelから取得したトークン
+            },
+          }
+        );
+
         if (response.status === 201) {
-          console.log('Trouts created successfully');
-          console.log(response.data);
+          console.log(response.data)
+          localStorage.setItem("life_id", response.data.life.life_id);
+          alert("人生作成完了");
         }
       } catch (error) {
-        console.error('Error on creating trouts:', error);
-        if (error.response) {
-          console.error('Server responded with status:', error.response.status);
-          console.error('Response data:', error.response.data);
-        }
+        console.error(error);
       }
     },
-    profilePage(){
-      this.$router.push('profilePage')
-    }
+
+    async submitTrout() {
+      let token = localStorage.getItem("auth_token");
+      let life_id = localStorage.getItem("life_id");
+
+      let trouts = this.formGroups.map((group, index) => {
+        return {
+          trout_detail: group.textbox,
+          life_id: Number(life_id),
+          seqno: index + 1,
+          point: parseInt(group.selectedPoints),
+          color: this.fusenStyles[group.selectedEvent],
+        };
+      });
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/trout/create",
+          {
+            trouts,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token, // Laravelから取得したトークン
+            },
+          }
+        );
+
+        if (response.status === 201) {
+          alert("人生ます作成完了");
+          this.$router.push('/ProfilePage');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    profilePage() {
+      this.$router.push("profilePage");
+    },
   },
   watch: {
     formGroups: {
@@ -126,20 +195,20 @@ export default {
 <!-- 人生の修正表示のcomponent -->
 <style scoped>
 /* 保存ボタンデザイン */
-.saveArea{
+.saveArea {
   margin-top: 20px;
 }
-.backButton{
+.backButton {
   width: 50px;
   height: 40px;
-  background: #D9D9D9;
+  background: #d9d9d9;
   color: white;
 }
-.saveButton{
+.saveButton {
   width: 120px;
   height: 40px;
   color: white;
-  background: #31AC87;
+  background: #31ac87;
   margin-left: 30px;
 }
 label {
@@ -228,23 +297,23 @@ label {
   margin: 10px;
 }
 
-.fusen-002.sadStyle {
+.fusen-002.black {
   border-right: 27px solid #1f3134;
 }
 
-.fusen-002.anxiousStyle {
+.fusen-002.blue {
   border-right: 27px solid #165e83;
 }
 
-.fusen-002.neutralStyle {
+.fusen-002.gray {
   border-right: 27px solid gray;
 }
 
-.fusen-002.smileStyle {
+.fusen-002.yellow {
   border-right: 27px solid #fcd575;
 }
 
-.fusen-002.happyStyle {
+.fusen-002.red {
   border-right: 27px solid #dd7a56;
 }
 
@@ -260,5 +329,4 @@ label {
   content: "";
   filter: blur(4px);
 }
-
 </style>

@@ -52,6 +52,10 @@
         />
       </div>
       <div>
+        <label>Height: </label>
+        <input type="number" v-model="user.height" placeholder="edit me" />
+      </div>
+      <div>
         <label>Birth: </label>
         <input type="date" v-model="user.birth" placeholder="edit me" />
       </div>
@@ -90,6 +94,7 @@ export default {
         user_mail: "",
         user_name: "",
         password: "",
+        height: 170,
         birth: "",
         blood_type: "",
         hobby: "",
@@ -124,7 +129,9 @@ export default {
 
         if (response.status === 200) {
           alert("保存完了");
+          console.log(response.data.img_id);
           this.user.img_id = response.data.img_id;
+          localStorage.setItem("img_id", response.data.img_id);
         }
       } catch (error) {
         console.error(error);
@@ -142,9 +149,11 @@ export default {
           this.$emit("user-created", response.data.user);
           localStorage.setItem("user_mail", response.data.user.user_mail);
           alert("アカウント作成成功");
-          this.$router.push("/UserLogin");
+          console.log(response.data.user);
+          // this.$router.push("/UserLogin");
         }
       } catch (error) {
+        console.log(this.user);
         console.error(error);
       }
     },
