@@ -43,6 +43,7 @@
           </form>
         </div>
       </div>
+      <input type="submit" value="人生の更新"  @click="updateLife(index)" />
     </div>
   </div>
 </template>
@@ -72,6 +73,11 @@ export default {
   methods: {
     updatePropValue() {
       this.heartCount = this.heartCount + 1;
+    },
+    updateLife(index){
+      // indexは0スタートなので+1追加
+      localStorage.setItem('update_life',Number(index)+1)
+      this.$router.push('/GameModificationUpdate');
     },
     toggleComentDetail(index) {
       this.commentDetail[index] = !this.commentDetail[index];

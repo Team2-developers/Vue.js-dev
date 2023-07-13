@@ -150,7 +150,7 @@ export default {
           localStorage.setItem("user_mail", response.data.user.user_mail);
           alert("アカウント作成成功");
           console.log(response.data.user);
-          // this.$router.push("/UserLogin");
+          this.$router.push("UserLogin");
         }
       } catch (error) {
         console.log(this.user);

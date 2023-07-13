@@ -14,6 +14,7 @@ import RoomSearch from '@/components/pages/GameSearch'
 import UserLogin from '@/components/pages/UserLogin'
 import UserRegistration from '@/components/pages/UserRegistration'
 import RoomJoin from '@/components/pages/RoomJoin'
+import GameModificationUpdate from '@/components/pages/GameModificationUpdate'
 
 const routes = [
     { path: '/', name: 'FrontPage', component: FrontPage },
@@ -32,6 +33,7 @@ const routes = [
     { path: '/userLogin', name: 'UserLogin', component: UserLogin },
     { path: '/userRegistration', name: 'UserRegistration', component: UserRegistration },
     { path: '/RoomJoin', name: 'RoomJoin', component: RoomJoin },
+    { path: '/GameModificationUpdate', name: 'GameModificationUpdate', component: GameModificationUpdate }
 ]
 
 const router = createRouter({
