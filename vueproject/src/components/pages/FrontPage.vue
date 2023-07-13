@@ -87,6 +87,8 @@ export default {
         );
         if (response.status === 200) {
           localStorage.setItem("qr_code", response.data);
+          // ここでidを保持
+          localStorage.setItem("game_id", response.data);
           alert("ゲーム作成成功");
           this.$router.push("/RoomCreationComplete");
 
