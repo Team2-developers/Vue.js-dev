@@ -35,13 +35,8 @@
         </div>
       </div>
       <div v-if="commentDetail[index]">
-        <!-- <NotificationBanner
-          :img_pass="img_pass"
-          :user_name="user_name"
-          :comment="comment"
-        /> -->
         <div>
-          <form @submit.prevent="submitComment">
+          <form @submit.prevent="submitComment(index)">
             <img :src="img_pass" alt="ユーザー画像" />
             <input type="text" v-model="comments[index]" />
             <input type="submit" />
@@ -90,8 +85,11 @@ export default {
         user_id: Number(user_id),
         comment: this.comments[index],
       };
+      if(this.comments[index].length == 0){
+        alert("コメントを入力してください")
+        return
+      }
 
-      console.log(data)
       try {
         const response = await axios.post(
           "http://localhost:8000/api/comments/create",
@@ -104,6 +102,7 @@ export default {
         );
         if (response.status === 201) {
           alert("保存完了");
+          this.comments[index] = " "
         }
       } catch (error) {
         console.error(error);

@@ -17,7 +17,7 @@ export default {
     return {
       user_name: "",
       user_mail: "",
-      img_path: ""
+      img_path: "",
     };
   },
   computed: {
@@ -36,10 +36,8 @@ export default {
       .then((response) => {
         this.user_name = response.data.user.user_name;
         this.user_mail = response.data.user.user_mail;
-        this.img_path = response.data.img_path
-        console.log(this.user_name);
-        console.log(this.user_mail);
-        console.log(this.img_path)
+        this.img_path = response.data.img_path;
+        localStorage.setItem("user_img", this.img_path);
         // ユーザー情報を保存
       })
       .catch((error) => {
@@ -49,5 +47,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
