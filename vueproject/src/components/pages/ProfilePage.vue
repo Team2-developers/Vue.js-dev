@@ -30,10 +30,10 @@ export default {
     UserInfoBox,
     FooterNav,
   },
-  methods:{
-    createLife(){
-      this.$router.push('/GameModification');
-    }
+  methods: {
+    createLife() {
+      this.$router.push("/GameModification");
+    },
   },
   mounted() {
     let token = localStorage.getItem("auth_token");
@@ -57,5 +57,3 @@ export default {
 
 <!-- プロフィール画面 -->
 <style scoped></style>
-
-

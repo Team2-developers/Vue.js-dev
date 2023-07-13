@@ -1,6 +1,6 @@
 <template>
   <div class="background-wrapper wrapper">
-    <form @submit.prevent="submitTrout">
+    <form @submit.prevent="submitTroutUpdate">
       <div>
         <input
           class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     // 人生の更新
-    async submitTrout() {
+    async submitTroutUpdate() {
       let token = localStorage.getItem("auth_token");
       let user_id = localStorage.getItem("user_id");
 
