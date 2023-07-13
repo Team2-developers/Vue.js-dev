@@ -109,52 +109,34 @@ export default {
   },
   methods: {
     // 人生の作成
-    async submitLife() {
-      let token = localStorage.getItem("auth_token");
-      let user_id = localStorage.getItem("user_id");
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/api/life/create",
-          {
-            life_name: this.life_name,
-            life_detail: this.life_detail,
-            message: this.message,
-            user_id: Number(user_id),
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + token, // Laravelから取得したトークン
-            },
-          }
-        );
-
-        if (response.status === 201) {
-          console.log(response.data)
-          localStorage.setItem("life_id", response.data.life.life_id);
-          alert("人生作成完了");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-
     async submitTrout() {
       let token = localStorage.getItem("auth_token");
+      let user_id = localStorage.getItem("user_id");
       let life_id = localStorage.getItem("life_id");
 
+      // タイトル情報
+      let life = {
+        life_name: this.life_name,
+        life_detail: this.life_detail,
+        message: this.message,
+        user_id: Number(user_id),
+      };
+
+      // 人生ます情報
       let trouts = this.formGroups.map((group, index) => {
         return {
           trout_detail: group.textbox,
-          life_id: Number(life_id),
           seqno: index + 1,
           point: parseInt(group.selectedPoints),
           color: this.fusenStyles[group.selectedEvent],
         };
       });
+      console.log({life,trouts})
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/trout/create",
+          "http://localhost:8000/api/createLifeAndTrout",
           {
+            life,
             trouts,
           },
           {
@@ -164,9 +146,9 @@ export default {
           }
         );
 
-        if (response.status === 201) {
+        if (response.status === 200 ||response.status === 201) {
           alert("人生ます作成完了");
-          this.$router.push('/ProfilePage');
+          this.$router.push("/ProfilePage");
         }
       } catch (error) {
         console.error(error);
