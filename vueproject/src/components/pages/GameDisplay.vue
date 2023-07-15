@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <SpeechBubble/>
+    <SpeechBubble />
     <div class="gameTurn">
       <!-- スコア -->
       <div>
@@ -67,44 +67,44 @@ export default {
   data() {
     return {
       isActive: true,
-      userArray: [[], [], [], []],
+      userArray: [0, 0, 0, 0],
       currentUserIndex: 0,
       finishOrder: [],
       assocArray: {
-        1: [60, 0],
-        2: [120, 0],
-        3: [170, 0],
-        4: [220, 0],
-        5: [270, 0],
-        6: [260, 50],
-        7: [260, 100],
-        8: [260, 150],
-        9: [260, 200],
-        10: [260, 250],
-        11: [260, 300],
-        12: [260, 350],
-        13: [210, 350],
-        14: [160, 350],
-        15: [110, 350],
-        16: [60, 350],
-        17: [10, 350],
-        18: [10, 300],
-        19: [10, 250],
-        20: [10, 200],
-        21: [10, 150],
-        22: [10, 100],
-        23: [60, 100],
-        24: [110, 100],
-        25: [160, 100],
-        26: [160, 150],
-        27: [160, 200],
-        28: [160, 250],
-        29: [100, 250],
-        30: [100, 250],
-        31: [100, 250],
-        32: [100, 250],
-        34: [100, 250],
-        35: [100, 250],
+        1: { coordinates: [60, 0], route_detail: "", color: "", point: 0 },
+        2: { coordinates: [120, 0], route_detail: "", color: "", point: 0 },
+        3: { coordinates: [170, 0], route_detail: "", color: "", point: 0 },
+        4: { coordinates: [220, 0], route_detail: "", color: "", point: 0 },
+        5: { coordinates: [270, 0], route_detail: "", color: "", point: 0 },
+        6: { coordinates: [260, 50], route_detail: "", color: "", point: 0 },
+        7: { coordinates: [260, 100], route_detail: "", color: "", point: 0 },
+        8: { coordinates: [260, 150], route_detail: "", color: "", point: 0 },
+        9: { coordinates: [260, 200], route_detail: "", color: "", point: 0 },
+        10: { coordinates: [260, 250], route_detail: "", color: "", point: 0 },
+        11: { coordinates: [260, 300], route_detail: "", color: "", point: 0 },
+        12: { coordinates: [260, 350], route_detail: "", color: "", point: 0 },
+        13: { coordinates: [210, 350], route_detail: "", color: "", point: 0 },
+        14: { coordinates: [160, 350], route_detail: "", color: "", point: 0 },
+        15: { coordinates: [110, 350], route_detail: "", color: "", point: 0 },
+        16: { coordinates: [60, 350], route_detail: "", color: "", point: 0 },
+        17: { coordinates: [10, 350], route_detail: "", color: "", point: 0 },
+        18: { coordinates: [10, 300], route_detail: "", color: "", point: 0 },
+        19: { coordinates: [10, 250], route_detail: "", color: "", point: 0 },
+        20: { coordinates: [10, 200], route_detail: "", color: "", point: 0 },
+        21: { coordinates: [10, 150], route_detail: "", color: "", point: 0 },
+        22: { coordinates: [10, 100], route_detail: "", color: "", point: 0 },
+        23: { coordinates: [60, 100], route_detail: "", color: "", point: 0 },
+        24: { coordinates: [110, 100], route_detail: "", color: "", point: 0 },
+        25: { coordinates: [160, 100], route_detail: "", color: "", point: 0 },
+        26: { coordinates: [160, 150], route_detail: "", color: "", point: 0 },
+        27: { coordinates: [160, 200], route_detail: "", color: "", point: 0 },
+        28: { coordinates: [160, 250], route_detail: "", color: "", point: 0 },
+        29: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
+        30: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
+        31: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
+        32: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
+        34: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
+        35: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
       },
       initialPosition: {
         gameUser1: [10, 12],
@@ -133,7 +133,6 @@ export default {
   },
   methods: {
     rollDice() {
-      // this.modalToggle()
       // ゲーム終了していたら処理しない
       if (this.gameOver) {
         return;
@@ -150,7 +149,7 @@ export default {
       // 振ったサイコロで進む数
       let diceValue = Math.floor(Math.random() * 6) + 1;
       // 各ユーザーの進んだマスの数を保存
-      this.userArray[this.currentUserIndex].push(diceValue);
+      this.userArray[this.currentUserIndex] += diceValue;
 
       if (this.remainingSquares[this.currentUserIndex] <= 0) {
         this.finishOrder.push({
@@ -183,7 +182,7 @@ export default {
 
         // 画面遷移
         setTimeout(() => {
-          document.location = "GameRanking"
+          document.location = "GameRanking";
         }, 2000);
         return;
       }
@@ -215,7 +214,7 @@ export default {
       return this.totalDiceValues.map((value, index) => {
         let position = this.initialPosition[`gameUser${index + 1}`];
         // 今回移動したマス目の情報を取得して新規位置の設定
-        const movedPosition = this.assocArray[value] || [0, 0];
+        const movedPosition = this.assocArray[value].coordinates || [0, 0];
         return [position[0] + movedPosition[0], position[1] + movedPosition[1]];
       });
     },

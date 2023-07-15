@@ -90,9 +90,10 @@ export default {
           // ここでidを保持
           localStorage.setItem("game_id", response.data);
           alert("ゲーム作成成功");
+          console.log(response.data);
+          localStorage.setItem("qr_code", response.data.svg);
+          localStorage.setItem("game_id", response.data.game_id);
           this.$router.push("/RoomCreationComplete");
-
-          // You can also set user data or tokens here, based on the response
         }
       } catch (error) {
         console.error(error);
