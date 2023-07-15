@@ -15,7 +15,7 @@
     <div>
       <input type="button" @click="fetchUser" value="参加ユーザーを取得" />
     </div>
-    <input type="button" @click="fetchUser" value="ゲームを開始" />
+    <input type="button" @click="startGame" value="ゲームを開始" />
     <FooterNav />
   </div>
 </template>
@@ -51,9 +51,35 @@ export default {
           const userKey = `user${i}`;
           if (response.data[userKey] !== null) {
             this.users.push(response.data[userKey]);
+            localStorage.setItem(
+              userKey,
+              JSON.stringify(response.data[userKey])
+            );
           }
         }
-        console.log(this.users);
+        // console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async startGame() {
+      let token = localStorage.getItem("auth_token");
+      let game_id = localStorage.getItem("game_id");
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/game/${game_id}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        if (response.data.user4 != undefined) {
+          alert("楽しんでイコウェ");
+          this.$router.push("/GameDisplay");
+        } else {
+          alert("4人でしか遊べません...(ごめんなさい)");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -70,7 +96,7 @@ export default {
 
 <!-- 部屋作成完了画面 -->
 <style scoped>
-.userWrapper{
+.userWrapper {
   display: flex;
   justify-content: space-around;
   background: white;
@@ -85,11 +111,3 @@ export default {
   object-fit: cover;
 }
 </style>
-{"game_id":1,"game_status":"notstarted","user_id":1,"user_2":4,"user_3":null,"user_4":null,
-"user1":{"user_id":1,"img_id":1,"user_mail":"example@example.com","user_name":"mac","life_id":null,"birth":"2000-02-02","blood_type":"A","height":100,"hobby":"reading","episode1":"Episode1","episode2":"Episode
-2","episode3":"Episode 3","episode4":"Episode 4","episode5":"Episode
-5","abilities":null,"last_used_at":null,"img_path":"http:\/\/localhost:8000\/storage\/giftFlow.png"},
-"user2":{"user_id":4,"img_id":1,"user_mail":"example@example2.com","user_name":"mac","life_id":null,"birth":"2000-02-02","blood_type":"A","height":100,"hobby":"reading","episode1":"Episode
-1","episode2":"Episode 2","episode3":"Episode 3","episode4":"Episode
-4","episode5":"Episode
-5","abilities":null,"last_used_at":null,"img_path":"http:\/\/localhost:8000\/storage\/giftFlow.png"},"user3":null,"user4":null}
