@@ -1,6 +1,6 @@
 <template>
   <div class="background-wrapper wrapper">
-    <form @submit.prevent="submitTroutUpdate">
+    <form>
       <div>
         <input
           class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
@@ -65,7 +65,12 @@
           value="戻る"
           @click="profilePage"
         />
-        <input class="saveButton" type="submit" value="更新" />
+        <input
+          class="saveButton"
+          type="submit"
+          value="更新"
+          @click="submitTroutUpdate"
+        />
       </div>
     </div>
     <FooterNav />
@@ -111,6 +116,8 @@ export default {
     async submitTroutUpdate() {
       let token = localStorage.getItem("auth_token");
       let user_id = localStorage.getItem("user_id");
+      let img_id = localStorage.getItem("img_id");
+      let life_id = localStorage.getItem("update_life");
 
       // タイトル情報
       let life = {
@@ -130,13 +137,16 @@ export default {
         };
       });
 
-      console.log({ life, trouts });
-
       try {
         const response = await axios.post(
           "http://localhost:8000/api/updateLifeAndTrout",
           {
-            life,
+            life_name: this.life_name,
+            life_detail: this.life_detail,
+            message: this.message,
+            user_id: Number(user_id),
+            img_id: Number(img_id),
+            life_id: Number(life_id),
             trouts,
           },
           {

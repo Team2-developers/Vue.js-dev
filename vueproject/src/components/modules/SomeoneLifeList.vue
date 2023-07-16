@@ -36,14 +36,15 @@
       </div>
       <div v-if="commentDetail[index]">
         <div>
-          <form @submit.prevent="submitComment(index)">
+          <!-- この送り先違うかも -->
+          <form @submit.prevent="submitComment(life.life_id)">
             <img :src="img_pass" alt="ユーザー画像" />
             <input type="text" v-model="comments[index]" />
             <input type="submit" />
           </form>
         </div>
       </div>
-      <input type="submit" value="人生の更新"  @click="updateLife(index)" />
+      <input type="submit" value="人生の更新"  @click="updateLife(life.life_id)" />
     </div>
   </div>
 </template>
@@ -74,9 +75,9 @@ export default {
     updatePropValue() {
       this.heartCount = this.heartCount + 1;
     },
-    updateLife(index){
+    updateLife(life_id){
       // indexは0スタートなので+1追加
-      localStorage.setItem('update_life',Number(index)+1)
+      localStorage.setItem('update_life',Number(life_id)+1)
       this.$router.push('/GameModificationUpdate');
     },
     toggleComentDetail(index) {
@@ -157,6 +158,7 @@ export default {
           }));
 
           this.comments = new Array(this.lifes.length).fill("");
+          console.log(response.data)
           // alert("保存完了");
         }
         // ユーザー情報を保存
