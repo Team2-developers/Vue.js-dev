@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import SpeechBubble from "@/components/modules/SpeechBubble";
 import FooterNav from "../modules/FooterNav.vue";
 
@@ -219,15 +220,38 @@ export default {
   mounted() {
     // locaostorageから取得する処理
     let userImages = [];
+    let userName = [];
     for (let i = 1; i <= 4; i++) {
       let key = "user" + i;
       let data = localStorage.getItem(key);
       if (data) {
         let userData = JSON.parse(data);
         userImages.push(userData.img_path);
+        userName.push(userData.user_name);
       }
     }
     this.userImages = userImages;
+    this.userName = userName;
+    let game_id = localStorage.getItem("game_id");
+    let token = localStorage.getItem("auth_token");
+
+    // 人生取得の処理
+    axios
+      .get(
+        `http://localhost:8000/api/life/${game_id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token, // Laravelから取得したトークン
+          },
+        }
+      )
+      .then((response) => {
+        // responseを利用した処理
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
