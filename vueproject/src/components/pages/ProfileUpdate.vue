@@ -91,7 +91,6 @@ export default {
   data() {
     return {
       user: {
-        user_id: "",
         img_id: "",
         user_mail: "",
         user_name: "",
@@ -130,9 +129,10 @@ export default {
         );
 
         if (response.status === 200) {
-          console.log(this.file)
+          console.log(this.file);
           alert("保存完了");
           this.user.img_id = response.data.img_id;
+          console.log(this.user);
         }
       } catch (error) {
         console.error(error);
@@ -140,11 +140,18 @@ export default {
     },
 
     async submitForm() {
+      let token = localStorage.getItem("auth_token");
       try {
         const response = await axios.post(
-          `http://localhost:8000/api/user/update/${this.user.user_id}`,
-          this.user
+          `http://localhost:8000/api/user/update`,
+          this.user,
+          {
+            headers: {
+              Authorization: "Bearer " + token, // Laravelから取得したトークン
+            },
+          }
         );
+        console.log(this.user);
 
         if (response.status === 200) {
           this.$emit("user-created", response.data.user);
@@ -166,9 +173,8 @@ export default {
         },
       })
       .then((response) => {
-        this.user = response.data.user,
-        this.file = response.data.img_path
-        this.img_path = response.data.img_path
+        (this.user = response.data.user), (this.file = response.data.img_path);
+        this.img_path = response.data.img_path;
         // console.log(response.data.img_path);
         // ユーザー情報を保存
       })
@@ -179,7 +185,7 @@ export default {
 };
 </script>
 <style scoped>
-.userInfoImage{
+.userInfoImage {
   display: block;
   text-align: center;
   margin: 0 auto;
