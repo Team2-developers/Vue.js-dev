@@ -5,7 +5,7 @@
       <div class="gameTurn">
         <!-- スコア -->
         <div>
-          <p>{{this.userPoints[this.currentUserIndex]}}</p>
+          <p>{{ this.userPoints[this.currentUserIndex] }}</p>
           <p>スコア</p>
         </div>
         <!-- 順番 -->
@@ -393,9 +393,21 @@ export default {
       if (allPlayersFinished) {
         // 全プレイヤーがゴールしていたらゲームを終了する
         this.gameOver = true;
+
+        // 最終順位の確認処理
+        // ポイントと元のインデックスを紐づける
+        let indexedPoints = this.userPoints.map((point, index) => {
+          return { point: point, originalIndex: index };
+        });
+
+        // ポイントで降順にソート
+        indexedPoints.sort((a, b) => b.point - a.point);
+
+        // インデックス+1にマッピング
+        let rankings = indexedPoints.map((item) => item.originalIndex + 1);
+
         // localstrageに追加
-        localStorage.setItem("finishOrder", JSON.stringify(this.finishOrder));
-        console.log(this.userPoints)
+        localStorage.setItem("finishOrder", JSON.stringify(rankings));
         alert("お前ら終わったんや!2秒後に終了画面に遷移します");
 
         // 画面遷移
