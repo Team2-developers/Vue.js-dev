@@ -112,6 +112,7 @@ export default {
     async submitTrout() {
       let token = localStorage.getItem("auth_token");
       let user_id = localStorage.getItem("user_id");
+      let img_id = localStorage.getItem("img_id");
 
       // タイトル情報
       let life = {
@@ -119,6 +120,7 @@ export default {
         life_detail: this.life_detail,
         message: this.message,
         user_id: Number(user_id),
+        img_id: Number(img_id),
       };
 
       // 人生ます情報
@@ -130,12 +132,16 @@ export default {
           color: this.fusenStyles[group.selectedEvent],
         };
       });
-      console.log({life,trouts})
+      console.log({ life, trouts });
       try {
         const response = await axios.post(
           "http://localhost:8000/api/createLifeAndTrout",
           {
-            life,
+            life_name: this.life_name,
+            life_detail: this.life_detail,
+            message: this.message,
+            user_id: Number(user_id),
+            img_id: Number(img_id),
             trouts,
           },
           {
@@ -145,7 +151,7 @@ export default {
           }
         );
 
-        if (response.status === 200 ||response.status === 201) {
+        if (response.status === 200 || response.status === 201) {
           alert("人生ます作成完了");
           this.$router.push("/ProfilePage");
         }
