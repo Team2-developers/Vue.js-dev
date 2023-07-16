@@ -60,17 +60,18 @@
 
 <script>
 import SpeechBubble from "@/components/modules/SpeechBubble";
-import FooterNav from "../modules/FooterNav";
+import FooterNav from "../modules/FooterNav.vue";
 
 export default {
   name: "GameDisplay",
   data() {
     return {
       isActive: true,
-      userArray: [0, 0, 0, 0],
+      userArray: [[], [], [], []],
       currentUserIndex: 0,
       finishOrder: [],
       assocArray: {
+        0: { coordinates: [0, 0], route_detail: "", color: "", point: 0 },
         1: { coordinates: [60, 0], route_detail: "", color: "", point: 0 },
         2: { coordinates: [120, 0], route_detail: "", color: "", point: 0 },
         3: { coordinates: [170, 0], route_detail: "", color: "", point: 0 },
@@ -122,8 +123,6 @@ export default {
       isModalOpen: false,
       userName: ["dog", "cat", "pig", "sheep"],
       gameOver: false,
-
-      // ローカルストレージようの配列
     };
   },
   props: {},
@@ -133,15 +132,14 @@ export default {
   },
   methods: {
     rollDice() {
+      // this.modalToggle()
       // ゲーム終了していたら処理しない
       if (this.gameOver) {
         return;
       }
-
       // ゴールしたユーザーを飛ばす処理
       if (this.remainingSquares[this.currentUserIndex] <= 0) {
         do {
-          // ローカルストレージで保存する
           this.currentUserIndex = (this.currentUserIndex + 1) % 4;
         } while (this.remainingSquares[this.currentUserIndex] <= 0);
       }
@@ -149,19 +147,16 @@ export default {
       // 振ったサイコロで進む数
       let diceValue = Math.floor(Math.random() * 6) + 1;
       // 各ユーザーの進んだマスの数を保存
-      this.userArray[this.currentUserIndex] += diceValue;
-
+      this.userArray[this.currentUserIndex].push(diceValue);
       if (this.remainingSquares[this.currentUserIndex] <= 0) {
         this.finishOrder.push({
           name: this.userName[this.currentUserIndex],
           userImages: this.userImages[this.currentUserIndex],
         });
       }
-
       // ユーザーを次に人に変更
       this.currentUserIndex = (this.currentUserIndex + 1) % 4;
-
-      // this.openModal(diceValue); <- testのためコメントアウト
+      // this.openModal(diceValue);
       this.PlayersFinishedCheck();
     },
     modalToggle() {
