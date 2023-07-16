@@ -280,6 +280,7 @@ export default {
     return {
       isActive: true,
       userArray: [[], [], [], []],
+      userPoints: [0, 0, 0, 0],
       currentUserIndex: 0,
       finishOrder: [],
       assocArray: {
@@ -318,6 +319,8 @@ export default {
         32: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
         34: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
         35: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
+        36: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
+        37: { coordinates: [100, 250], route_detail: "", color: "", point: 0 },
       },
       initialPosition: {
         gameUser1: [10, 12],
@@ -366,6 +369,14 @@ export default {
           userImages: this.userImages[this.currentUserIndex],
         });
       }
+
+      // ユーザーのポイントを更新
+      let newPosition = this.totalDiceValues[this.currentUserIndex];
+      if (this.assocArray[newPosition] && this.assocArray[newPosition].point) {
+        this.userPoints[this.currentUserIndex] +=
+          this.assocArray[newPosition].point;
+      }
+
       // ユーザーを次に人に変更
       this.currentUserIndex = (this.currentUserIndex + 1) % 4;
       // this.openModal(diceValue);
@@ -384,7 +395,7 @@ export default {
         this.gameOver = true;
         // localstrageに追加
         localStorage.setItem("finishOrder", JSON.stringify(this.finishOrder));
-
+        console.log(this.userPoints)
         alert("お前ら終わったんや!2秒後に終了画面に遷移します");
 
         // 画面遷移
