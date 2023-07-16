@@ -1,6 +1,6 @@
 <template>
   <div class="background-wrapper wrapper">
-    <form @submit.prevent="submitLife">
+    <form>
       <div>
         <input
           class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
@@ -41,11 +41,7 @@
         <p class="indexArea">{{ index + 1 }}</p>
         <label class="selectbox-003 selectbox-event">
           <select v-model="group.selectedEvent">
-            <option
-              v-for="event in events"
-              v-bind:value="event.name"
-              v-bind:key="event.id"
-            >
+            <option v-for="event in events" :value="event.name" :key="event.id">
               {{ event.name }}
             </option>
           </select>
@@ -69,16 +65,24 @@
           value="戻る"
           @click="profilePage"
         />
-        <input class="saveButton" @click="submitTrout" value="保存" />
+        <input
+          class="saveButton"
+          type="submit"
+          value="更新"
+          @click="submitTroutUpdate"
+        />
       </div>
     </div>
+    <FooterNav />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import FooterNav from "../modules/FooterNav.vue";
+
 export default {
-  name: "LifeEvent",
+  name: "GameModificationUpdate",
   data() {
     return {
       life_name: "",
@@ -108,11 +112,12 @@ export default {
     };
   },
   methods: {
-    // 人生の作成
-    async submitTrout() {
+    // 人生の更新
+    async submitTroutUpdate() {
       let token = localStorage.getItem("auth_token");
       let user_id = localStorage.getItem("user_id");
       let img_id = localStorage.getItem("img_id");
+      let life_id = localStorage.getItem("update_life");
 
       // タイトル情報
       let life = {
@@ -120,10 +125,9 @@ export default {
         life_detail: this.life_detail,
         message: this.message,
         user_id: Number(user_id),
-        img_id: Number(img_id),
       };
 
-      // 人生ます情報
+      // 人生のイベント情報
       let trouts = this.formGroups.map((group, index) => {
         return {
           trout_detail: group.textbox,
@@ -132,27 +136,28 @@ export default {
           color: this.fusenStyles[group.selectedEvent],
         };
       });
-      console.log({ life, trouts });
+
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/createLifeAndTrout",
+          "http://localhost:8000/api/updateLifeAndTrout",
           {
             life_name: this.life_name,
             life_detail: this.life_detail,
             message: this.message,
             user_id: Number(user_id),
             img_id: Number(img_id),
+            life_id: Number(life_id),
             trouts,
           },
           {
             headers: {
-              Authorization: "Bearer " + token, // Laravelから取得したトークン
+              Authorization: "Bearer " + token,
             },
           }
         );
 
         if (response.status === 200 || response.status === 201) {
-          alert("人生ます作成完了");
+          alert("更新しました");
           this.$router.push("/ProfilePage");
         }
       } catch (error) {
@@ -160,7 +165,7 @@ export default {
       }
     },
     profilePage() {
-      this.$router.push("profilePage");
+      this.$router.push("/ProfilePage");
     },
   },
   watch: {
@@ -175,6 +180,40 @@ export default {
       },
       deep: true,
     },
+  },
+  mounted() {
+    let life_id = localStorage.getItem("update_life");
+    let token = localStorage.getItem("auth_token");
+
+    axios
+      .get(`http://localhost:8000/api/life/${life_id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          this.life_name = response.data.life.life_name;
+          this.life_detail = response.data.life.life_detail;
+          this.message = response.data.life.message;
+          // 人生の各イベント情報の取得と設定
+          const trouts = response.data.torut;
+          for (let i = 0; i < trouts.length; i++) {
+            const trout = trouts[i];
+            this.formGroups[i].textbox = trout.trout_detail;
+            this.formGroups[i].selectedPoints = trout.point;
+            this.formGroups[i].selectedEvent = this.events.find(
+              (event) => event.score === trout.point
+            ).name;
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  components: {
+    FooterNav,
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="life in lifes" :key="life">
+    <div v-for="(life, index) in lifes" :key="life.id">
       <div class="profilePage">
         <!-- トグルボタン -->
         <div class="toggle_button">
@@ -20,8 +20,8 @@
           </div>
         </div>
       </div>
-      <div class="profilePageComment">
-        <div @click="comentDetail = !comentDetail">
+      <div class="profilePageComment" @click="toggleComentDetail(index)">
+        <div>
           <p>コメント</p>
           <img src="../../assets/image/corner-down-left.svg" alt="詳細" />
         </div>
@@ -34,13 +34,21 @@
           />
         </div>
       </div>
-      <div :class="{ hidden: comentDetail }">
-        <!-- <NotificationBanner
-        :img_pass="img_pass"
-        :user_name="user_name"
-        :comment="comment"
-      /> -->
+      <div v-if="commentDetail[index]">
+        <div>
+          <!-- この送り先違うかも -->
+          <form @submit.prevent="submitComment(life.life_id)">
+            <img :src="img_pass" alt="ユーザー画像" />
+            <input type="text" v-model="comments[index]" />
+            <input type="submit" />
+          </form>
+        </div>
       </div>
+      <input
+        type="submit"
+        value="人生の更新"
+        @click="updateLife(life.life_id)"
+      />
     </div>
   </div>
 </template>
@@ -53,15 +61,15 @@ export default {
   name: "SomeoneLifeList",
   data() {
     return {
-      toggleSelected: true,
-      comentDetail: true,
+      toggleSelected: false,
       good: 1000,
       user_name: "ochinpo",
-      comment: "彼女できてよかったね",
+      comments: [],
       life_name: "データが取れていません",
       life_detail: "データが取れていません",
       img_pass: "sample.jpg",
       lifes: [],
+      commentDetail: [],
     };
   },
   components: {
@@ -69,8 +77,47 @@ export default {
   },
   methods: {
     updatePropValue() {
-      console.log(this.heartCount);
       this.heartCount = this.heartCount + 1;
+    },
+    updateLife(life_id) {
+      // indexは0スタートなので+1追加
+      localStorage.setItem("update_life", Number(life_id) + 1);
+      this.$router.push("/GameModificationUpdate");
+    },
+    toggleComentDetail(index) {
+      this.commentDetail[index] = !this.commentDetail[index];
+    },
+    async submitComment(index) {
+      let token = localStorage.getItem("auth_token");
+      let life_id = localStorage.getItem("life_id");
+      let user_id = localStorage.getItem("user_id");
+      let data = {
+        life_id: Number(life_id),
+        user_id: Number(user_id),
+        comment: this.comments[index],
+      };
+      if (this.comments[index].length == 0) {
+        alert("コメントを入力してください");
+        return;
+      }
+
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/comments/create",
+          data,
+          {
+            headers: {
+              Authorization: "Bearer " + token, // Laravelから取得したトークン
+            },
+          }
+        );
+        if (response.status === 201) {
+          alert("保存完了");
+          this.comments[index] = " ";
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   computed: {
@@ -113,7 +160,9 @@ export default {
             ...life,
             toggleSelected: false,
           }));
-          console.log(this.lifes);
+
+          this.comments = new Array(this.lifes.length).fill("");
+          console.log(response.data);
           // alert("保存完了");
         }
         // ユーザー情報を保存
@@ -121,6 +170,18 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+  },
+  watch: {
+    lifes: {
+      handler() {
+        this.lifes.forEach((life) => {
+          if (life.toggleSelected) {
+            localStorage.setItem("life_id", life.life_id);
+          }
+        });
+      },
+      deep: true,
+    },
   },
 };
 </script>
@@ -180,6 +241,10 @@ export default {
 
 /* コメント詳細の表示 */
 .hidden {
+  display: none;
+}
+
+.commentDetail {
   display: none;
 }
 </style>
