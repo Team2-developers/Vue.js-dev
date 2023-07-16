@@ -5,7 +5,7 @@
       <div class="gameTurn">
         <!-- スコア -->
         <div>
-          <p>0</p>
+          <p>{{this.userPoints[this.currentUserIndex]}}</p>
           <p>スコア</p>
         </div>
         <!-- 順番 -->
