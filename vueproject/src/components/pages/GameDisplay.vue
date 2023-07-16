@@ -1,61 +1,63 @@
 <template>
-  <div class="wrapper">
-    <SpeechBubble />
-    <div class="gameTurn">
-      <!-- スコア -->
-      <div>
-        <p>0</p>
-        <p>スコア</p>
+  <div>
+    <div class="wrapper">
+      <SpeechBubble />
+      <div class="gameTurn">
+        <!-- スコア -->
+        <div>
+          <p>0</p>
+          <p>スコア</p>
+        </div>
+        <!-- 順番 -->
+        <div>
+          <p>{{ this.userName[this.currentUserIndex] }}</p>
+        </div>
+        <!-- 残りマス -->
+        <div>
+          <p>
+            {{
+              this.userArray[this.currentUserIndex].length == 0
+                ? "29"
+                : this.userArray[this.currentUserIndex].reduce((a, b) => {
+                    //0以下になる場合は0を返却する
+                    return a - b > 0 ? a - b : 0;
+                  }, 29)
+            }}
+          </p>
+          <p>残りマス</p>
+        </div>
       </div>
-      <!-- 順番 -->
-      <div>
-        <p>{{ this.userName[this.currentUserIndex] }}</p>
+      <div :class="{ sample: isActive, sample2: !isActive }">
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <button @click="modalToggle">閉じる</button>
       </div>
-      <!-- 残りマス -->
-      <div>
-        <p>
-          {{
-            this.userArray[this.currentUserIndex].length == 0
-              ? "29"
-              : this.userArray[this.currentUserIndex].reduce((a, b) => {
-                  //0以下になる場合は0を返却する
-                  return a - b > 0 ? a - b : 0;
-                }, 29)
-          }}
-        </p>
-        <p>残りマス</p>
+      <div class="gameArea">
+        <!-- class属性は共通部分と各クラスの初期値を分離して作成しています -->
+        <img
+          class="gameAreaimage"
+          src="../../assets/image/lifeGameBoard.svg"
+          alt=""
+        />
+        <img
+          v-for="(position, index) in userPositions"
+          :key="index"
+          :class="`gameUser gameUser${index + 1}`"
+          :style="{ top: `${position[1]}px`, left: `${position[0]}px` }"
+          :src="`${userImages[index]}`"
+        />
+      </div>
+      <button class="rollDice" @click="rollDice">サイコロを振る</button>
+    </div>
+    <div v-if="isModalOpen" class="modal">
+      <div class="modal-content">
+        <span class="close" @click="closeModal">&times;</span>
+        <p style="text-align: center">出た数は...<br />{{ this.diceValue }}</p>
       </div>
     </div>
-    <div :class="{ sample: isActive, sample2: !isActive }">
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <button @click="modalToggle">閉じる</button>
-    </div>
-    <div class="gameArea">
-      <!-- class属性は共通部分と各クラスの初期値を分離して作成しています -->
-      <img
-        class="gameAreaimage"
-        src="../../assets/image/lifeGameBoard.svg"
-        alt=""
-      />
-      <img
-        v-for="(position, index) in userPositions"
-        :key="index"
-        :class="`gameUser gameUser${index + 1}`"
-        :style="{ top: `${position[1]}px`, left: `${position[0]}px` }"
-        :src="`${userImages[index]}`"
-      />
-    </div>
-    <button class="rollDice" @click="rollDice">サイコロを振る</button>
+    <FooterNav />
   </div>
-  <div v-if="isModalOpen" class="modal">
-    <div class="modal-content">
-      <span class="close" @click="closeModal">&times;</span>
-      <p style="text-align: center">出た数は...<br />{{ this.diceValue }}</p>
-    </div>
-  </div>
-  <FooterNav />
 </template>
 
 <script>
@@ -213,6 +215,19 @@ export default {
         return [position[0] + movedPosition[0], position[1] + movedPosition[1]];
       });
     },
+  },
+  mounted() {
+    // locaostorageから取得する処理
+    let userImages = [];
+    for (let i = 1; i <= 4; i++) {
+      let key = "user" + i;
+      let data = localStorage.getItem(key);
+      if (data) {
+        let userData = JSON.parse(data);
+        userImages.push(userData.img_path);
+      }
+    }
+    this.userImages = userImages;
   },
 };
 </script>
