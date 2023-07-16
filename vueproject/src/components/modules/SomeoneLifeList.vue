@@ -44,7 +44,11 @@
           </form>
         </div>
       </div>
-      <input type="submit" value="人生の更新"  @click="updateLife(life.life_id)" />
+      <input
+        type="submit"
+        value="人生の更新"
+        @click="updateLife(life.life_id)"
+      />
     </div>
   </div>
 </template>
@@ -57,7 +61,7 @@ export default {
   name: "SomeoneLifeList",
   data() {
     return {
-      toggleSelected: true,
+      toggleSelected: false,
       good: 1000,
       user_name: "ochinpo",
       comments: [],
@@ -75,10 +79,10 @@ export default {
     updatePropValue() {
       this.heartCount = this.heartCount + 1;
     },
-    updateLife(life_id){
+    updateLife(life_id) {
       // indexは0スタートなので+1追加
-      localStorage.setItem('update_life',Number(life_id)+1)
-      this.$router.push('/GameModificationUpdate');
+      localStorage.setItem("update_life", Number(life_id) + 1);
+      this.$router.push("/GameModificationUpdate");
     },
     toggleComentDetail(index) {
       this.commentDetail[index] = !this.commentDetail[index];
@@ -92,9 +96,9 @@ export default {
         user_id: Number(user_id),
         comment: this.comments[index],
       };
-      if(this.comments[index].length == 0){
-        alert("コメントを入力してください")
-        return
+      if (this.comments[index].length == 0) {
+        alert("コメントを入力してください");
+        return;
       }
 
       try {
@@ -109,7 +113,7 @@ export default {
         );
         if (response.status === 201) {
           alert("保存完了");
-          this.comments[index] = " "
+          this.comments[index] = " ";
         }
       } catch (error) {
         console.error(error);
@@ -158,7 +162,7 @@ export default {
           }));
 
           this.comments = new Array(this.lifes.length).fill("");
-          console.log(response.data)
+          console.log(response.data);
           // alert("保存完了");
         }
         // ユーザー情報を保存
@@ -166,6 +170,18 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+  },
+  watch: {
+    lifes: {
+      handler() {
+        this.lifes.forEach((life) => {
+          if (life.toggleSelected) {
+            localStorage.setItem("life_id", life.life_id);
+          }
+        });
+      },
+      deep: true,
+    },
   },
 };
 </script>

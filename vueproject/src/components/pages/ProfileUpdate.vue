@@ -92,6 +92,7 @@ export default {
     return {
       user: {
         img_id: "",
+        life_id: "",
         user_mail: "",
         user_name: "",
         password: "",
@@ -129,10 +130,8 @@ export default {
         );
 
         if (response.status === 200) {
-          console.log(this.file);
           alert("保存完了");
           this.user.img_id = response.data.img_id;
-          console.log(this.user);
         }
       } catch (error) {
         console.error(error);
@@ -151,12 +150,12 @@ export default {
             },
           }
         );
-        console.log(this.user);
 
         if (response.status === 200) {
           this.$emit("user-created", response.data.user);
           localStorage.setItem("user_mail", response.data.user.user_mail);
           alert("プロフィールの更新成功");
+          console.log(response.data.user);
           this.$router.push("/ProfilePage");
         }
       } catch (error) {
@@ -166,6 +165,7 @@ export default {
   },
   mounted() {
     let token = localStorage.getItem("auth_token");
+    let life_id = localStorage.getItem("life_id");
     axios
       .get("http://localhost:8000/api/user", {
         headers: {
@@ -175,6 +175,8 @@ export default {
       .then((response) => {
         (this.user = response.data.user), (this.file = response.data.img_path);
         this.img_path = response.data.img_path;
+        this.user.life_id = life_id;
+        // life_id
         // console.log(response.data.img_path);
         // ユーザー情報を保存
       })
