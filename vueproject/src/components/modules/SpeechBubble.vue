@@ -24,6 +24,12 @@ export default {
       return require("@/assets/image/" + this.img_pass);
     },
   },
+  mounted (){
+    if(localStorage.getItem("game_name")){
+      let game_name = localStorage.getItem("game_name");
+      this.life_name = game_name
+    }
+  }
 };
 </script>
 
