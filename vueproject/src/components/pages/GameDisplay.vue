@@ -237,17 +237,33 @@ export default {
 
     // 人生取得の処理
     axios
-      .get(
-        `http://localhost:8000/api/life/${game_id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + token, // Laravelから取得したトークン
-          },
-        }
-      )
+      .get(`http://localhost:8000/api/life/${game_id}`, {
+        headers: {
+          Authorization: "Bearer " + token, // Laravelから取得したトークン
+        },
+      })
       .then((response) => {
         // responseを利用した処理
-        console.log(response.data);
+        let data = response.data.torut;
+        let indices = Array.from({ length: 36 }, (_, i) => i).filter(
+          (i) => ![0, 29, 30, 31, 32, 33, 34, 35].includes(i)
+        );
+
+        // 配列に格納
+        data.forEach((item) => {
+          if (indices.length > 0) {
+            // インデックス配列からランダムに選び、そのインデックスの場所にデータを挿入
+            let index = indices.splice(
+              Math.floor(Math.random() * indices.length),
+              1
+            )[0];
+            this.assocArray[index].route_detail = item.trout_detail;
+            this.assocArray[index].color = item.color; // ここに適切な値を設定してください
+            this.assocArray[index].point = item.point;
+          }
+        });
+
+        console.log(this.assocArray)
       })
       .catch((error) => {
         console.log(error);
