@@ -82,6 +82,19 @@ export default {
   methods: {
     updatePropValue(life) {
       life.heartCount++;
+
+      // 指定秒以内のクリックだとdbに登録しない
+      if (life.timerId) {
+        clearTimeout(life.timerId);
+      }
+
+      life.timerId = setTimeout(async () => {
+        try {
+          await this.submitGood(life.life_id, life.heartCount);
+        } catch (error) {
+          console.error("Failed to submit good:", error);
+        }
+      }, 2000);
     },
     updateLife(life_id) {
       localStorage.setItem("update_life", Number(life_id));
@@ -123,6 +136,27 @@ export default {
         console.error(error);
       }
     },
+    async submitGood(lifeId, heartCount) {
+      let token = localStorage.getItem("auth_token");
+      try {
+        const response = await axios.post(
+          `http://localhost:8000/api/life/${lifeId}/good`,
+          {increment: heartCount} ,
+          {
+            headers: {
+              Authorization: "Bearer " + token, // Laravelから取得したトークン
+            },
+          }
+        );
+        console.log(heartCount);
+        if (response.status === 201 || response.status === 200) {
+          console.log(response.data);
+          alert("保存完了");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   computed: {
     getImagePath() {
@@ -143,11 +177,11 @@ export default {
           this.lifes = response.data.lifes.map((life) => ({
             ...life,
             toggleSelected: false,
-            heartCount: life.good, 
+            heartCount: life.good,
+            timerId: null,
           }));
 
           this.comments = new Array(this.lifes.length).fill("");
-          console.log(response.data);
         }
       })
       .catch((error) => {
