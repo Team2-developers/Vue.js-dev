@@ -20,13 +20,16 @@
           </div>
         </div>
       </div>
-      <div class="profilePageComment" @click="toggleComentDetail(index)">
+      <!-- この部分は後ほど修正 -->
+      <div class="profilePageComment">
         <div>
           <p>コメント</p>
           <img src="../../assets/image/corner-down-left.svg" alt="詳細" />
         </div>
-        <div @click="updatePropValue">
-          <p>{{ life.good }}</p>
+        <!-- ここをオブジェクトで渡す -->
+        <div @click="updatePropValue(life)">
+          <!-- オブジェクトの値を更新 -->
+          <p>{{ life.heartCount }}</p>
           <img
             class="heart"
             src="../../assets/image/heart-icon.svg"
@@ -70,18 +73,17 @@ export default {
       img_pass: "sample.jpg",
       lifes: [],
       commentDetail: [],
+      heartCount: 0,
     };
   },
   components: {
     // NotificationBanner,
   },
   methods: {
-    updatePropValue() {
-      this.heartCount = this.heartCount + 1;
+    updatePropValue(life) {
+      life.heartCount++;
     },
     updateLife(life_id) {
-      // indexは0スタートなので+1追加
-      console.log(life_id);
       localStorage.setItem("update_life", Number(life_id));
       this.$router.push("/GameModificationUpdate");
     },
@@ -113,7 +115,7 @@ export default {
           }
         );
         if (response.status === 201) {
-          console.log(response.data)
+          console.log(response.data);
           alert("保存完了");
           this.comments[index] = " ";
         }
@@ -128,28 +130,8 @@ export default {
     },
   },
   mounted() {
-    let life_id = localStorage.getItem("life_id");
     let user_id = localStorage.getItem("user_id");
     let token = localStorage.getItem("auth_token");
-    // axios
-    //   .get(`http://localhost:8000/api/life/${life_id}`, {
-    //     headers: {
-    //       Authorization: "Bearer " + token, // Laravelから取得したトークン
-    //     },
-    //   })
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       this.life_name = response.data.life.life_name
-    //       this.life_detail = response.data.life.life_detail
-    //       this.good = response.data.life.good
-    //       console.log(response.data.life.good)
-    //       // alert("保存完了");
-    //     }
-    //     // ユーザー情報を保存
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   }),
     axios
       .get(`http://localhost:8000/api/user/${user_id}/lifes`, {
         headers: {
@@ -161,13 +143,12 @@ export default {
           this.lifes = response.data.lifes.map((life) => ({
             ...life,
             toggleSelected: false,
+            heartCount: life.good, 
           }));
 
           this.comments = new Array(this.lifes.length).fill("");
           console.log(response.data);
-          // alert("保存完了");
         }
-        // ユーザー情報を保存
       })
       .catch((error) => {
         console.log(error);
