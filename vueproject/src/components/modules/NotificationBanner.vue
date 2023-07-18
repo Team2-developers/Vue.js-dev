@@ -1,42 +1,51 @@
 <template>
+  <div>
     <div class="userInfo">
-        <img :src="getImagePath" alt="ユーザー画像" class="userInfoImage">
-        <div>
-            <p>{{user_name}}</p>
-            <p>{{comment}}</p>
-        </div>
+      <img
+        v-if="img_pass"
+        :src="img_pass"
+        alt="ユーザー画像"
+        class="userInfoImage"
+      />
+      <div>
+        <p>{{ user_name }}</p>
+        <p>{{ comment }}</p>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'NotificationBanner',
-    props: {
-        img_pass: {
-            type: String,
-            required: true
-        },
-        user_name: {
-            type: String,
-            required: true
-        },
-        comment: {
-            type: String,
-            required: false
-        }
+  name: "NotificationBanner",
+  props: {
+    img_pass: {
+      type: String,
+      required: false,
     },
-    computed: {
-        getImagePath() {
-        return require('@/assets/image/' + this.img_pass);
-        }
-    }
-}
+    user_name: {
+      type: String,
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: false,
+    },
+    user_email: {
+      type: String,
+      required: true,
+    },
+  },
+};
 </script>
 
 <!-- ユーザー情報を表示するモジュール -->
 <style scoped>
-.userInfo{
-    background: #efefef;
-    padding: 10px;
+.userInfo {
+  background: #efefef;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: block;
+  height: 40px;
 }
 </style>

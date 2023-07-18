@@ -20,13 +20,16 @@
           </div>
         </div>
       </div>
-      <div class="profilePageComment" @click="toggleComentDetail(index)">
+      <!-- この部分は後ほど修正 -->
+      <div class="profilePageComment">
         <div>
           <p>コメント</p>
           <img src="../../assets/image/corner-down-left.svg" alt="詳細" />
         </div>
-        <div @click="updatePropValue">
-          <p>{{ life.good }}</p>
+        <!-- ここをオブジェクトで渡す -->
+        <div @click="updatePropValue(life)">
+          <!-- オブジェクトの値を更新 -->
+          <p>{{ life.heartCount }}</p>
           <img
             class="heart"
             src="../../assets/image/heart-icon.svg"
@@ -37,7 +40,7 @@
       <div v-if="commentDetail[index]">
         <div>
           <!-- この送り先違うかも -->
-          <form @submit.prevent="submitComment(life.life_id)">
+          <form @submit.prevent="submitComment(life.life_id, index)">
             <img :src="img_pass" alt="ユーザー画像" />
             <input type="text" v-model="comments[index]" />
             <input type="submit" />
@@ -70,26 +73,39 @@ export default {
       img_pass: "sample.jpg",
       lifes: [],
       commentDetail: [],
+      heartCount: 0,
     };
   },
   components: {
     // NotificationBanner,
   },
   methods: {
-    updatePropValue() {
-      this.heartCount = this.heartCount + 1;
+    updatePropValue(life) {
+      life.heartCount++;
+
+      // 指定秒以内のクリックだとdbに登録しない
+      if (life.timerId) {
+        clearTimeout(life.timerId);
+      }
+
+      life.timerId = setTimeout(async () => {
+        try {
+          await this.submitGood(life.life_id, life.heartCount);
+        } catch (error) {
+          console.error("Failed to submit good:", error);
+        }
+      }, 2000);
     },
     updateLife(life_id) {
-      // indexは0スタートなので+1追加
-      localStorage.setItem("update_life", Number(life_id) + 1);
+      localStorage.setItem("update_life", Number(life_id));
       this.$router.push("/GameModificationUpdate");
     },
     toggleComentDetail(index) {
       this.commentDetail[index] = !this.commentDetail[index];
     },
-    async submitComment(index) {
+    async submitComment(lifeId, index) {
       let token = localStorage.getItem("auth_token");
-      let life_id = localStorage.getItem("life_id");
+      let life_id = lifeId;
       let user_id = localStorage.getItem("user_id");
       let data = {
         life_id: Number(life_id),
@@ -112,8 +128,30 @@ export default {
           }
         );
         if (response.status === 201) {
+          console.log(response.data);
           alert("保存完了");
           this.comments[index] = " ";
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async submitGood(lifeId, heartCount) {
+      let token = localStorage.getItem("auth_token");
+      try {
+        const response = await axios.post(
+          `http://localhost:8000/api/life/${lifeId}/good`,
+          {increment: heartCount} ,
+          {
+            headers: {
+              Authorization: "Bearer " + token, // Laravelから取得したトークン
+            },
+          }
+        );
+        console.log(heartCount);
+        if (response.status === 201 || response.status === 200) {
+          console.log(response.data);
+          alert("保存完了");
         }
       } catch (error) {
         console.error(error);
@@ -126,28 +164,8 @@ export default {
     },
   },
   mounted() {
-    let life_id = localStorage.getItem("life_id");
     let user_id = localStorage.getItem("user_id");
     let token = localStorage.getItem("auth_token");
-    // axios
-    //   .get(`http://localhost:8000/api/life/${life_id}`, {
-    //     headers: {
-    //       Authorization: "Bearer " + token, // Laravelから取得したトークン
-    //     },
-    //   })
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       this.life_name = response.data.life.life_name
-    //       this.life_detail = response.data.life.life_detail
-    //       this.good = response.data.life.good
-    //       console.log(response.data.life.good)
-    //       // alert("保存完了");
-    //     }
-    //     // ユーザー情報を保存
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   }),
     axios
       .get(`http://localhost:8000/api/user/${user_id}/lifes`, {
         headers: {
@@ -159,13 +177,12 @@ export default {
           this.lifes = response.data.lifes.map((life) => ({
             ...life,
             toggleSelected: false,
+            heartCount: life.good,
+            timerId: null,
           }));
 
           this.comments = new Array(this.lifes.length).fill("");
-          console.log(response.data);
-          // alert("保存完了");
         }
-        // ユーザー情報を保存
       })
       .catch((error) => {
         console.log(error);
