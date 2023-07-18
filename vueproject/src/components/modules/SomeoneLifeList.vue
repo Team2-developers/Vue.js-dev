@@ -81,7 +81,8 @@ export default {
     },
     updateLife(life_id) {
       // indexは0スタートなので+1追加
-      localStorage.setItem("update_life", Number(life_id) + 1);
+      console.log(life_id)
+      localStorage.setItem("update_life", Number(life_id));
       this.$router.push("/GameModificationUpdate");
     },
     toggleComentDetail(index) {
