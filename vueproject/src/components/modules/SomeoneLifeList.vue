@@ -37,7 +37,7 @@
       <div v-if="commentDetail[index]">
         <div>
           <!-- この送り先違うかも -->
-          <form @submit.prevent="submitComment(life.life_id)">
+          <form @submit.prevent="submitComment(life.life_id, index)">
             <img :src="img_pass" alt="ユーザー画像" />
             <input type="text" v-model="comments[index]" />
             <input type="submit" />
@@ -81,16 +81,16 @@ export default {
     },
     updateLife(life_id) {
       // indexは0スタートなので+1追加
-      console.log(life_id)
+      console.log(life_id);
       localStorage.setItem("update_life", Number(life_id));
       this.$router.push("/GameModificationUpdate");
     },
     toggleComentDetail(index) {
       this.commentDetail[index] = !this.commentDetail[index];
     },
-    async submitComment(index) {
+    async submitComment(lifeId, index) {
       let token = localStorage.getItem("auth_token");
-      let life_id = localStorage.getItem("life_id");
+      let life_id = lifeId;
       let user_id = localStorage.getItem("user_id");
       let data = {
         life_id: Number(life_id),
@@ -113,6 +113,7 @@ export default {
           }
         );
         if (response.status === 201) {
+          console.log(response.data)
           alert("保存完了");
           this.comments[index] = " ";
         }
