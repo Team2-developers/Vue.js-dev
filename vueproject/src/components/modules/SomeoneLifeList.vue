@@ -13,7 +13,7 @@
           <label for="toggle" class="toggle_label" />
         </div>
         <div class="profilePageWrapper">
-          <img :src="getImagePath" alt="人生ゲーム画像" />
+          <img :src="img_pass" alt="人生ゲーム画像" />
           <div>
             <p>{{ life.life_name }}</p>
             <p>{{ life.life_detail }}</p>
@@ -38,11 +38,30 @@
         </div>
       </div>
       <div v-if="commentDetail[index]">
+        <div
+          class="comment-are"
+          v-for="(comment, cIndex) in life.comments"
+          :key="`comment-${cIndex}`"
+        >
+          <div class="comments">
+            <img class="comment-img" :src="comment.img_path" alt="" />
+            <div class="comment-info">
+              <p>{{ comment.user_email }}</p>
+              <p>{{ comment.comment }}</p>
+            </div>
+          </div>
+        </div>
         <div>
-          <!-- この送り先違うかも -->
-          <form @submit.prevent="submitComment(life.life_id, index)">
-            <img :src="img_pass" alt="ユーザー画像" />
-            <input type="text" v-model="comments[index]" />
+          <form
+            @submit.prevent="submitComment(life.life_id, index)"
+            class="comment"
+          >
+            <img :src="img_pass" alt="ユーザー画像" class="send-user" />
+            <input
+              type="text"
+              placeholder="コメントを入力してね"
+              v-model="comments[index]"
+            />
             <input type="submit" />
           </form>
         </div>
@@ -91,7 +110,7 @@ export default {
 
       life.timerId = setTimeout(async () => {
         try {
-          await this.submitGood(life, life.life_id, life.heartCount);
+          await this.submitGood(life.life_id, life.heartCount);
         } catch (error) {
           console.error("Failed to submit good:", error);
         }
@@ -137,7 +156,7 @@ export default {
         console.error(error);
       }
     },
-    async submitGood(lifeId, heartCount, life) {
+    async submitGood(lifeId, heartCount) {
       let token = localStorage.getItem("auth_token");
       try {
         const response = await axios.post(
@@ -159,13 +178,9 @@ export default {
       }
     },
   },
-  computed: {
-    getImagePath() {
-      return require("@/assets/image/" + this.img_pass);
-    },
-  },
   mounted() {
     let user_id = localStorage.getItem("user_id");
+    let user_img = localStorage.getItem("user_img");
     let token = localStorage.getItem("auth_token");
     axios
       .get(`http://localhost:8000/api/user/${user_id}/lifes`, {
@@ -174,6 +189,7 @@ export default {
         },
       })
       .then((response) => {
+        console.log(response.data.lifes);
         if (response.status === 200) {
           this.lifes = response.data.lifes.map((life) => ({
             ...life,
@@ -181,8 +197,8 @@ export default {
             heartCount: life.good,
             timerId: null,
           }));
-
           this.comments = new Array(this.lifes.length).fill("");
+          this.img_pass = user_img;
         }
       })
       .catch((error) => {
@@ -206,6 +222,10 @@ export default {
 
 <!-- 誰かの人生を表示するためのモジュールです -->
 <style scoped>
+p {
+  margin: 0;
+  padding: 0;
+}
 /* モジュール全体に付与するcss */
 .profilePage {
   width: 100%;
@@ -223,6 +243,7 @@ export default {
   margin-left: 15px;
   margin-right: 50px;
   max-width: 80px;
+  max-height: 80px;
 }
 
 .profilePageWrapper div {
@@ -266,7 +287,7 @@ export default {
 .commentDetail {
   display: none;
 }
-.update-life{
+.update-life {
   width: 100px;
   height: 30px;
   background: #e7e7ff;
@@ -274,7 +295,39 @@ export default {
   border-radius: 20px;
   margin-top: 5px;
 }
-.life-content{
+.life-content {
   margin-bottom: 20px;
+}
+.send-user,
+.comment-img {
+  height: 30px;
+  width: 30px;
+  border-radius: 10px;
+}
+.comment {
+  padding: 2px;
+  display: flex;
+  justify-content: space-around;
+  background: rgb(218, 218, 218);
+}
+.comments {
+  display: flex;
+  padding: 5px 10px;
+}
+.comments p {
+  line-height: 15px;
+  font-size: 15px;
+}
+.comments p:nth-child(2) {
+  font-weight: bold;
+  text-align: left;
+  padding-top: 5px;
+}
+.comment-are {
+  padding-bottom: 10px;
+  background: white;
+}
+.comment-info {
+  margin-left: 20px;
 }
 </style>
