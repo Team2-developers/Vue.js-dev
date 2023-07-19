@@ -423,10 +423,9 @@ export default {
         indexedPoints.sort((a, b) => b.point - a.point);
 
         // インデックス+1にマッピング
-        let rankings = indexedPoints.map((item) => item.originalIndex + 1);
-
+        indexedPoints.map((item) => item.originalIndex + 1);
         // localstrageに追加
-        localStorage.setItem("finishOrder", JSON.stringify(rankings));
+        localStorage.setItem("rankingData", JSON.stringify(indexedPoints));
         alert("お前ら終わったんや!2秒後に終了画面に遷移します");
 
         // 画面遷移
@@ -636,7 +635,7 @@ export default {
   text-decoration: none;
   cursor: pointer;
 }
-.event-detail{
+.event-detail {
   margin: 50px 0;
 }
 </style>
