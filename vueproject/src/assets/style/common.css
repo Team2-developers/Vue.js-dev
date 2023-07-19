@@ -10,6 +10,7 @@
 .background-wrapper {
   background-image: url(../../assets/image/background_grid.png);
   background-repeat: no-repeat;
+  overflow-y: auto;
   background-size: cover;
   height: 100vh;
 }
