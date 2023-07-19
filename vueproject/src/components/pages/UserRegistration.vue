@@ -78,19 +78,19 @@
         <label class="col-5 mb-1 p-3 d-flex align-items-center">
           生年月日
         </label>
-        <input type="date" v-model="user.birth" placeholder="1900/02/10" class="py-3 col" />
+        <input type="date" v-model="user.birth" placeholder="1900/02/10" class="form-control col-7  mt-2" />
       </div>
       <div class="row shadow-sm">
         <label class="col-5 mb-1 p-3 d-flex align-items-center">
           血液型 
         </label>
-        <input type="text" v-model="user.blood_type" placeholder="AB" />
+        <input type="text" v-model="user.blood_type" placeholder="AB" class="form-control col-7 mt-2"/>
       </div>
       <div class="row shadow-sm">
         <label class="col-5 mb-1 p-3 d-flex align-items-center">
           趣味
         </label>
-        <input type="text" v-model="user.hobby" placeholder="読書・フットサル" />
+        <input type="text" v-model="user.hobby" placeholder="読書・フットサル"  class="form-control col-7 mt-2"/>
       </div>
       <div class="row shadow-sm" v-for="i in 5" :key="i">
         <label class="col-5 mb-1 p-3 d-flex align-items-center">
@@ -100,6 +100,7 @@
           type="text"
           v-model="user['episode' + i]"
           placeholder="エピソードを入力"
+          class="form-control col-7 mt-2"
         />
       </div>
 
