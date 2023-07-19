@@ -69,31 +69,31 @@
         <ProfileCard class="col mt-5 shadow-lg" />
 
       <div class="row shadow-sm">
-        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+        <label class="col-5 mb-1 p-3 d-flex align-items-center">
           身長
         </label>
         <input type="number" v-model="user.height" placeholder="" />
       </div>
       <div class="row shadow-sm">
-        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+        <label class="col-5 mb-1 p-3 d-flex align-items-center">
           生年月日
         </label>
         <input type="date" v-model="user.birth" placeholder="1900/02/10" />
       </div>
       <div class="row shadow-sm">
-        <label class="col-5 mb-0 p-3 d-flex align-items-center">
-          Blood Type
+        <label class="col-5 mb-1 p-3 d-flex align-items-center">
+          血液型
         </label>
         <input type="text" v-model="user.blood_type" placeholder="edit me" />
       </div>
       <div class="row shadow-sm">
-        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+        <label class="col-5 mb-1 p-3 d-flex align-items-center">
           hobby
         </label>
         <input type="text" v-model="user.hobby" placeholder="edit me" />
       </div>
       <div class="row shadow-sm" v-for="i in 5" :key="i">
-        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+        <label class="col-5 mb-1 p-3 d-flex align-items-center">
           エピソード {{ i }}
         </label>
         <input
