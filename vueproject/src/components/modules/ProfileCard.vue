@@ -90,7 +90,7 @@ export default {
   height: auto;
   padding: 10px;
   max-width: 480px;
-  margin: 0 auto 50px auto !important;
+  /* margin: 0 auto 50px auto !important; */
   text-align: left;
 }
 .profile_card .title {
