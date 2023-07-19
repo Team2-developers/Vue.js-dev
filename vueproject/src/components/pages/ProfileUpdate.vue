@@ -1,5 +1,5 @@
 <template>
-  <div class="background-wrapper wrapper">
+  <div class="background-wrapper wrapper container">
     <div class="navbar">
       <div class="container-fluid">
         <RouterLink :to="'../ProfilePage'">
@@ -7,55 +7,75 @@
             src="@/assets/image/transition-icon.svg"
             alt=""
             width="30"
-            height="24"
+            height="20"
             class="d-inline-block align-text-top"
           />
         </RouterLink>
+        <div class="col align-self-center" style="font-size: 1.6rem;">
+          My Details
+        </div>
       </div>
-      <div class="fs-4 d-flex justify-content-center">My Details</div>
     </div>
 
     <form @submit.prevent="submitImage" class="formItem">
       <div>
         <img :src="img_path" alt="ユーザー画像" class="userInfoImage" />
-        <label>File: </label>
-        <input type="file" @change="onFileChange" />
+        <label form="formFileSm" class="formlabel">
+          <input type="file" @change="onFileChange" class="form-control"/>
+        </label>
       </div>
-      <button type="submit">Submit</button>
+      <button class="btn-submit btn py-1 m-2" type="submit">
+        変更する
+      </button>
     </form>
 
-    <form @submit.prevent="submitForm" class="formItem">
-      <div>
-        <label>Email: </label>
+    <form @submit.prevent="submitForm">
+
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
+          メールアドレス 
+        </label>
         <input
           type="email"
           v-model="user.user_mail"
           required
-          placeholder="edit me"
+          placeholder="example@example.com"
+          class="form-control col-7 mt-2"
         />
       </div>
-      <div>
-        <label>Name: </label>
+
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 py-3 d-flex align">
+          ユーザー名
+        </label>
         <input
           type="text"
           v-model="user.user_name"
           required
-          placeholder="edit me"
+          placeholder="your name"
+          class="font-control col-7 mt-2"
         />
       </div>
       <div>
-        <label>Height: </label>
-        <input type="number" v-model="user.height" placeholder="edit me" />
-      </div>
-      <div>
-        <label>Password: </label>
+        <label class="col-5 mb-1 py-3 d-flex align">
+          パスワード
+        </label>
         <input
           type="password"
           v-model="user.password"
           required
-          placeholder="edit me"
+          placeholder="password"
+          class="form-control col-7 mt-2"
         />
       </div>
+      
+      <div class="row shadow-sm">
+        <label>
+          Height: 
+        </label>
+        <input type="number" v-model="user.height" placeholder="edit me" />
+      </div>
+
       <div>
         <label>Birth: </label>
         <input type="date" v-model="user.birth" placeholder="edit me" />
@@ -191,5 +211,28 @@ export default {
   display: block;
   text-align: center;
   margin: 0 auto;
+}
+
+.form-control {
+  background-color: transparent !important; 
+  background-clip: unset !important;
+  border: none !important;
+}
+
+.btn-submit {
+  background-color: #E7E7FF;
+  color: #6B4EFF;
+  border-radius: 50px;
+  padding: 10px 20px; /* 適切なサイズを指定してください */
+  /* 他のスタイルを適用したい場合はここに追加してください */
+}
+
+/* Create Accountボタンのスタイル */
+.btn-create-account {
+  background-color: #E7E7FF;
+  color: #6B4EFF;
+  border-radius: 50px;
+  padding: 10px 20px; /* 適切なサイズを指定してください */
+  /* 他のスタイルを適用したい場合はここに追加してください */
 }
 </style>

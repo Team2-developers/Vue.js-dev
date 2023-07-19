@@ -7,11 +7,11 @@
             src="@/assets/image/transition-icon.svg"
             alt=""
             width="30"
-            height="24"
+            height="20"
             class="d-inline-block align-text-top"
           />
         </RouterLink>
-      <div class=" col align-self-center">
+      <div class=" col align-self-center" style="font-size: 1.6rem;">
         My Details
       </div>
     </div>
@@ -49,7 +49,7 @@
           type="text"
           v-model="user.user_name"
           required
-          placeholder="your name"
+          placeholder="what's your name?"
           class="form-control col-7 mt-2"
         />
       </div>
