@@ -1,5 +1,5 @@
 <template>
-  <div class="background-wrapper wrapper">
+  <div class="background-wrapper wrapper container">
     <div class="navbar">
       <div class="container-fluid">
         <RouterLink :to="'../ProfilePage'">
@@ -11,66 +11,91 @@
             class="d-inline-block align-text-top"
           />
         </RouterLink>
-      <div class=" col align-self-center">My Details</div>
+      <div class=" col align-self-center">
+        My Details
       </div>
     </div>
+  </div>
 
     <form @submit.prevent="submitImage" class="formItem">
       <label from="formFileSm" class="formlabel">
         <input type="file" @change="onFileChange" class="form-control"/>
       </label>
-      <button class="btn-submit btn" type="submit">Submit</button>
+      <button class="btn-submit btn py-1 m-2" type="submit">
+        変更する
+      </button>
     </form>
 
-    <form @submit.prevent="submitForm" class="formItem">
-      <div >
-        <label >Email: </label>
+    <form @submit.prevent="submitForm" >
+      <!-- <div class="formItem"> -->
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
+          メールアドレス
+        </label>
         <input
           type="email"
           v-model="user.user_mail"
           required
-          placeholder="edit me"
-        />
+          placeholder="example@example.com"
+          class="form-control col-7 mt-2"
+         />
       </div>
-      <div>
-        <label>Name: </label>
+        
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
+          ユーザー名
+        </label>
         <input
           type="text"
           v-model="user.user_name"
           required
-          placeholder="edit me"
+          placeholder="your name"
+          class="form-control col-7 mt-2"
         />
       </div>
-      <div>
-        <label>Password: </label>
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
+          パスワード
+        </label>
         <input
           type="password"
           v-model="user.password"
           required
-          placeholder="edit me"
+          placeholder="password"
+          class="form-control col-7 mt-2"
         />
       </div>
 
-      <ProfileCard style="margin:2rem;"/>
+        <ProfileCard class="col mt-5 shadow-lg" />
 
-      <div>
-        <label>Height: </label>
-        <input type="number" v-model="user.height" placeholder="edit me" />
+      <div class="row shadow-sm">
+        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+          身長
+        </label>
+        <input type="number" v-model="user.height" placeholder="" />
       </div>
-      <div>
-        <label>Birth: </label>
-        <input type="date" v-model="user.birth" placeholder="edit me" />
+      <div class="row shadow-sm">
+        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+          生年月日
+        </label>
+        <input type="date" v-model="user.birth" placeholder="1900/02/10" />
       </div>
-      <div>
-        <label>Blood Type: </label>
+      <div class="row shadow-sm">
+        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+          Blood Type
+        </label>
         <input type="text" v-model="user.blood_type" placeholder="edit me" />
       </div>
-      <div>
-        <label>hobby </label>
+      <div class="row shadow-sm">
+        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+          hobby
+        </label>
         <input type="text" v-model="user.hobby" placeholder="edit me" />
       </div>
-      <div v-for="i in 5" :key="i">
-        <label>エピソード {{ i }}: </label>
+      <div class="row shadow-sm" v-for="i in 5" :key="i">
+        <label class="col-5 mb-0 p-3 d-flex align-items-center">
+          エピソード {{ i }}
+        </label>
         <input
           type="text"
           v-model="user['episode' + i]"
@@ -78,7 +103,7 @@
         />
       </div>
 
-      <button class="btn-create-account" type="submit">Create account</button>
+      <button class="btn-create-account mt-5" type="submit">Create account</button>
     </form>
 
     <FooterNav />
@@ -172,7 +197,7 @@ export default {
 
 .form-control {
   background-color: transparent !important; 
-  background-clip: none !important;
+  background-clip: unset !important;
   border: none !important;
 }
 
