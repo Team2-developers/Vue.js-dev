@@ -23,7 +23,7 @@
       <button type="submit">Submit</button>
     </form>
 
-    <ProfileCard />
+    <ProfileCard style="margin:2rem;"/>
 
     <form @submit.prevent="submitForm" class="formItem">
       <div >

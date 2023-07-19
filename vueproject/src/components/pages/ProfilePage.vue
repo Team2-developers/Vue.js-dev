@@ -4,7 +4,7 @@
     <RouterLink :to="'../ProfileUpdate'" style="text-align: center"
       >ViewProfile</RouterLink
     >
-    <ProfileCard />
+    <ProfileCard style="margin: 2rem;"/>
     <button v-on:click="createLife">人生の作成</button>
     <SomeoneLifeList />
     <FooterNav />
