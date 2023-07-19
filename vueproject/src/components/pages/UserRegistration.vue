@@ -16,14 +16,11 @@
     </div>
 
     <form @submit.prevent="submitImage" class="formItem">
-      <div>
-        <label>File: </label>
-        <input type="file" @change="onFileChange" />
-      </div>
-      <button type="submit">Submit</button>
+      <label from="formFileSm" class="formlabel">
+        <input type="file" @change="onFileChange" class="form-control"/>
+      </label>
+      <button class="btn btn-outline-primary" type="submit">Submit</button>
     </form>
-
-    <ProfileCard style="margin:2rem;"/>
 
     <form @submit.prevent="submitForm" class="formItem">
       <div >
@@ -53,6 +50,9 @@
           placeholder="edit me"
         />
       </div>
+
+      <ProfileCard style="margin:2rem;"/>
+
       <div>
         <label>Height: </label>
         <input type="number" v-model="user.height" placeholder="edit me" />
@@ -169,4 +169,11 @@ export default {
 };
 </script>
 <style scoped>
+
+.form-control {
+  background-color: transparent !important; 
+  background-clip: none !important;
+  border: none !important;
+}
+
 </style>
