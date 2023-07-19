@@ -11,7 +11,7 @@
   background-image: url(../../assets/image/background_grid.png);
   background-repeat: no-repeat;
   background-size: cover;
-  /* height: 100vh; */
+  height: 100vh;
 }
 
 .background-wrapper .builderーarea {
@@ -47,7 +47,7 @@
   justify-content: space-around;
   padding: 2px 0;
   max-width: 480px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 .userInfoImage {
   width: 60px;

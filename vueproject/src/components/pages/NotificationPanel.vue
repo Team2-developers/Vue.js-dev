@@ -1,5 +1,5 @@
 <template>
-  <div class="background-wrapper wrapper">
+  <div class="background-wrapper wrapper notification">
     <h2>通知</h2>
     <NotificationBanner
       v-for="notification in notifications"
@@ -51,4 +51,8 @@ export default {
 </script>
 
 <!-- 通知画面 -->
-<style scoped></style>
+<style scoped>
+.notification{
+  padding: 0 20px;
+}
+</style>

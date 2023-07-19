@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="notifcation">
     <div class="userInfo">
       <img
         v-if="img_pass"
@@ -46,6 +46,7 @@ export default {
   padding: 10px;
   margin-bottom: 10px;
   display: block;
-  height: 40px;
+  display: flex;
+  border-radius: 20px;
 }
 </style>
