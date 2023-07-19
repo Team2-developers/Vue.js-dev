@@ -11,8 +11,8 @@
             class="d-inline-block align-text-top"
           />
         </RouterLink>
+      <div class=" col align-self-center">My Details</div>
       </div>
-      <div class="fs-4 d-flex justify-content-center">My Details</div>
     </div>
 
     <form @submit.prevent="submitImage" class="formItem">
@@ -24,8 +24,8 @@
     </form>
 
     <form @submit.prevent="submitForm" class="formItem">
-      <div>
-        <label>Email: </label>
+      <div >
+        <label >Email: </label>
         <input
           type="email"
           v-model="user.user_mail"
@@ -85,8 +85,12 @@
 
 <script>
 import axios from "axios";
+import FooterNav from "@/components/modules/FooterNav.vue"
 
 export default {
+  components:{
+    FooterNav,
+  },
   data() {
     return {
       user: {
@@ -160,3 +164,5 @@ export default {
   },
 };
 </script>
+<style scoped>
+</style>
