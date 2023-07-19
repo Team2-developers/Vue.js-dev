@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(life, index) in lifes" :key="life.id">
+    <div class="life-content" v-for="(life, index) in lifes" :key="life.id">
       <div class="profilePage">
         <!-- トグルボタン -->
         <div class="toggle_button">
@@ -22,7 +22,7 @@
       </div>
       <!-- この部分は後ほど修正 -->
       <div class="profilePageComment">
-        <div>
+        <div @click="toggleComentDetail(index)">
           <p>コメント</p>
           <img src="../../assets/image/corner-down-left.svg" alt="詳細" />
         </div>
@@ -48,6 +48,7 @@
         </div>
       </div>
       <input
+        class="update-life"
         type="submit"
         value="人生の更新"
         @click="updateLife(life.life_id)"
@@ -90,7 +91,7 @@ export default {
 
       life.timerId = setTimeout(async () => {
         try {
-          await this.submitGood(life.life_id, life.heartCount);
+          await this.submitGood(life, life.life_id, life.heartCount);
         } catch (error) {
           console.error("Failed to submit good:", error);
         }
@@ -136,12 +137,12 @@ export default {
         console.error(error);
       }
     },
-    async submitGood(lifeId, heartCount) {
+    async submitGood(lifeId, heartCount, life) {
       let token = localStorage.getItem("auth_token");
       try {
         const response = await axios.post(
           `http://localhost:8000/api/life/${lifeId}/good`,
-          {increment: heartCount} ,
+          { increment: heartCount },
           {
             headers: {
               Authorization: "Bearer " + token, // Laravelから取得したトークン
@@ -150,7 +151,7 @@ export default {
         );
         console.log(heartCount);
         if (response.status === 201 || response.status === 200) {
-          console.log(response.data);
+          console.log(response.data.life);
           alert("保存完了");
         }
       } catch (error) {
@@ -234,13 +235,14 @@ export default {
 }
 
 .profilePageComment {
-  height: 30px;
+  height: 35px;
   background: white;
   width: 100%;
   text-align: left;
   padding: 0px 20px;
   display: flex;
   justify-content: space-between;
+  line-height: 35px;
 }
 
 .profilePageComment div {
@@ -263,5 +265,16 @@ export default {
 
 .commentDetail {
   display: none;
+}
+.update-life{
+  width: 100px;
+  height: 30px;
+  background: #e7e7ff;
+  color: #6b4eff;
+  border-radius: 20px;
+  margin-top: 5px;
+}
+.life-content{
+  margin-bottom: 20px;
 }
 </style>

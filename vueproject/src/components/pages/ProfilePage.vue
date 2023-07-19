@@ -1,12 +1,33 @@
 <template>
-  <div class="background-wrapper wrapper">
+  <div class="background-wrapper wrapper profile-wrapper">
     <UserInfoBox />
-    <RouterLink :to="'../ProfileUpdate'" style="text-align: center"
-      >ViewProfile</RouterLink
-    >
+    <div class="profile-update">
+      <RouterLink :to="'../ProfileUpdate'" style="text-align: center"
+        >View Profile</RouterLink
+      >
+    </div>
     <ProfileCard />
-    <button v-on:click="createLife">人生の作成</button>
-    <SomeoneLifeList />
+    <div>
+      <div class="createGame-title">
+        <img src="../../assets/image/pocket.svg" alt="" />
+        <p>作成したゲーム</p>
+      </div>
+      <SomeoneLifeList />
+    </div>
+    <div class="create-life" v-on:click="createLife">
+      <img
+        class="create-life-img"
+        src="../../assets/image/create-life.svg"
+        alt=""
+      />
+      <div class="create-life-right">
+        <div class="create-life-right-top">
+          <img src="../../assets/image/life-icon.svg" alt="" />
+          <p>人生の追加</p>
+        </div>
+        <p class="create-life-right-bottom">あなたの人生の紹介文が入ります</p>
+      </div>
+    </div>
     <FooterNav />
   </div>
 </template>
@@ -56,4 +77,48 @@ export default {
 </script>
 
 <!-- プロフィール画面 -->
-<style scoped></style>
+<style scoped>
+.profile-wrapper {
+  padding: 0 20px;
+}
+.page-title {
+  font-size: 24px;
+}
+.profile-update {
+  font-size: 16px;
+  background: #e7e7ff;
+  padding: 8px 16px;
+  border-radius: 16px;
+  margin: 0 auto;
+}
+.profile-update a {
+  color: #6b4eff;
+}
+.createGame-title {
+  display: flex;
+}
+.createGame-title img {
+  height: 30px;
+  width: auto;
+}
+.createGame-title p {
+  line-height: 30px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.create-life {
+  background: #d9d9d9;
+  display: flex;
+  padding: 20px 30px;
+}
+.create-life-right {
+  margin-left: 20px;
+}
+.create-life-right-top {
+  display: flex;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+</style>
