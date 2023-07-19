@@ -1,6 +1,13 @@
 <template>
   <div class="background-wrapper wrapper">
-    <input type="button" value="参加する" @click="roomJoin" />
+    <div class="buttonArea">
+      <input
+        class="roomJoin"
+        type="button"
+        value="参加する"
+        @click="roomJoin"
+      />
+    </div>
     <FooterNav />
   </div>
 </template>
@@ -52,4 +59,18 @@ export default {
 </script>
 
 <!-- 部屋の参加画面 -->
-<style scoped></style>
+<style scoped>
+.roomJoin {
+  margin: 5px 0;
+  border-radius: 20px;
+  padding: 10px;
+  width: 200px;
+}
+.roomJoin {
+  background: black;
+  color: white;
+}
+.buttonArea{
+  padding: 60px 0;
+}
+</style>
