@@ -28,6 +28,9 @@
         <p class="create-life-right-bottom">あなたの人生の紹介文が入ります</p>
       </div>
     </div>
+    <ProfileCard style="margin: 2rem;"/>
+    <button v-on:click="createLife">人生の作成</button>
+    <SomeoneLifeList />
     <FooterNav />
   </div>
 </template>
