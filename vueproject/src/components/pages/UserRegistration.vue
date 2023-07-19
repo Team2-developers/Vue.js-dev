@@ -19,7 +19,7 @@
       <label from="formFileSm" class="formlabel">
         <input type="file" @change="onFileChange" class="form-control"/>
       </label>
-      <button class="btn btn-outline-primary" type="submit">Submit</button>
+      <button class="btn-submit btn" type="submit">Submit</button>
     </form>
 
     <form @submit.prevent="submitForm" class="formItem">
@@ -78,7 +78,7 @@
         />
       </div>
 
-      <button type="submit" class="">Create account</button>
+      <button class="btn-create-account" type="submit">Create account</button>
     </form>
 
     <FooterNav />
@@ -174,6 +174,23 @@ export default {
   background-color: transparent !important; 
   background-clip: none !important;
   border: none !important;
+}
+
+.btn-submit {
+  background-color: #E7E7FF;
+  color: #6B4EFF;
+  border-radius: 50px;
+  padding: 10px 20px; /* 適切なサイズを指定してください */
+  /* 他のスタイルを適用したい場合はここに追加してください */
+}
+
+/* Create Accountボタンのスタイル */
+.btn-create-account {
+  background-color: #E7E7FF;
+  color: #6B4EFF;
+  border-radius: 50px;
+  padding: 10px 20px; /* 適切なサイズを指定してください */
+  /* 他のスタイルを適用したい場合はここに追加してください */
 }
 
 </style>
