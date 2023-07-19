@@ -1,7 +1,10 @@
 <template>
-  <div class="background-wrapper wrapper">
+  <div class="background-wrapper wrapper roomWrapper">
+    <div class="randomNum" v-bind:value="randomNumberString">
+      {{ randomNumberString }}
+    </div>
     <div id="app">
-      <div v-html="qr_code"></div>
+      <div class="qr" v-html="qr_code"></div>
     </div>
     <!-- 参加ユーザーが表示される領域 -->
     <div class="userWrapper" v-for="(user, index) in users" :key="index">
@@ -13,9 +16,19 @@
     </div>
     <!-- 情報取得の処理 -->
     <div>
-      <input type="button" @click="fetchUser" value="参加ユーザーを取得" />
+      <input
+        class="fetchUser"
+        type="button"
+        @click="fetchUser"
+        value="参加ユーザーを取得"
+      />
     </div>
-    <input type="button" @click="startGame" value="ゲームを開始" />
+    <input
+      class="startGame"
+      type="button"
+      @click="startGame"
+      value="ゲームを開始"
+    />
     <FooterNav />
   </div>
 </template>
@@ -32,7 +45,11 @@ export default {
       qr_code: "",
       game_id: "",
       users: [],
+      randomNumberString: "",
     };
+  },
+  created() {
+    this.randomNumberString = this.getRandomNumberString(); // コンポーネントが作成されたときに関数を実行し、結果をデータプロパティに保存します。
   },
   methods: {
     async fetchUser() {
@@ -61,6 +78,14 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    getRandomNumberString() {
+      const length = 10; // 生成する文字列の長さを設定します。
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += Math.floor(Math.random() * 10); // 0-9のランダムな数値を生成し、文字列に変換して結果に追加します。
+      }
+      return result;
     },
     async startGame() {
       let token = localStorage.getItem("auth_token");
@@ -138,6 +163,20 @@ export default {
 
 <!-- 部屋作成完了画面 -->
 <style scoped>
+p {
+  margin: 0;
+  padding: 0;
+}
+.roomWrapper {
+  padding: 0 10%;
+  padding-top: 40px;
+}
+.randomNum {
+  background: #f2f4f5;
+  border-radius: 20px;
+  margin: 20px 0;
+  padding: 5px 0;
+}
 .userWrapper {
   display: flex;
   justify-content: space-around;
@@ -146,10 +185,28 @@ export default {
   margin: 10px;
 }
 .userImage {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   -o-object-fit: cover;
   object-fit: cover;
+}
+.qr {
+  margin-bottom: 50px;
+}
+.startGame,
+.fetchUser {
+  margin: 5px 0;
+  border-radius: 20px;
+  padding: 10px;
+  width: 200px;
+}
+.startGame {
+  background: black;
+  color: white;
+}
+.fetchUser{
+  background: white;
+  border: 0.1px solid #000;
 }
 </style>
