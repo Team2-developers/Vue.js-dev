@@ -256,6 +256,12 @@
           :style="{ top: `${position[1]}px`, left: `${position[0]}px` }"
           :src="`${userImages[index]}`"
         />
+        <div class="event-detail">
+          <p>この下に人生のイベント内容が表示されます</p>
+          <div v-if="isRouteDetailModalOpen" class="route-detail-modal">
+            <p>{{ routeDetail }}</p>
+          </div>
+        </div>
       </div>
       <button class="rollDice" @click="rollDice">サイコロを振る</button>
     </div>
@@ -278,6 +284,8 @@ export default {
   name: "GameDisplay",
   data() {
     return {
+      isRouteDetailModalOpen: false,
+      routeDetail: null,
       isActive: true,
       userArray: [[], [], [], []],
       userPoints: [0, 0, 0, 0],
@@ -376,11 +384,22 @@ export default {
         this.userPoints[this.currentUserIndex] +=
           this.assocArray[newPosition].point;
       }
+      if (
+        this.assocArray[newPosition] &&
+        this.assocArray[newPosition].route_detail
+      ) {
+        this.showRouteDetailModal(this.assocArray[newPosition].route_detail);
+      }
 
       // ユーザーを次に人に変更
       this.currentUserIndex = (this.currentUserIndex + 1) % 4;
-      // this.openModal(diceValue);
+      this.openModal(diceValue);
       this.PlayersFinishedCheck();
+    },
+    showRouteDetailModal(detail) {
+      this.isRouteDetailModalOpen = true;
+      this.routeDetail = detail;
+      console.log(this.routeDetail);
     },
     modalToggle() {
       this.isActive = !this.isActive;
@@ -616,5 +635,8 @@ export default {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+.event-detail{
+  margin: 50px 0;
 }
 </style>
