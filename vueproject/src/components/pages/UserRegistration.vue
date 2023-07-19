@@ -23,6 +23,8 @@
       <button type="submit">Submit</button>
     </form>
 
+    <ProfileCard />
+
     <form @submit.prevent="submitForm" class="formItem">
       <div >
         <label >Email: </label>
@@ -76,7 +78,7 @@
         />
       </div>
 
-      <input type="submit" class="" value="新規登録" />
+      <button type="submit" class="">Create account</button>
     </form>
 
     <FooterNav />
@@ -86,10 +88,12 @@
 <script>
 import axios from "axios";
 import FooterNav from "@/components/modules/FooterNav.vue"
+import ProfileCard from "../modules/ProfileCard.vue";
 
 export default {
   components:{
     FooterNav,
+    ProfileCard,
   },
   data() {
     return {
