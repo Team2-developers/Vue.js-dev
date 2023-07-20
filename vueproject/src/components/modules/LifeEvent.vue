@@ -1,31 +1,34 @@
 <template>
-  <div class="background-wrapper wrapper">
-    <form @submit.prevent="submitLife">
-      <div>
-        <input
-          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
-          type="text"
-          placeholder="人生名"
-          style="width: 300px"
-          v-model="life_name"
-        />
-        <input
-          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
-          type="text"
-          placeholder="人生の詳細"
-          style="width: 300px"
-          v-model="life_detail"
-        />
-        <input
-          class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
-          type="text"
-          placeholder="最後のメッセージ"
-          style="width: 300px"
-          v-model="message"
-        />
-      </div>
-      <input type="submit" value="送信" />
-    </form>
+  <div class="background-wrapper wrapper gameWrapper">
+    <div class="life-wrapper">
+      <label for="lifeName">タイトル</label>
+      <input
+        class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+        type="text"
+        placeholder="人生名"
+        style="width: 100%"
+        v-model="life_name"
+        id="lifeName"
+      />
+      <label for="lifeDetail">人生の詳細</label>
+      <textarea
+        class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+        type="text"
+        placeholder="人生の詳細"
+        style="width: 100%"
+        v-model="life_detail"
+        id="lifeDetail"
+      />
+      <label for="lastMessage">最後の一言</label>
+      <input
+        class="user_name rounded bg-light text-dark py-1 mb-2 rounded"
+        type="text"
+        placeholder="最後のメッセージ"
+        style="width: 100%"
+        v-model="message"
+        id="lastMessage"
+      />
+    </div>
     <div>
       <div class="eventTitle">
         <p class="event-index">No.</p>
@@ -182,8 +185,29 @@ export default {
 <!-- 人生の修正表示のcomponent -->
 <style scoped>
 /* 保存ボタンデザイン */
+label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+}
+.gameWrapper {
+  padding: 0 20px;
+}
 .saveArea {
   margin-top: 20px;
+}
+.life-wrapper {
+  margin-bottom: 30px;
+}
+.user_name {
+  text-align: left;
+  padding: 10px;
+}
+.saveArea {
+  margin-top: 20px;
+}
+.eventTitle {
+  background: white;
 }
 .backButton {
   width: 50px;

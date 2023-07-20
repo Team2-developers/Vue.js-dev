@@ -18,12 +18,10 @@
     </div>
 
     <form @submit.prevent="submitImage" class="formItem">
-      <div>
         <img :src="img_path" alt="ユーザー画像" class="userInfoImage" />
         <label form="formFileSm" class="formlabel">
           <input type="file" @change="onFileChange" class="form-control"/>
         </label>
-      </div>
       <button class="btn-submit btn py-1 m-2" type="submit">
         変更する
       </button>
@@ -32,7 +30,7 @@
     <form @submit.prevent="submitForm">
 
       <div class="row shadow-sm">
-        <label class="col-5 mb-1 py-3 d-flex align-items-center">
+        <label style="-webkit-text-stroke:white;" class="col-5 mb-1 py-3 d-flex align-items-center">
           メールアドレス 
         </label>
         <input
@@ -45,7 +43,7 @@
       </div>
 
       <div class="row shadow-sm">
-        <label class="col-5 mb-1 py-3 d-flex align">
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
           ユーザー名
         </label>
         <input
@@ -53,11 +51,11 @@
           v-model="user.user_name"
           required
           placeholder="your name"
-          class="font-control col-7 mt-2"
+          class="form-control col-7 mt-2"
         />
       </div>
-      <div>
-        <label class="col-5 mb-1 py-3 d-flex align">
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
           パスワード
         </label>
         <input
@@ -68,36 +66,47 @@
           class="form-control col-7 mt-2"
         />
       </div>
-      
+
+      <ProfileCardIcon :user="user" class="shadow-lg"/>
+
       <div class="row shadow-sm">
-        <label>
-          Height: 
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
+          身長
         </label>
-        <input type="number" v-model="user.height" placeholder="edit me" />
+        <input type="number" v-model="user.height" placeholder="170" class="form-control col-7 mt-2"/>
       </div>
 
-      <div>
-        <label>Birth: </label>
-        <input type="date" v-model="user.birth" placeholder="edit me" />
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 p-3 d-flex align-items-center">
+          生年月日
+        </label>
+        <input type="date" v-model="user.birth" placeholder="1900/01/01" class="form-control col-7 mt-2"/>
       </div>
-      <div>
-        <label>Blood Type: </label>
-        <input type="text" v-model="user.blood_type" placeholder="edit me" />
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 p-3 d-flex align-items-center">
+          血液型
+        </label>
+        <input type="text" v-model="user.blood_type" placeholder="AB" class="form-control col-7 mt-2"/>
       </div>
-      <div>
-        <label>hobby </label>
-        <input type="text" v-model="user.hobby" placeholder="edit me" />
+      <div class="row shadow-sm">
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
+          趣味
+        </label>
+        <input type="text" v-model="user.hobby" placeholder="読書・フットサル"  class="form-control col-7 mt-2"/>
       </div>
-      <div v-for="i in 5" :key="i">
-        <label>エピソード {{ i }}: </label>
+      <div class="row shadow-sm" v-for="i in 5" :key="i">
+        <label class="col-5 mb-1 py-3 d-flex align-items-center">
+          エピソード {{ i }}
+        </label>
         <input
           type="text"
           v-model="user['episode' + i]"
-          placeholder="edit me"
+          placeholder="エピソードを入力"
+          class="form-control col-7 mt-2"
         />
       </div>
 
-      <input type="submit" class="" value="更新" />
+      <button class="btn-create-account mt-5" type="submit">更新</button>
     </form>
 
     <FooterNav />
@@ -106,8 +115,14 @@
 
 <script>
 import axios from "axios";
+import FooterNav from "../modules/FooterNav.vue";
+import ProfileCardIcon from "../modules/ProfileCardIcon.vue"
 
 export default {
+  components: {
+    FooterNav,
+    ProfileCardIcon
+  },
   data() {
     return {
       user: {
